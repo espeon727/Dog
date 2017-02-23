@@ -8,6 +8,9 @@
 
 <ion-content padding>
   <p>
-    <img src = "../www/assets/images/DogPixelArt.png" onerror = "this.onerror=null;this.src='../assets/images/DogPixelArt.png'">
+    <img id="dogpic" src = "../www/assets/images/DogPixelArt.png" onerror = "this.onerror=null;this.src='../assets/images/DogPixelArt.png'">
+	
+    <!-- <button  id="toggle" onclick="clicked()">Toggle Picture</button> -->
+	<button ion-button (click)="clicked()" color="danger">Toggle</button>
   </p>
 </ion-content>
