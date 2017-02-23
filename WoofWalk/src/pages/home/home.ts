@@ -13,12 +13,12 @@ export class HomePage {
   }
   
   clicked(){
-   if (document.getElementById('dogpic').src == "../www/assets/images/DogPixelArt.png" )
+   if (document.getElementById('dogpic').getAttribute("src") == "../assets/images/DogPixelArt.png" )
    {
-     document.getElementById('dogpic').src = "../www/assets/images/DogPixelArtNew.png";
+     document.getElementById('dogpic').setAttribute("src", "../assets/images/dpa_01_transparent_bg_Large.png");
    } else
    {
-     document.getElementById('dogpic').src = "../www/assets/images/DogPixelArt.png";
+     document.getElementById('dogpic').setAttribute("src", "../assets/images/DogPixelArt.png");
    }
 }
 
