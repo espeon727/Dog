@@ -15,9 +15,22 @@ import { CameraPage } from '../camera/camera';
 })
 export class HomePage 
 {
-    constructor(public navCtrl: NavController, public navParams: NavParams) 
+  private rootPage;
+  private homePage;
+  private shopPage;
+  private inventoryPage;
+  private walkPage;
+  private cameraPage;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
-    
+    this.rootPage = HomePage;
+
+    this.homePage = HomePage;
+    this.shopPage = ShopPage;
+    this.inventoryPage = InventoryPage;
+    this.walkPage = WalkPage;
+    this.cameraPage = CameraPage;
   }
 
   
@@ -44,7 +57,11 @@ export class HomePage
       document.getElementById('dogpic').setAttribute("src", "../assets/images/dpa_02_transparent_bg_large.png");
     }   
   }
-  
+
+  openPage(p)
+  {
+    this.rootPage = p;
+  }
 
   navigateDogs()
   {
