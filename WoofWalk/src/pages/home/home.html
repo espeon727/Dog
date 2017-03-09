@@ -6,6 +6,19 @@
   </ion-navbar>
 </ion-header>
 
+<!-- <ion-menu [content]="mycontent">
+     <ion-content>
+     <ion-list>
+     <p>TEST</p>
+     <p>TEST2</p>
+     </ion-list>
+     </ion-content>
+     </ion-menu>
+
+     <ion-nav #mycontent [root]="HomePage"></ion-nav>
+   -->
+
+
 <ion-content padding>
   <p>
     <img class = "dogImage" id="dogpic" src = "../www/assets/images/dpa_01_transparent_bg_large.png" onerror = "this.onerror=null;this.src='../assets/images/dpa_01_transparent_bg_large.png'">
@@ -13,4 +26,11 @@
     <!-- <button  id="toggle" onclick="clicked()">Toggle Picture</button> -->
 	<button ion-button (click)="clicked()" color="danger">Toggle</button>
   </p>
+
+  <ion-list>
+      <button (click)="openPage(DogsPage)">
+	  Dogs
+      </button>
+  </ion-list>
+
 </ion-content>
