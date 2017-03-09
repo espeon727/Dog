@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import {ShopPage } from '../shop/shop';
+
+import { DogsPage } from '../dogs/dogs';
+import { ShopPage } from '../shop/shop';
+import { InventoryPage } from '../inventory/inventory';
+import { WalkPage } from '../walk/walk';
+import { CameraPage } from '../camera/camera';
 
 @Component({
   selector: 'page-home',
@@ -40,9 +45,26 @@ export class HomePage
     }   
   }
   
-    navigateShop()
-    {
-	this.navCtrl.push(ShopPage);
-    }
+
+  navigateDogs()
+  {
+    this.navCtrl.push(DogsPage);
+  }
+  navigateShop()
+  {
+    this.navCtrl.push(ShopPage);
+  }
+  navigateInventory()
+  {
+    this.navCtrl.push(InventoryPage);
+  }
+  navigateWalk()
+  {
+    this.navCtrl.push(WalkPage);
+  }
+  navigateCamera()
+  {
+    this.navCtrl.push(CameraPage);
+  }
 
 }
