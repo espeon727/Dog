@@ -3,13 +3,25 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
+import { DogsPage } from '../pages/dogs/dogs';
+import { ShopPage } from '../pages/shop/shop';
+import { InventoryPage } from '../pages/inventory/inventory';
+import { WalkPage } from '../pages/walk/walk';
+import { CameraPage } from '../pages/camera/camera';
 
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  // @ViewChild(Nav) nav: Nav;
   rootPage = HomePage;
+  homePage = HomePage;
+  dogsPage = DogsPage;
+  shopPage = ShopPage;
+  inventoryPage = InventoryPage;
+  walkPage = WalkPage;
+  cameraPage = CameraPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -18,5 +30,12 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  openPage(page)
+  {
+    //makes it so the back button does not show.
+    // this.nav.setRoot(page.component);
+    this.rootPage = page;
   }
 }

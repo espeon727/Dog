@@ -1,1 +1,32 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu type="reveal" [content]="myContent" persistent="true">
+
+    <ion-toolbar>
+	<ion-title>TEST</ion-title>
+    </ion-toolbar>
+
+    <ion-content>
+	<ion-list>
+	    <button menuClose ion-item style="padding-top: 56px;" (click)="openPage(homePage)">
+		Home
+	    </button>
+	    <button menuClose ion-item (click)="openPage(dogsPage)">
+		Dogs
+	    </button>
+	    <button menuClose ion-item (click)="openPage(shopPage)">
+		Shop
+	    </button>
+	    <button menuClose ion-item (click)="openPage(inventoryPage)">
+		Inventory
+	    </button>
+	    <button menuClose ion-item (click)="openPage(walkPage)">
+		Walk
+	    </button>
+	    <button menuClose ion-item (click)="openPage(cameraPage)">
+		Camera
+	    </button>
+	</ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #myContent swipeBackEnabled="false"></ion-nav>
