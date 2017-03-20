@@ -13,8 +13,13 @@
     </button>
     
     <ion-title>Camera</ion-title>
-    <button (click)="takePicture()">
+    <button (click)="cameraOn()">
     	<ion-icon name=camera></ion-icon>
+      Turn Camera On
+    </button>
+    <button (click)="cameraOff()">
+      <ion-icon name=camera></ion-icon>
+      Turn Camera Off
     </button>
   </ion-navbar>
 
@@ -22,6 +27,6 @@
 
 
 <ion-content padding>
-	<img src="{{ base64Image }}"/>
+	<img src="{{ dogPicture }}" />
 
 </ion-content>

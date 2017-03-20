@@ -14,10 +14,27 @@ import { CameraPreview } from 'ionic-native';
 })
 export class CameraPage {
 	public base64Image: string;
+  public dogPicture: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
   	this.base64Image = "../www/assets/images/dpa_02_transparent_bg_large.png"
+    this.dogPicture = "../www/assets/images/dpa_02_transparent_bg_large.png"
+
+    // input is (rectangle, front/rear, tapEnabled, dragEnabled, toBack, alpha)
+    CameraPreview.startCamera(
+      {
+        x:0,
+        y:200,
+        width: window.screen.width,
+        height: window.screen.height - 200
+      },
+      "rear", 
+      false, 
+      false, 
+      true,
+      1
+    );
   }
 
   ionViewDidLoad() 
@@ -25,23 +42,14 @@ export class CameraPage {
     console.log('ionViewDidLoad CameraPage');
   }
 
-  public takePicture() 
+  public cameraOn() 
   {
+    CameraPreview.show();
+  }
 
-    // input is (rectangle, front/rear, tapEnabled, dragEnabled, toBack, alpha)
-    CameraPreview.startCamera(
-      {
-        x:0,
-        y:0,
-        width: window.screen.width,
-        height: window.screen.height
-      },
-      "front", 
-      false, 
-      true, 
-      false,
-      1
-    );
+  public cameraOff()
+  {
+    CameraPreview.hide();
   }
 
 }
