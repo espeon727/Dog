@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Camera } from 'ionic-native';
+import { CameraPreview } from 'ionic-native';
 
 /*
-  Used this tutorial 
+  Resources
   https://www.thepolyglotdeveloper.com/2016/04/use-the-device-camera-in-an-ionic-2-android-and-ios-app/
+
+  https://www.joshmorony.com/ionic-go-create-a-pokemon-go-style-interface-in-ionic-2/
 */
 @Component({
   selector: 'page-camera',
@@ -25,23 +27,21 @@ export class CameraPage {
 
   public takePicture() 
   {
-  	Camera.getPicture(
-  	{
-  		quality: 75,
-  		destinationType: Camera.DestinationType.DATA_URL,
-  		sourceType: Camera.PictureSourceType.CAMERA,
-  		allowEdit: true,
-  		encodingType: Camera.EncodingType.JPEG,
-  		targetWidth: 300,
-  		targetHeight: 300,
-  		saveToPhotoAlbum: false
-  	}).then(imageData => 
-  	{
-  		this.base64Image = "data:image/jpeg;base64," + imageData;
-  	}, error =>
-  	{
-  		alert("Error -> " + JSON.stringify(error));
-  	});
+
+    // input is (rectangle, front/rear, tapEnabled, dragEnabled, toBack, alpha)
+    CameraPreview.startCamera(
+      {
+        x:0,
+        y:0,
+        width: window.screen.width,
+        height: window.screen.height
+      },
+      "front", 
+      false, 
+      true, 
+      false,
+      1
+    );
   }
 
 }
