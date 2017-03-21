@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+
 import { HomePage } from '../pages/home/home';
 import { DogsPage } from '../pages/dogs/dogs';
 import { ShopPage } from '../pages/shop/shop';
@@ -21,7 +22,7 @@ import { CameraPage } from '../pages/camera/camera';
     ShopPage,
     InventoryPage,
     WalkPage,
-    CameraPage
+    CameraPage,
 
   ],
   imports: [
