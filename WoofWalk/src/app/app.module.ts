@@ -9,6 +9,7 @@ import { ShopPage } from '../pages/shop/shop';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
+import { DogStatsPage } from '../pages/dog-stats/dog-stats';
 
 
 
@@ -23,6 +24,8 @@ import { CameraPage } from '../pages/camera/camera';
     InventoryPage,
     WalkPage,
     CameraPage,
+    DogStatsPage
+
 
   ],
   imports: [
@@ -36,7 +39,8 @@ import { CameraPage } from '../pages/camera/camera';
     ShopPage,
     InventoryPage,
     WalkPage,
-    CameraPage
+    CameraPage,
+    DogStatsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

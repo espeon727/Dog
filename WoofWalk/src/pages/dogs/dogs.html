@@ -19,5 +19,12 @@
 
 
 <ion-content padding>
-  <p>Dogs Test</p>
+  <ion-list>
+    <ion-item *ngFor="let result of results" class="advanced-background" (click)="navigateDogStats(result)">
+      <ion-thumbnail item-left>
+        <img src={{result.icon2}} >
+      </ion-thumbnail>
+        <h2>{{result.name}}</h2>
+    </ion-item>
+  </ion-list>
 </ion-content>
