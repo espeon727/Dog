@@ -22,6 +22,44 @@ export class DogStatsPage {
 	public icon: string;
 	public icon2: string;
 
+
+  public chartLabels:string[] = ['Affection', 'Fullness', 'Hydration', 'Cleanliness'];
+
+  public chartData:any = [{
+    label: "",
+    data: [ 
+      this.navParams.get("affection"), 
+      this.navParams.get("fullness"), 
+      this.navParams.get("hydration"), 
+      this.navParams.get("cleanliness")
+    ]
+  }];
+
+  public barChartOptions:any = {
+    scales: {
+      xAxes: [{
+        display:false,
+        ticks: {
+          beginAtZero: true,
+          min: 0,
+          max: 100,
+        },
+        gridLines: {
+          display:true
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display:false
+        }
+      }]
+    },
+    legend: {
+      display: false
+    }
+  }
+  public barChartType:string = 'horizontalBar';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
   	this.name = navParams.get("name");
@@ -37,6 +75,8 @@ export class DogStatsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DogStatsPage');
+
+
   }
 
 }

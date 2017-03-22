@@ -2,6 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import '../../node_modules/chart.js/dist/Chart.bundle.min.js';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 
 import { HomePage } from '../pages/home/home';
 import { DogsPage } from '../pages/dogs/dogs';
@@ -29,7 +32,8 @@ import { DogStatsPage } from '../pages/dog-stats/dog-stats';
 
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

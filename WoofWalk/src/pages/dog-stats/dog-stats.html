@@ -4,6 +4,9 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<script type="text/javascript" src="node_modules/chart.js/src/chart.js"></script>
+
+
 <ion-header>
 
   <ion-navbar>
@@ -19,5 +22,14 @@
 <p>Fullness: {{fullness}}</p>
 <p>Hydration: {{hydration}}</p>
 <p>Cleanliness: {{cleanliness}}</p>
+
+<div style="display: block">
+	<canvas baseChart id="bar"
+		[datasets]="chartData"
+		[labels]="chartLabels"
+		[chartType]="barChartType"
+		[options]="barChartOptions"
+	></canvas>
+</div>
 
 </ion-content>
