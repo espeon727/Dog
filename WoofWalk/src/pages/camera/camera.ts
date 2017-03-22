@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CameraPreview } from 'ionic-native';
 
-import * as $ from 'jquery';
-import 'draggable'
+// import * as $ from 'jquery';
+// import 'draggable'
 
 
 /*
@@ -45,7 +45,7 @@ export class CameraPage{
   ionViewDidLoad() 
   {
     console.log('ionViewDidLoad CameraPage');
-    $("#draggable").draggable();
+    // $("#draggable").draggable();
   }
 
   public cameraOn() 

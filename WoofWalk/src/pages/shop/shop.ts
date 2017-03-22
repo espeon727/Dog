@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { Item } from '../../app/app.module';
+
 /*
   Generated class for the Shop page.
 
@@ -13,7 +15,13 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ShopPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  stuff = new Item("food", "../www/assets/images/000.png", 1);
+
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams)
+  {
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
