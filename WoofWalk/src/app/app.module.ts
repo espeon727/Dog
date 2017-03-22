@@ -41,3 +41,41 @@ import { CameraPage } from '../pages/camera/camera';
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
+
+
+export class Item {
+  name: string;
+  icon: string;
+  quantity: number;
+  // id: number;
+
+  constructor(name: string, icon: string, quantity: number) {
+    this.name = name;
+    this.icon = icon;
+    this.quantity = quantity;
+  }
+
+  getName()
+  {
+    return this.name;
+  }
+
+  getIcon()
+  {
+    return this.icon;
+  }
+
+  getQuantity()
+  {
+    return this.quantity;
+  }
+
+  setQuantity(q: number)
+  {
+    this.quantity = q;
+  }
+
+}
+
+
+
