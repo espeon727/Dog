@@ -1,7 +1,13 @@
 page-home {
   .dogImage{
     display: block;
+    margin: auto;
+    width: 87%;
     position: fixed;
     bottom: 0%;
+  }
+  .statBar{
+    width: 20%;
+    max-height: 10%;
   }
 }

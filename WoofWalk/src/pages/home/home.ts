@@ -13,7 +13,7 @@ import { CameraPage } from '../camera/camera';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage 
+export class HomePage
 {
   private rootPage;
   private homePage;
@@ -22,7 +22,7 @@ export class HomePage
   private walkPage;
   private cameraPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) 
+  constructor(public navCtrl: NavController, public navParams: NavParams)
   {
     this.rootPage = HomePage;
 
@@ -33,29 +33,66 @@ export class HomePage
     this.cameraPage = CameraPage;
   }
 
-  
+
   clicked()
   {
     // for android
-    if (document.getElementById('dogpic').getAttribute("src") == "../www/assets/images/dpa_02_transparent_bg_large.png")
+    if (document.getElementById('affection').getAttribute("src") == "../www/assets/images/affection_bar.png")
     {
-      document.getElementById('dogpic').setAttribute("src", "../www/assets/images/dpa_01_transparent_bg_large.png");
-    } 
-    else if (document.getElementById('dogpic').getAttribute("src") == "../www/assets/images/dpa_01_transparent_bg_large.png")
-    {
-      document.getElementById('dogpic').setAttribute("src", "../www/assets/images/dpa_02_transparent_bg_large.png");
+      document.getElementById('affection').setAttribute("src", "../www/assets/images/empty_affection_bar.png");
     }
+    else if (document.getElementById('affection').getAttribute("src") == "../www/assets/images/empty_affection_bar.png")
+    {
+      document.getElementById('affection').setAttribute("src", "../www/assets/images/affection_bar.png");
+    }
+
+    if (document.getElementById('hunger').getAttribute("src") == "../www/assets/images/hunger_bar.png")
+    {
+      document.getElementById('hunger').setAttribute("src", "../www/assets/images/empty_hunger_bar.png");
+    }
+    else if (document.getElementById('hunger').getAttribute("src") == "../www/assets/images/empty_hunger_bar.png")
+    {
+      document.getElementById('hunger').setAttribute("src", "../www/assets/images/hunger_bar.png");
+    }
+
+    if (document.getElementById('thirst').getAttribute("src") == "../www/assets/images/thirst_bar.png")
+    {
+      document.getElementById('thirst').setAttribute("src", "../www/assets/images/empty_thirst_bar.png");
+    }
+    else if (document.getElementById('thirst').getAttribute("src") == "../www/assets/images/empty_thirst_bar.png")
+    {
+      document.getElementById('thirst').setAttribute("src", "../www/assets/images/thirst_bar.png");
+    }
+
 
 
     // web
-    if (document.getElementById('dogpic').getAttribute("src") == "../assets/images/dpa_02_transparent_bg_large.png" )
+    if (document.getElementById('affection').getAttribute("src") == "../assets/images/affection_bar.png" )
     {
-      document.getElementById('dogpic').setAttribute("src", "../assets/images/dpa_01_transparent_bg_large.png");
+      document.getElementById('affection').setAttribute("src", "../assets/images/empty_affection_bar.png");
     }
-    else if (document.getElementById('dogpic').getAttribute("src") == "../assets/images/dpa_01_transparent_bg_large.png")
+    else if (document.getElementById('affection').getAttribute("src") == "../assets/images/empty_affection_bar.png")
     {
-      document.getElementById('dogpic').setAttribute("src", "../assets/images/dpa_02_transparent_bg_large.png");
-    }   
+      document.getElementById('affection').setAttribute("src", "../assets/images/affection_bar.png");
+    }
+
+    if (document.getElementById('hunger').getAttribute("src") == "../assets/images/hunger_bar.png" )
+    {
+      document.getElementById('hunger').setAttribute("src", "../assets/images/empty_hunger_bar.png");
+    }
+    else if (document.getElementById('hunger').getAttribute("src") == "../assets/images/empty_hunger_bar.png")
+    {
+      document.getElementById('hunger').setAttribute("src", "../assets/images/hunger_bar.png");
+    }
+
+    if (document.getElementById('thirst').getAttribute("src") == "../assets/images/thirst_bar.png" )
+    {
+      document.getElementById('thirst').setAttribute("src", "../assets/images/empty_thirst_bar.png");
+    }
+    else if (document.getElementById('thirst').getAttribute("src") == "../assets/images/empty_thirst_bar.png")
+    {
+      document.getElementById('thirst').setAttribute("src", "../assets/images/thirst_bar.png");
+    }
   }
 
   openPage(p)
@@ -68,7 +105,7 @@ export class HomePage
   //   var menu = document.getElementById("menu");
   //   if(menu.classList.contains("show-menu"))
   //   {
-  //     menu.classList.remove("show-menu");      
+  //     menu.classList.remove("show-menu");
   //   }
   //   else
   //   {
@@ -76,7 +113,7 @@ export class HomePage
   //   }
   // }
 
-  
+
 
   navigateDogs()
   {
