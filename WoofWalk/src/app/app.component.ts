@@ -9,6 +9,8 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
+import { Globals } from '../providers/Globals';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -23,12 +25,36 @@ export class MyApp {
   walkPage = WalkPage;
   cameraPage = CameraPage;
 
+  globals: Globals;
+
+  // isAndroid = false;
+  // isIOS = false;
+  // isCore = false;
+
   constructor(platform: Platform) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      this.globals = Globals.getInstance();
+
+      if(platform.is("android")) {
+	this.globals.setPlatform("android");
+      } else {
+	if(platform.is("ios")) {
+	  this.globals.setPlatform("ios");
+	} else {
+	  if(platform.is("core")) {
+	    this.globals.setPlatform("core");
+	  } else {
+	    // unknown/unsupported platform
+	    this.globals.setPlatform("other");
+	  }
+	}
+      }
+
     });
   }
 
