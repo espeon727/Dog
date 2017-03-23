@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CameraPreview } from 'ionic-native';
+import { CameraPreview, Diagnostic } from 'ionic-native';
+
 
 // import * as $ from 'jquery';
 // import 'draggable'
@@ -17,14 +18,30 @@ import { CameraPreview } from 'ionic-native';
   templateUrl: 'camera.html'
 })
 export class CameraPage{
-	public base64Image: string;
+  public base64Image: string;
   public dogPicture: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
-  	this.base64Image = "../www/assets/images/dpa_02_transparent_bg_large.png"
+    this.base64Image = "../www/assets/images/dpa_02_transparent_bg_large.png"
     this.dogPicture = "../www/assets/images/dpa_01_transparent_bg_large.png"
 
+    Diagnostic.requestCameraAuthorization();
+
+  }
+
+  ionViewDidLoad() 
+  {
+    console.log('ionViewDidLoad CameraPage');
+    // $("#draggable").draggable();
+
+    
+    
+
+  }
+
+  public cameraOn() 
+  {
     // input is (rectangle, front/rear, tapEnabled, dragEnabled, toBack, alpha)
     CameraPreview.startCamera(
       {
@@ -40,22 +57,13 @@ export class CameraPage{
       1
     );
 
-  }
-
-  ionViewDidLoad() 
-  {
-    console.log('ionViewDidLoad CameraPage');
-    // $("#draggable").draggable();
-  }
-
-  public cameraOn() 
-  {
     CameraPreview.show();
   }
 
   public cameraOff()
   {
-    CameraPreview.hide();
+    CameraPreview.stopCamera();
   }
 
 }
+
