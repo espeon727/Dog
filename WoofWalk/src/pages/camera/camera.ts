@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CameraPreview, Diagnostic } from 'ionic-native';
 
+import { ImagePath } from '../../app/app.module';
+
 
 // import * as $ from 'jquery';
 // import 'draggable'
@@ -21,10 +23,12 @@ export class CameraPage{
   public base64Image: string;
   public dogPicture: string;
 
+	private imgPath: ImagePath = new ImagePath();
+
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
-    this.base64Image = "../www/assets/images/dpa_02_transparent_bg_large.png"
-    this.dogPicture = "../www/assets/images/dpa_01_transparent_bg_large.png"
+		this.base64Image = this.imgPath.getImagePath("dpa_02_transparent_bg_large.png");
+		this.dogPicture = this.imgPath.getImagePath("dpa_01_transparent_bg_large.png");
 
     Diagnostic.requestCameraAuthorization();
 
