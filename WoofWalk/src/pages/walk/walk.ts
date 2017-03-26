@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from 'ionic-native';
+import { Geolocation, Diagnostic } from 'ionic-native';
 
 declare var google;
 
@@ -17,7 +17,10 @@ declare var google;
 })
 export class WalkPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) 
+  {
+    Diagnostic.requestLocationAuthorization();
+  }
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
