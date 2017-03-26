@@ -9,6 +9,8 @@ import { InventoryPage } from '../inventory/inventory';
 import { WalkPage } from '../walk/walk';
 import { CameraPage } from '../camera/camera';
 
+import { ImagePath } from '../../app/app.module';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -22,6 +24,9 @@ export class HomePage
   private walkPage;
   private cameraPage;
 
+  imgPath: ImagePath = new ImagePath();
+  background: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams)
   {
     this.rootPage = HomePage;
@@ -31,6 +36,8 @@ export class HomePage
     this.inventoryPage = InventoryPage;
     this.walkPage = WalkPage;
     this.cameraPage = CameraPage;
+
+    this.background = "../www/assets/images/background.png";
   }
 
 
