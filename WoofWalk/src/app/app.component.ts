@@ -10,6 +10,7 @@ import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
 import { Globals } from '../providers/Globals';
+import { ImagePath } from '../app/app.module';
 
 
 @Component({
@@ -26,6 +27,15 @@ export class MyApp {
   cameraPage = CameraPage;
 
   globals: Globals;
+  imgPath: ImagePath;
+
+  // for the icons in the menu
+  homeIcon: string;
+  dogIcon: string;
+  shopIcon: string;
+  invIcon: string;
+  walkIcon: string;
+  cameraIcon: string;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -51,6 +61,14 @@ export class MyApp {
 	}
       }
 
+      // for the icons in the menu
+      this.imgPath = new ImagePath();
+      this.homeIcon = this.imgPath.getImagePath("home.png");
+      this.dogIcon = this.imgPath.getImagePath("swap.png");
+      this.shopIcon = this.imgPath.getImagePath("shop.png");
+      this.invIcon = this.imgPath.getImagePath("inventory.png");
+      this.walkIcon = this.imgPath.getImagePath("walk.png");
+      this.cameraIcon = this.imgPath.getImagePath("camera.png");
     });
   }
 

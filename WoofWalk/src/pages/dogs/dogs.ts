@@ -36,9 +36,9 @@ export class DogsPage
 
   getResults() {
       return [
-        {"name": "Cerberus", "affection": 13, "fullness": 12, "hydration": 10, "cleanliness": 24, "icon": "../www/assets/images/bone_normal.png", "icon2": "../assets/images/000.png"},
-        {"name": "Lucky", "affection": 5, "fullness": 16, "hydration": 28, "cleanliness": 2, "icon": "../www/assets/images/bone_normal.png", "icon2": "../assets/images/000.png"},
-        {"name": "Spot", "affection": 1, "fullness": 0, "hydration": 12, "cleanliness": 13, "icon": "../www/assets/images/bone_normal.png", "icon2": "../assets/images/000.png"},
+        {"name": "Cerberus", "affection": 13, "fullness": 12, "hydration": 10, "cleanliness": 24, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
+        {"name": "Lucky", "affection": 5, "fullness": 16, "hydration": 28, "cleanliness": 2, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
+        {"name": "Spot", "affection": 1, "fullness": 0, "hydration": 12, "cleanliness": 13, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
         
       ];
   }
