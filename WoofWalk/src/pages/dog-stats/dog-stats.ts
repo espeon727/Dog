@@ -73,13 +73,17 @@ export class DogStatsPage {
 		return this.dog;
 	}
 
-	changeStats() : void {
-		this.dog.setAffection(50);
-		this.dog.setFullness(84);
-		this.dog.setHydration(31);
-		this.dog.setCleanliness(100);
+	randomStats() : void {
+		this.dog.setAffection(this.getRandomStat(0,100));
+		this.dog.setFullness(this.getRandomStat(0,100));
+		this.dog.setHydration(this.getRandomStat(0,100));
+		this.dog.setCleanliness(this.getRandomStat(0,100));
 
 		this.updateChart();
+	}
+
+	getRandomStat(min: number, max: number) : number {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	getAffectionBarImage() : string {
