@@ -87,6 +87,70 @@ export class ImagePath {
   }
 }
 
+export class Dog {
+	name: string;
+	affection: number;
+	fullness: number;
+	hydration: number;
+	cleanliness: number;
+
+	icon: string;
+
+	constructor(name: string, icon: string, affection: number, fullness: number, hydration: number, cleanliness: number) {
+		this.name = name;
+		this.icon = icon;
+		this.affection = affection;
+		this.fullness = fullness;
+		this.hydration = hydration;
+		this.cleanliness = cleanliness;
+	}
+
+	getName() : string {
+		return this.name;
+	}
+
+	getIcon() : string {
+		return this.icon;
+	}
+
+	getAffection() : number {
+		return this.affection;
+	}
+
+	setAffection(newAffection: number) : void {
+		this.affection = newAffection;
+	}
+
+	getFullness() : number {
+		return this.fullness;
+	}
+
+	setFullness(newFullness: number) : void {
+		this.fullness = newFullness;
+	}
+
+	getHydration() : number {
+		return this.hydration;
+	}
+
+	setHydration(newHydration: number) : void {
+		this.hydration = newHydration;
+	}
+
+	getCleanliness() : number {
+		return this.cleanliness;
+	}
+
+	setCleanliness(newCleanliness: number) : void {
+		this.cleanliness = newCleanliness;
+	}
+
+	
+}
+
+
+
+
 export class Item {
   name: string; // the name of the item
   icon: string; // the file path to the icon image
