@@ -60,7 +60,7 @@ export class AppModule {}
 //         this.imgpath.getImagePath(...)
 export class ImagePath {
 
-  settings: Settings;
+  private settings: Settings;
 
   constructor() {
     this.settings = Settings.getInstance();
@@ -75,11 +75,11 @@ export class ImagePath {
       result += file;      
     } else {
       if(this.settings.getPlatform() == "android" || this.settings.getPlatform() == "ios") {
-	result += "../www/assets/images/";
-	result += file;
+				result += "../www/assets/images/";
+				result += file;
       } else {
-	//unknown/unsupported platform
-	throw new Error("Unknown/unsupported Platform");
+				//unknown/unsupported platform
+				throw new Error("Unknown/unsupported Platform");
       }
     }
 
@@ -143,9 +143,7 @@ export class Dog {
 
 	setCleanliness(newCleanliness: number) : void {
 		this.cleanliness = newCleanliness;
-	}
-
-	
+	}	
 }
 
 

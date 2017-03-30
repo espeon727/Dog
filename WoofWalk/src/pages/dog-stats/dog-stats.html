@@ -10,7 +10,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{name}}</ion-title>
+			<ion-title>{{ getDog().getName() }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,18 +18,29 @@
 
 <ion-content padding style="background-color: white">
 
-<p>Affection: {{affection}}</p>
-<p>Fullness: {{fullness}}</p>
-<p>Hydration: {{hydration}}</p>
-<p>Cleanliness: {{cleanliness}}</p>
+		<p>
+				Affection: {{ getDog().getAffection() }}
+				<img src="{{ getAffectionBarImage() }}">
+		</p>
+		<p>
+				Fullness: {{ getDog().getFullness() }}
+				<!-- <img src="{{ imgPath.getImagePath('dog_stat_bars/fullness_bars/affection_bar' + Math.floor(getDog().getAffection()/10) + '.png') }}"> -->
+				<img src="{{ getBarImage('hunger') }}">
+		</p>
+		<p>
+				Hydration: {{ getDog().getHydration() }}
+				<img src="{{ getBarImage('thirst') }}">
+		</p>
+		<p>Cleanliness: {{ getDog().getCleanliness() }}</p>
 
-<div style="display: block">
-	<canvas baseChart id="bar"
-		[datasets]="chartData"
-		[labels]="chartLabels"
-		[chartType]="barChartType"
-		[options]="barChartOptions"
-	></canvas>
-</div>
+		<button (click)="changeStats()">ChangeStats</button>
+		<div style="display: block">
+		    <canvas baseChart id="bar"
+			    [datasets]="chartData"
+			    [labels]="chartLabels"
+			    [chartType]="barChartType"
+			    [options]="barChartOptions"
+		    ></canvas>
+		</div>
 
 </ion-content>

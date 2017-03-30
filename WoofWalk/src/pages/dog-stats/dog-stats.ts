@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { ImagePath, Dog } from '../../app/app.module';
+
 /*
   Generated class for the DogStats page.
 
@@ -12,29 +14,12 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'dog-stats.html'
 })
 export class DogStatsPage {
-	public name: string;
-
-	public affection: number;
-	public fullness: number;
-	public hydration: number;
-	public cleanliness: number;
-
-	public icon: string;
-	public icon2: string;
-
+	
+	public dog: Dog;
+	public imgPath: ImagePath = new ImagePath();
 
   public chartLabels:string[] = ['Affection', 'Fullness', 'Hydration', 'Cleanliness'];
-
-  public chartData:any = [{
-    label: "",
-    data: [ 
-      this.navParams.get("affection"), 
-      this.navParams.get("fullness"), 
-      this.navParams.get("hydration"), 
-      this.navParams.get("cleanliness")
-    ]
-  }];
-
+  public chartData:any;
   public barChartOptions:any = {
     scales: {
       xAxes: [{
@@ -62,21 +47,63 @@ export class DogStatsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
-  	this.name = navParams.get("name");
+		this.dog = navParams.get("dog");
 
-  	this.affection = navParams.get("affection");
-  	this.fullness = navParams.get("fullness");
-  	this.hydration = navParams.get("hydration");
-  	this.cleanliness = navParams.get("cleanliness");
-
-  	this.icon = navParams.get("icon");
-  	this.icon2 = navParams.get("icon2");
+		this.updateChart();
+		console.log(this.getAffectionBarImage());
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() : void {
     console.log('ionViewDidLoad DogStatsPage');
-
-
   }
+
+	updateChart() : void {
+		this.chartData = [{
+			label: "",
+			data: [ 
+				this.dog.getAffection(),
+				this.dog.getFullness(),
+				this.dog.getHydration(),
+				this.dog.getCleanliness()
+			]
+		}];
+	}
+
+	getDog() : Dog {
+		return this.dog;
+	}
+
+	changeStats() : void {
+		this.dog.setAffection(50);
+		this.dog.setFullness(84);
+		this.dog.setHydration(31);
+		this.dog.setCleanliness(100);
+
+		this.updateChart();
+	}
+
+	getAffectionBarImage() : string {
+		return this.imgPath.getImagePath("dog_stat_bars/affection_bars/affection_bar" + Math.floor(this.dog.getAffection()/10) + ".png");
+	}
+
+	getBarImage(stat: string) : string {
+		var val;
+		switch(stat) {
+		case'affection':
+			val = this.dog.getAffection();
+			break;
+		case'hunger':
+			val = this.dog.getFullness();
+			break;
+		case'thirst':
+			val = this.dog.getHydration();
+			break;
+		default:
+			console.log("UNKNOWN ATTRIBUTE");
+			return "000.png";
+		}
+
+		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) + ".png");
+	}
 
 }
