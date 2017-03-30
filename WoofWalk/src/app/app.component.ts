@@ -9,7 +9,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
-import { Globals } from '../providers/Globals';
+import { Settings } from '../providers/Settings';
 import { ImagePath } from '../app/app.module';
 
 
@@ -26,7 +26,7 @@ export class MyApp {
   walkPage = WalkPage;
   cameraPage = CameraPage;
 
-  globals: Globals;
+  settings: Settings;
   imgPath: ImagePath;
 
   // for the icons in the menu
@@ -44,19 +44,19 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
 
-      this.globals = Globals.getInstance();
+      this.settings = Settings.getInstance();
 
       if(platform.is("android")) {
-	this.globals.setPlatform("android");
+	this.settings.setPlatform("android");
       } else {
 	if(platform.is("ios")) {
-	  this.globals.setPlatform("ios");
+	  this.settings.setPlatform("ios");
 	} else {
 	  if(platform.is("core")) {
-	    this.globals.setPlatform("core");
+	    this.settings.setPlatform("core");
 	  } else {
 	    // unknown/unsupported platform
-	    this.globals.setPlatform("other");
+	    this.settings.setPlatform("other");
 	  }
 	}
       }

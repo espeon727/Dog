@@ -13,7 +13,7 @@ import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 import { DogStatsPage } from '../pages/dog-stats/dog-stats';
 
-import { Globals } from '../providers/Globals';
+import { Settings } from '../providers/Settings';
 
 
 
@@ -60,21 +60,21 @@ export class AppModule {}
 //         this.imgpath.getImagePath(...)
 export class ImagePath {
 
-  globals : Globals;
+  settings: Settings;
 
   constructor() {
-    this.globals = Globals.getInstance();
+    this.settings = Settings.getInstance();
   }
   
   public getImagePath(file: string) : string
   {
     var result = "";
 
-    if(this.globals.getPlatform() == "core") {
+    if(this.settings.getPlatform() == "core") {
       result += "../assets/images/";
       result += file;      
     } else {
-      if(this.globals.getPlatform() == "android" || this.globals.getPlatform() == "ios") {
+      if(this.settings.getPlatform() == "android" || this.settings.getPlatform() == "ios") {
 	result += "../www/assets/images/";
 	result += file;
       } else {
