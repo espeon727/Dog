@@ -7,12 +7,12 @@
 <ion-header>
 
     <ion-navbar>
-	<!-- For Menu -->
-	<button ion-button menuToggle>
-	    <ion-icon name="menu"></ion-icon>
-	</button>
+				<!-- For Menu -->
+				<button ion-button menuToggle>
+						<ion-icon name="menu"></ion-icon>
+				</button>
 
-	<ion-title>Dogs</ion-title>
+				<ion-title>Dogs</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -20,11 +20,17 @@
 
 <ion-content padding style="background-color: white">
   <ion-list>
-    <ion-item *ngFor="let result of getResults()" class="advanced-background" (click)="navigateDogStats(result)">
-      <ion-thumbnail item-left>
-        <img src={{result.getIcon()}} >
-      </ion-thumbnail>
-        <h2>{{result.getName()}}</h2>
-    </ion-item>
+			<!-- <ion-item *ngFor="let result of getDogs()" class="advanced-background" (click)="navigateDogStats(result)">
+					 <ion-thumbnail item-left>
+					 <img src={{result.getIcon()}} >
+					 </ion-thumbnail>
+					 <h2>{{result.getName()}}</h2>
+					 </ion-item> -->
+			<ion-item *ngFor="let d of getDogs()" class="advanced-background" (click)="navigateDogStats(d)">
+					<ion-thumbnail item-left>
+							<img src={{d.getIcon()}} >
+					</ion-thumbnail>
+					<h2>{{d.getName()}}</h2>
+			</ion-item>
   </ion-list>
 </ion-content>

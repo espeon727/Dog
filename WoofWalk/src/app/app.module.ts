@@ -95,18 +95,18 @@ export class Dog {
 	cleanliness: number;
 
 	icon: string;
-	count: number = 0; // when we make a dogs provider make this a static var
+	// count: number = 0; // when we make a dogs provider make this a static var
 	id: number;
 
-	constructor(name: string, icon: string, affection: number, fullness: number, hydration: number, cleanliness: number) {
+	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number) {
 		this.name = name;
 		this.icon = icon;
 		this.affection = affection;
 		this.fullness = fullness;
 		this.hydration = hydration;
 		this.cleanliness = cleanliness;
-		this.id = this.count;
-		this.count++;
+		this.id = id;
+		// this.count++;
 	}
 
 	getName() : string {

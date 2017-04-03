@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ImagePath, Dog } from '../../app/app.module';
 
+import { Dogs } from '../../providers/Dogs';
+
 /*
   Generated class for the DogStats page.
 
@@ -17,6 +19,8 @@ export class DogStatsPage {
 	
 	public dog: Dog;
 	public imgPath: ImagePath = new ImagePath();
+
+	public dogProvider: Dogs = Dogs.getInstance();
 
   public chartLabels:string[] = ['Affection', 'Fullness', 'Hydration', 'Cleanliness'];
   public chartData:any;
@@ -78,6 +82,9 @@ export class DogStatsPage {
 		this.dog.setFullness(this.getRandomStat(0,100));
 		this.dog.setHydration(this.getRandomStat(0,100));
 		this.dog.setCleanliness(this.getRandomStat(0,100));
+
+		// console.log(this.dog);
+		// console.log(this.dogProvider.getDogById(0));
 
 		this.updateChart();
 	}

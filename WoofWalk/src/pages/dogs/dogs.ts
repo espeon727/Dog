@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { ImagePath, Dog } from '../../app/app.module';
 
+import { Dogs } from '../../providers/Dogs';
+
 import { DogStatsPage } from '../dog-stats/dog-stats';
 
 /*
@@ -21,7 +23,9 @@ export class DogsPage
 
 	private imgPath: ImagePath = new ImagePath();
 
-	private dogs;
+	// private dogs;
+
+	private dogs: Dogs = Dogs.getInstance();
 
   static get parameters() 
   {
@@ -32,12 +36,18 @@ export class DogsPage
   {
   	this.nav = nav;
 		
-		this.dogs = [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), 13, 12, 10, 24),
-								  new Dog("Lucky", this.imgPath.getImagePath("000.png"), 5, 16, 28, 2),
-								  new Dog("Spot", this.imgPath.getImagePath("000.png"), 1, 0, 12, 13) ];
-		for( var i = 0; i < this.dogs.length; i++) {
-			console.log(this.dogs[i].getName() + " ID: " + this.dogs[i].getId());
-		}
+		// this.dogs = [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), 13, 12, 10, 24),
+		// 						  new Dog("Lucky", this.imgPath.getImagePath("000.png"), 5, 16, 28, 2),
+		// 						  new Dog("Spot", this.imgPath.getImagePath("000.png"), 1, 0, 12, 13) ];
+		// for( var i = 0; i < this.dogs.length; i++) {
+		// 	console.log(this.dogs[i].getName() + " ID: " + this.dogs[i].getId());
+		// }
+
+		// for(var i = 0; i < this.dogs.getNumDogs(); i++) {
+		// 	console.log(this.dogs.getDogById(i));
+		// }
+
+		// console.log(this.dogs.getListOfDogs());
   }
 
   ionViewDidLoad() 
@@ -45,8 +55,11 @@ export class DogsPage
     console.log('ionViewDidLoad DogsPage');
   }
 
-  getResults() {
-		return this.dogs;
+  getDogs() {
+		return this.dogs.getListOfDogs();
+
+
+		// return this.dogs;
 
       // return [
       //   {"name": "Cerberus", "affection": 13, "fullness": 12, "hydration": 10, "cleanliness": 24, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},

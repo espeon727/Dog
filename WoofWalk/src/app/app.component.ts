@@ -10,7 +10,9 @@ import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
 import { Settings } from '../providers/Settings';
-import { ImagePath } from '../app/app.module';
+import { ImagePath, Dog } from '../app/app.module';
+
+import { Dogs } from '../providers/Dogs';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class MyApp {
 
   settings: Settings;
   imgPath: ImagePath;
+
+	dogProvider: Dogs;
 
   // for the icons in the menu
   homeIcon: string;
@@ -47,18 +51,18 @@ export class MyApp {
       this.settings = Settings.getInstance();
 
       if(platform.is("android")) {
-	this.settings.setPlatform("android");
+				this.settings.setPlatform("android");
       } else {
-	if(platform.is("ios")) {
-	  this.settings.setPlatform("ios");
-	} else {
-	  if(platform.is("core")) {
-	    this.settings.setPlatform("core");
-	  } else {
-	    // unknown/unsupported platform
-	    this.settings.setPlatform("other");
-	  }
-	}
+				if(platform.is("ios")) {
+					this.settings.setPlatform("ios");
+				} else {
+					if(platform.is("core")) {
+						this.settings.setPlatform("core");
+					} else {
+						// unknown/unsupported platform
+						this.settings.setPlatform("other");
+					}
+				}
       }
 
       // for the icons in the menu
@@ -69,8 +73,31 @@ export class MyApp {
       this.invIcon = this.imgPath.getImagePath("inventory.png");
       this.walkIcon = this.imgPath.getImagePath("walk.png");
       this.cameraIcon = this.imgPath.getImagePath("camera.png");
+
+			// instanciated the dogs Provider
+			this.dogProvider = Dogs.getInstance();
+
+			// adds dogs to the dog provider.  Should be removed after local storage is implemented.  Should only be used for testing.
+			var listOfDogs = this.getListOfDogs();
+			for(var i = 0; i < listOfDogs.length; i++) {
+				this.dogProvider.addDog(listOfDogs[i]);
+			}
+
     });
   }
+
+	// returns a list of dog objects.  Should be used for testing and until local storage is implemented.
+	getListOfDogs()
+	{
+		if(this.dogProvider == null)
+		{
+			this.dogProvider = Dogs.getInstance();
+		}
+		
+		return [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
+						 new Dog("Lucky", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
+						 new Dog("Spot", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 2, 1, 0, 12, 13) ];
+	}
 
   openPage(page)
   {
