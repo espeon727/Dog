@@ -19,5 +19,8 @@
 
 
 <ion-content padding style="background-color: white">
+  <button ion-button (click)="startClicked()">Start</button>
+  <button ion-button (click)="stopClicked()" color="danger">Stop</button>
+  <div #pastDistance id="pastDistance"></div>
   <div #map id="map"></div>
 </ion-content>
