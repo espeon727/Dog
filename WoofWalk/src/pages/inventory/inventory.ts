@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { ImagePath, Consumable } from '../../app/app.module';
+
+import { Inventory } from '../../providers/inventory';
+
 /*
   Generated class for the Inventory page.
 
@@ -13,22 +17,35 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'inventory.html'
 })
 export class InventoryPage {
-  private nav
-  private results
+  private nav;
+  private imgPath: ImagePath = new ImagePath();
+  private items: Inventory = Inventory.getInstance();
+
   static get parameters() {
     return [[NavController]];
   }
 
   constructor(nav) {
     this.nav = nav;
-    this.results = this.getResults();
+
+    // this.food = [ new Food("Dry Food", this.imgPath.getImagePath("food_dry.png"), 13, 10, "food"),
+		//						  new Food("Canned Food", this.imgPath.getImagePath("food_can.png"), 14, 20, "food"),
+    //              new Water("Bottled Water", this.imgPath.getImagePath("water_bottle.png"), 15, 20, "water") ];
+    // this.treats = [ new Treat("Bone", this.imgPath.getImagePath("bone_normal.png.png"), 12, 10),
+		// 						  new Treat("Fancy Bone", this.imgPath.getImagePath("bone_fancy.png"), 13, 50)];
+
   }
 
-  getResults() {
-      return [
-        {"name": "Bone", "quantity": 12, "icon": "../www/assets/images/bone_normal.png", "icon2": "../assets/images/bone_normal.png"},
-        {"name": "Fancy Bone", "quantity": 13, "icon": "../www/assets/images/bone_fancy.png", "icon2": "../assets/images/bone_fancy.png"},
-        {"name": "Canned Food", "quantity": 14, "icon": "../www/assets/images/food_can.png", "icon2": "../assets/images/food_can.png"},
-      ];
+  ionViewDidLoad()
+  {
+    console.log('ionViewDidLoad InventoryPage');
+  }
+
+  getFood() {
+    return this.items.getListOfFood();
+  }
+
+  getTreats() {
+    return this.items.getListOfTreats();
   }
 }

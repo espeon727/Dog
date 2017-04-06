@@ -17,13 +17,13 @@ import { ImagePath } from '../../app/app.module';
 export class ShopPage {
 
 	imgpath : ImagePath = new ImagePath();
-	stuff: Item = new Item("food", this.imgpath.getImagePath("000.png"), 1);
-  
+	//stuff: Item = new Item("food", this.imgpath.getImagePath("000.png"), 1);
+
   constructor(public navCtrl: NavController, public navParams: NavParams)
   {
     // this.stuff = new Item("food", this.imgpath.getImagePath("000.png"), 1);
   }
-	
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
   }
