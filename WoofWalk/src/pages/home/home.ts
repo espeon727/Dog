@@ -63,63 +63,7 @@ export class HomePage
 
   clicked()
   {
-    // for android
-    if (document.getElementById('affection').getAttribute("src") == "../www/assets/images/affection_bar.png")
-    {
-      document.getElementById('affection').setAttribute("src", "../www/assets/images/empty_affection_bar.png");
-    }
-    else if (document.getElementById('affection').getAttribute("src") == "../www/assets/images/empty_affection_bar.png")
-    {
-      document.getElementById('affection').setAttribute("src", "../www/assets/images/affection_bar.png");
-    }
-
-    if (document.getElementById('hunger').getAttribute("src") == "../www/assets/images/hunger_bar.png")
-    {
-      document.getElementById('hunger').setAttribute("src", "../www/assets/images/empty_hunger_bar.png");
-    }
-    else if (document.getElementById('hunger').getAttribute("src") == "../www/assets/images/empty_hunger_bar.png")
-    {
-      document.getElementById('hunger').setAttribute("src", "../www/assets/images/hunger_bar.png");
-    }
-
-    if (document.getElementById('thirst').getAttribute("src") == "../www/assets/images/thirst_bar.png")
-    {
-      document.getElementById('thirst').setAttribute("src", "../www/assets/images/empty_thirst_bar.png");
-    }
-    else if (document.getElementById('thirst').getAttribute("src") == "../www/assets/images/empty_thirst_bar.png")
-    {
-      document.getElementById('thirst').setAttribute("src", "../www/assets/images/thirst_bar.png");
-    }
-
-
-
-    // web
-    if (document.getElementById('affection').getAttribute("src") == "../assets/images/affection_bar.png" )
-    {
-      document.getElementById('affection').setAttribute("src", "../assets/images/empty_affection_bar.png");
-    }
-    else if (document.getElementById('affection').getAttribute("src") == "../assets/images/empty_affection_bar.png")
-    {
-      document.getElementById('affection').setAttribute("src", "../assets/images/affection_bar.png");
-    }
-
-    if (document.getElementById('hunger').getAttribute("src") == "../assets/images/hunger_bar.png" )
-    {
-      document.getElementById('hunger').setAttribute("src", "../assets/images/empty_hunger_bar.png");
-    }
-    else if (document.getElementById('hunger').getAttribute("src") == "../assets/images/empty_hunger_bar.png")
-    {
-      document.getElementById('hunger').setAttribute("src", "../assets/images/hunger_bar.png");
-    }
-
-    if (document.getElementById('thirst').getAttribute("src") == "../assets/images/thirst_bar.png" )
-    {
-      document.getElementById('thirst').setAttribute("src", "../assets/images/empty_thirst_bar.png");
-    }
-    else if (document.getElementById('thirst').getAttribute("src") == "../assets/images/empty_thirst_bar.png")
-    {
-      document.getElementById('thirst').setAttribute("src", "../assets/images/thirst_bar.png");
-    }
+    return 0;
   }
 
   openPage(p)
