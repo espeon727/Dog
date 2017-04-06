@@ -16,7 +16,7 @@
   </ion-navbar>
 
   <div padding>
-    <ion-segment [(ngModel)]="items">
+    <ion-segment [(ngModel)]="stuff">
       <ion-segment-button value="food">
         Food
       </ion-segment-button>
@@ -26,7 +26,7 @@
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="items">
+  <div [ngSwitch]="stuff">
   <ion-list *ngSwitchCase="'food'">
 
     <ion-item *ngFor="let food of getFood()" class="advanced-background">

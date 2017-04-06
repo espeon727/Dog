@@ -99,10 +99,6 @@ export class MyApp {
 				this.inventoryProvider.addTreat(listOfTreats[i]);
 			}
 
-      console.log(this.inventoryProvider.getListOfFood());
-      console.log(this.inventoryProvider.getListOfTreats());
-      console.log("Inventory instance in component", this.inventoryProvider);
-
     });
   }
 

@@ -1,4 +1,6 @@
-// import 'rxjs/add/operator/map';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 import { Consumable } from '../app/app.module';
 
@@ -8,7 +10,7 @@ import { Consumable } from '../app/app.module';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-
+@Injectable()
 export class Inventory {
 
 	static instance : Inventory;
@@ -50,7 +52,6 @@ export class Inventory {
 			// not first item
 			this.foodList.push(food);
 		}
-    console.log("added Food");
 		this.itemId += 1;
 	}
 
@@ -66,7 +67,6 @@ export class Inventory {
 			// not first item
 			this.treatList.push(treat);
 		}
-    console.log("added Treat");
 		this.itemId += 1;
 	}
 
@@ -84,13 +84,13 @@ export class Inventory {
     return this.treatList.length;
   }
 
-  getListOfFood()
+  getListOfFood = (): Consumable[] =>
   {
     console.log("food list being fetched");
     return this.foodList;
   }
 
-  getListOfTreats()
+  getListOfTreats = (): Consumable[] =>
   {
     console.log("treat list being fetched");
     return this.treatList;

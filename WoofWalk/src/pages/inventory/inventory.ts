@@ -42,14 +42,10 @@ export class InventoryPage {
   }
 
   getFood() {
-    console.log('getFood run');
-    console.log('A', this.items);
-    console.log(this.items.getNumTreats());
     return this.items.getListOfFood();
   }
 
   getTreats() {
-    console.log('getTreats run');
     return this.items.getListOfTreats();
   }
 }
