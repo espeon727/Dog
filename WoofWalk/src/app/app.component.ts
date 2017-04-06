@@ -135,7 +135,7 @@ export class MyApp {
 			this.inventoryProvider = Inventory.getInstance();
 		}
 
-		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", this.imgPath.getImagePath("bone_normal.png.png"), 5, 10, "treat"),
+		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", this.imgPath.getImagePath("bone_normal.png"), 5, 10, "treat"),
          		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", this.imgPath.getImagePath("bone_fancy.png"), 5, 50, "treat") ];
 	}
 
