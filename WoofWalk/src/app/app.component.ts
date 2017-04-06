@@ -10,9 +10,10 @@ import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
 import { Settings } from '../providers/Settings';
-import { ImagePath, Dog } from '../app/app.module';
+import { ImagePath, Dog, Item, Consumable } from '../app/app.module';
 
 import { Dogs } from '../providers/Dogs';
+import { Inventory } from '../providers/inventory';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class MyApp {
   imgPath: ImagePath;
 
 	dogProvider: Dogs;
+  inventoryProvider: Inventory;
 
   // for the icons in the menu
   homeIcon: string;
@@ -74,7 +76,7 @@ export class MyApp {
       this.walkIcon = this.imgPath.getImagePath("walk.png");
       this.cameraIcon = this.imgPath.getImagePath("camera.png");
 
-			// instanciated the dogs Provider
+			// instantiated the dogs Provider
 			this.dogProvider = Dogs.getInstance();
 
 			// adds dogs to the dog provider.  Should be removed after local storage is implemented.  Should only be used for testing.
@@ -82,6 +84,24 @@ export class MyApp {
 			for(var i = 0; i < listOfDogs.length; i++) {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
+
+      // instantiated the inventory Provider
+      this.inventoryProvider = Inventory.getInstance();
+
+      // adds items to the inventory provider.  Should be removed after local storage is implemented.  Should only be used for testing.
+			var listOfFood = this.getFoodList();
+			for(var i = 0; i < listOfFood.length; i++) {
+				this.inventoryProvider.addFood(listOfFood[i]);
+			}
+
+      var listOfTreats = this.getTreatList();
+			for(var i = 0; i < listOfTreats.length; i++) {
+				this.inventoryProvider.addTreat(listOfTreats[i]);
+			}
+
+      console.log(this.inventoryProvider.getListOfFood());
+      console.log(this.inventoryProvider.getListOfTreats());
+      console.log("Inventory instance in component", this.inventoryProvider);
 
     });
   }
@@ -93,10 +113,34 @@ export class MyApp {
 		{
 			this.dogProvider = Dogs.getInstance();
 		}
-		
+
 		return [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
 						 new Dog("Lucky", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
 						 new Dog("Spot", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 2, 1, 0, 12, 13) ];
+	}
+
+  // returns a list of item objects.  Should be used for testing and until local storage is implemented.
+	getFoodList()
+	{
+		if(this.inventoryProvider == null)
+		{
+			this.inventoryProvider = Inventory.getInstance();
+		}
+
+		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Dry Food", this.imgPath.getImagePath("food_dry.png"), 1, 10, "food"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Canned Food", this.imgPath.getImagePath("food_can.png"), 1, 20, "food"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Bottled Water", this.imgPath.getImagePath("water_bottle.png"), 15, 20, "water") ];
+	}
+
+  getTreatList()
+	{
+		if(this.inventoryProvider == null)
+		{
+			this.inventoryProvider = Inventory.getInstance();
+		}
+
+		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", this.imgPath.getImagePath("bone_normal.png.png"), 5, 10, "treat"),
+         		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", this.imgPath.getImagePath("bone_fancy.png"), 5, 50, "treat") ];
 	}
 
   openPage(page)

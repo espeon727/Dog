@@ -65,14 +65,14 @@ export class ImagePath {
   constructor() {
     this.settings = Settings.getInstance();
   }
-  
+
   public getImagePath(file: string) : string
   {
     var result = "";
 
     if(this.settings.getPlatform() == "core") {
       result += "../assets/images/";
-      result += file;      
+      result += file;
     } else {
       if(this.settings.getPlatform() == "android" || this.settings.getPlatform() == "ios") {
 				result += "../www/assets/images/";
@@ -151,19 +151,18 @@ export class Dog {
 
 	setCleanliness(newCleanliness: number) : void {
 		this.cleanliness = newCleanliness;
-	}	
+	}
 }
 
 
-
-
 export class Item {
+  id: number;
   name: string; // the name of the item
   icon: string; // the file path to the icon image
   quantity: number; // the quantity of the item that the player has in their inventory
-  // id: number;
 
-  constructor(name: string, icon: string, quantity: number) {
+  constructor(id: number, name: string, icon: string, quantity: number) {
+    this.id = id;
     this.name = name;
     this.icon = icon;
     this.quantity = quantity;
@@ -189,7 +188,110 @@ export class Item {
     this.quantity = q;
   }
 
+  getType()
+  {
+    return "none";
+  }
+
 }
 
+export class Consumable extends Item {
+  id: number;
+  name: string; // the name of the item
+  icon: string; // the file path to the icon image
+  quantity: number; // the quantity of the item that the player has in their inventory
+  effect: number; // how effective the item is
+  type: string; // what aspect of the dog the item affects
+
+  constructor(id:number, name: string, icon: string, quantity: number, effect: number, type: string)
+  {
+       super(id, name, icon, quantity);
+       this.effect = effect;
+       this.type = type;
+   }
+
+    feedDog(fedDog: Dog)
+    {
+        var fullness = fedDog.getFullness();
+        if (fullness >= 100)
+        {
+          return 0;     // mark that the dog is already full!
+        }
+        var newFullness = fullness + this.effect;
+        if (newFullness > 100)
+        {
+          newFullness = 100;
+        }
+        fedDog.setFullness(newFullness);
+        return 1;     // mark a successful feed
+    }
+
+    waterDog(wateredDog: Dog)
+    {
+        var hydration = wateredDog.getHydration();
+        if (hydration >= 100)
+        {
+          return 0;     // mark that the dog is already hydrated!
+        }
+        var newHydration = hydration + this.effect;
+        if (newHydration > 100)
+        {
+          newHydration = 100;
+        }
+        wateredDog.setHydration(newHydration);
+        return 1;     // mark a successful watering
+
+    }
+
+    treatDog(selectedDog: Dog)
+    {
+      if (this.quantity > 0)
+      {
+        var affection = selectedDog.getAffection();
+        var fullness = selectedDog.getFullness();
+        var hydration = selectedDog.getHydration();
+        if (affection >= 100)
+        {
+          return 0;     // mark that the dog is already happy!
+        }
+        var newAffection = affection + this.effect;
+        var newFullness = fullness + (this.effect/5);
+        if (newAffection > 100)
+        {
+          newAffection = 100;
+        }
+        if (newFullness > 100)
+        {
+          newFullness = 100;
+        }
+        selectedDog.setAffection(newAffection);
+        return 1;     // mark a successful treat giving
+      }
+    }
+
+    use(selectedDog: Dog)
+    {
+      if (this.quantity > 0)
+      {
+        if (this.type == "food")
+        {
+          return this.feedDog(selectedDog);
+        }
+        else if (this.type == "water")
+        {
+          return this.waterDog(selectedDog);
+        }
+        else if (this.type == "treat")
+        {
+          return this.treatDog(selectedDog);
+        }
+      }
+    }
+
+    getType()
+    {
+      return this.type;
+    }
 
 
+}

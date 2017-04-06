@@ -20,8 +20,8 @@
       <ion-segment-button value="food">
         Food
       </ion-segment-button>
-      <ion-segment-button value="water">
-        Water
+      <ion-segment-button value="treats">
+        Treats
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -29,31 +29,27 @@
   <div [ngSwitch]="items">
   <ion-list *ngSwitchCase="'food'">
 
-    <ion-item *ngFor="let result of results" class="advanced-background">
+    <ion-item *ngFor="let food of getFood()" class="advanced-background">
       <ion-thumbnail item-left>
-        <img src={{result.icon}}>
+        <img src={{food.getIcon()}}>
       </ion-thumbnail>
-        <h2>{{result.name}}</h2>
-        <p [innerText]="result.quantity"></p>
+        <h2>{{food.getName()}}</h2>
+        <p [innerText]="food.getQuantity()"></p>
     </ion-item>
 
 
   </ion-list>
 
-  <ion-list *ngSwitchCase="'water'">
-    <ion-item>
+  <ion-list *ngSwitchCase="'treats'">
+
+    <ion-item *ngFor="let treat of getTreats()" class="advanced-background">
       <ion-thumbnail item-left>
-        <img src="../www/assets/images/dpa_02_transparent_bg_large.png" onerror = "this.onerror=null;this.src='../assets/images/dpa_02_transparent_bg_large.png'">
+        <img src={{treat.getIcon()}}>
       </ion-thumbnail>
-      <h2>Water</h2>
+        <h2>{{treat.getName()}}</h2>
+        <p [innerText]="treat.getQuantity()"></p>
     </ion-item>
 
-    <ion-item>
-      <ion-thumbnail item-left>
-        <img src="../www/assets/images/dpa_01_transparent_bg_large.png" onerror = "this.onerror=null;this.src='../assets/images/dpa_01_transparent_bg_large.png'">
-      </ion-thumbnail>
-      <h2>Water2</h2>
-    </ion-item>
   </ion-list>
 </div>
 
