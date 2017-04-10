@@ -84,6 +84,7 @@ export class MyApp {
 			for(var i = 0; i < listOfDogs.length; i++) {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
+      this.dogProvider.setActiveDog(listOfDogs[1])  //set active dog to Lucky for testing
 
       // instantiated the inventory Provider
       this.inventoryProvider = Inventory.getInstance();

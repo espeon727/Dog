@@ -15,7 +15,8 @@ export class Dogs {
 
 	private dogList : Dog[];
 	private dogId : number = 0;
-	
+  private activeId : number = 0;
+
   constructor()
 	{
 		if(!Dogs.isCreating)
@@ -32,7 +33,7 @@ export class Dogs {
 			Dogs.instance = new Dogs();
 			Dogs.isCreating = false;
 		}
-		
+
 		return Dogs.instance;
 	}
 
@@ -48,7 +49,7 @@ export class Dogs {
 			// not first dog
 			this.dogList.push(dog);
 		}
-		
+
 		this.dogId += 1;
 	}
 
@@ -67,5 +68,13 @@ export class Dogs {
 	getListOfDogs() {
 		return this.dogList;
 	}
+
+  getActiveDog() : Dog {
+    return this.getDogById(this.activeId);
+  }
+
+  setActiveDog(dog : Dog){
+    this.activeId = dog.getId();
+  }
 
 }
