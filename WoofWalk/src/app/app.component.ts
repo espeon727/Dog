@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen, SQLite } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { DogsPage } from '../pages/dogs/dogs';
@@ -44,11 +44,31 @@ export class MyApp {
   cameraIcon: string;
 
   constructor(platform: Platform) {
-    platform.ready().then(() => {
+    platform.ready().then(() => 
+    {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      let db = new SQLite();
+      db.openDatabase(
+      {
+        name: "WoofWalk.db",
+        location: "default"
+      }).then(() => 
+      {
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, affection NUMBER)",{}). then ((data) =>
+        {
+          console.log("TABLE CREATED: ", data);
+        }, (error) => 
+        {
+          console.error("Unable to execute SQL", error);
+        })
+      }, (error) =>
+      {
+        console.error("Unable to open database", error);
+      });
 
       this.settings = Settings.getInstance();
 

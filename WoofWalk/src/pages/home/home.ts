@@ -1,8 +1,13 @@
+/* 
+tutorial on local storage
+https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-local-storage/
+*/
+
 
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController, NavParams, Platform } from 'ionic-angular';
+import { SQLite } from 'ionic-native';
 
 import { DogsPage } from '../dogs/dogs';
 import { ShopPage } from '../shop/shop';
@@ -37,7 +42,10 @@ export class HomePage
   public lastPetDate: any;
   public now: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  public database: SQLite;
+  public dogs: Array<Object>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform)
   {
     // Pages
     this.rootPage = HomePage;
@@ -58,6 +66,17 @@ export class HomePage
 
     this.lastPetDate = new Date(2017, 1, 1);
 
+    this.platform.ready().then( () =>
+    {
+      this.database = new SQLite();
+      this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
+      {
+        console.log("database opened");
+      }, (error) => 
+      {
+        console.log("ERROR: ", error);
+      });
+    });
   }
 
 

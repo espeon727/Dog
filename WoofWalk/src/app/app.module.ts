@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler, Platform } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+
 import '../../node_modules/chart.js/dist/Chart.bundle.min.js';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
