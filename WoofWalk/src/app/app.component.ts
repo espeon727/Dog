@@ -1,3 +1,9 @@
+/* 
+tutorial on local storage
+https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-local-storage/
+*/
+
+
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen, SQLite } from 'ionic-native';

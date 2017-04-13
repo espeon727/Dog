@@ -71,12 +71,15 @@ export class HomePage
       this.database = new SQLite();
       this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
       {
-        console.log("database opened");
+        this.readDatabase();
       }, (error) => 
       {
         console.log("ERROR: ", error);
       });
+      
     });
+
+
   }
 
 
@@ -90,18 +93,50 @@ export class HomePage
     this.rootPage = p;
   }
 
-  // toggleMenu()
-  // {
-  //   var menu = document.getElementById("menu");
-  //   if(menu.classList.contains("show-menu"))
-  //   {
-  //     menu.classList.remove("show-menu");
-  //   }
-  //   else
-  //   {
-  //     menu.classList.add("show-menu");
-  //   }
-  // }
+  addDogToDatabase(dogName)
+  {
+    let string = "INSERT INTO dogs (name, affection) VALUES ('" + dogName + "', 0)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      alert(dogName + "added");
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  readDatabase()
+  {
+    this.database.executeSql("SELECT * FROM dogs", []).then((data) =>
+    {
+      this.dogs = [];
+      if (data.rows.length > 0)
+      {
+        for (var i = 0; i < data.rows.length; i++)
+        {
+          this.dogs.push({name: data.rows.item(i).name, affection: data.rows.item(i).affection});
+        }
+      }
+      alert(data);
+    }, (error) => 
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  clearDatabase()
+  {
+    this.database.executeSql("DELETE FROM dogs", []).then((data) =>
+    {
+      alert("Table: dogs cleared");
+    }, (error) => 
+    {
+      alert("Could not clear dogs table");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    this.dogs = [];
+  }
 
   petDog()
   {
