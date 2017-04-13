@@ -22,6 +22,7 @@ export class WalkPage {
   private distance: number;
   private watch_id;
   private onTrack: boolean = false;
+  private mapSet: boolean = false;
 
   public latLng: any;
   private x: number;
@@ -68,11 +69,12 @@ export class WalkPage {
     if (this.onTrack == true) 
     {
       this.onTrack = false;
-	    navigator.geolocation.clearWatch(this.watch_id);
+	  navigator.geolocation.clearWatch(this.watch_id);
       this.watch_id = null;
-	    this.pastDistance = this.distance;
+	  this.pastDistance = this.distance;
       alert(this.distance);
-	  }
+	}
+	
   }
 
   showPosition()
@@ -82,18 +84,6 @@ export class WalkPage {
   
   loadMap() 
   {
-   /* 
-	let latLng = new google.maps.LatLng(-34.9290, 138.6010);
- 
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
- 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-   */
- 
     
     Geolocation.watchPosition().subscribe( (position) => 
     {
@@ -101,7 +91,12 @@ export class WalkPage {
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.x, this.y);
 
-      this.makeMap();
+      if (!this.mapSet) {
+	    this.makeMap();
+		this.mapSet = true;
+	  } else {
+	    this.updateMap(position);
+	  }
 
     }, (err) =>
     {
@@ -118,10 +113,6 @@ export class WalkPage {
 
   public makeMap()
   {
-    Geolocation.getCurrentPosition().then( (position) => 
-    {
-      this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
       let mapOptions = 
       {
         center: this.latLng,
@@ -133,16 +124,12 @@ export class WalkPage {
       
       this.curr_marker = new google.maps.Marker(
       {
-        position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+        position: this.latLng,
         map: this.map,
         title: "My Location"
       });
 
-      this.currLocation = position;
-    }, (err) => 
-    {
-      console.log(err);
-    });
+      this.currLocation = this.latLng;
 
   }
   
@@ -150,15 +137,18 @@ export class WalkPage {
 
   public updateMap(pos) 
   {
+    this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     var curr = pos.coords;
     if (curr.latitude == this.currLocation.latitude && curr.longitude == this.currLocation.longitude ) 
     {
       return;
     }
-    this.distance = this.distance + 0.62137119 * this.gps_distance(curr.latitude, curr.longitude, this.currLocation.latitude, this.currLocation.longitude);
-    this.map.setCenter({lat: this.currLocation.latitude, lng: this.currLocation.longitude, alt: 0});
-  	this.curr_marker.setPosition({lat: this.currLocation.latitude, lng: this.currLocation.longitude, alt: 0});
-  	this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, curr).width(6).color(google.maps.Color.BLUE)
+    if (this.onTrack) {
+	  this.distance = this.distance + 0.62137119 * this.gps_distance(curr.latitude, curr.longitude, this.currLocation.latitude, this.currLocation.longitude);
+	}
+	this.map.setCenter(this.latLng);
+  	this.curr_marker.setPosition(this.latLng);
+  	this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
           .visible(true));
   	this.currLocation = curr;
   }
