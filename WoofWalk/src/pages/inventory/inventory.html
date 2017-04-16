@@ -29,7 +29,7 @@
   <div [ngSwitch]="stuff">
   <ion-list *ngSwitchCase="'food'">
 
-    <ion-item *ngFor="let food of getFood()" class="advanced-background">
+    <ion-item *ngFor="let food of getFood()" class="advanced-background" (click)="navigateItemDetails(food)">
       <ion-thumbnail item-left>
         <img src={{food.getIcon()}}>
       </ion-thumbnail>
@@ -42,7 +42,7 @@
 
   <ion-list *ngSwitchCase="'treats'">
 
-    <ion-item *ngFor="let treat of getTreats()" class="advanced-background">
+    <ion-item *ngFor="let treat of getTreats()" class="advanced-background" (click)="navigateItemDetails(treat)">
       <ion-thumbnail item-left>
         <img src={{treat.getIcon()}}>
       </ion-thumbnail>
