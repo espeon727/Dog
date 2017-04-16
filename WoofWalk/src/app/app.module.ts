@@ -13,6 +13,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 import { DogStatsPage } from '../pages/dog-stats/dog-stats';
+import { ItemDetailsPage } from '../pages/item-details/item-details';
 
 import { Settings } from '../providers/Settings';
 
@@ -28,8 +29,8 @@ import { Settings } from '../providers/Settings';
     InventoryPage,
     WalkPage,
     CameraPage,
-    DogStatsPage
-
+    DogStatsPage,
+    ItemDetailsPage
 
   ],
   imports: [
@@ -45,7 +46,8 @@ import { Settings } from '../providers/Settings';
     InventoryPage,
     WalkPage,
     CameraPage,
-    DogStatsPage
+    DogStatsPage,
+    ItemDetailsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
