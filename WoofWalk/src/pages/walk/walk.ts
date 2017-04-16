@@ -98,6 +98,7 @@ export class WalkPage {
       this.latLng = new google.maps.LatLng(this.x, this.y);
 	  if (!this.mapSet) {
 	    this.makeMap();
+		this.updateMap(position);
 		this.mapSet = true;
 	  } else {
 	    this.updateMap(position);
