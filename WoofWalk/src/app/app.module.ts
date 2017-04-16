@@ -32,7 +32,6 @@ import { Settings } from '../providers/Settings';
     DogStatsPage,
     ItemDetailsPage
 
-
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -92,31 +91,31 @@ export class ImagePath {
 }
 
 export class Dog {
-	// These variables are the outward facing stats of each dog.
-	name: string;
-	affection: number;
-	fullness: number;
-	hydration: number;
-	cleanliness: number;
+	// These variables represent the outward facing stats of each dog.
+	private name: string;
+	private affection: number;
+	private fullness: number;
+	private hydration: number;
+	private cleanliness: number;
 
 	// These variables are internal variables of each dog class.  They are not seen by the user.
-	icon: string;
-	id: number;
+	private icon: string;
+	private id: number;
 
 	// These dates store the times since the respective event has occured.  For the stat times, it indicates the time since it has either been increased due to some action by the user, or decreased by the the system due to the user not interacting with the dog for a period of time.
-	affectionTime: Date;
-	fullnessTime: Date;
-	hydrationTime: Date;
-	cleanlinessTime: Date;
-	petTime: Date;
+	private affectionTime: Date;
+	private fullnessTime: Date;
+	private hydrationTime: Date;
+	private cleanlinessTime: Date;
+	private petTime: Date;
 
 	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number) {
 		this.name = name;
 		this.icon = icon;
-		this.affection = affection;
-		this.fullness = fullness;
-		this.hydration = hydration;
-		this.cleanliness = cleanliness;
+		this.affection = this.enforceStatBounds(affection);
+		this.fullness = this.enforceStatBounds(fullness);
+		this.hydration = this.enforceStatBounds(hydration);
+		this.cleanliness = this.enforceStatBounds(cleanliness);
 		this.id = id;
 
 		this.affectionTime = new Date();
@@ -124,6 +123,21 @@ export class Dog {
 		this.hydrationTime = new Date();
 		this.cleanlinessTime = new Date();
 		this.petTime = new Date(2017, 0, 0);
+	}
+
+	enforceStatBounds(stat: number) : number {
+		if(stat > 100) {
+			alert("Tried to set stat to " + stat + ". Setting stat to 100.");
+			console.log("Tried to set stat to " + stat + ". Setting stat to 100.");
+			return 100;
+		}
+		if(stat < 0) {
+			alert("Tried to set stat to " + stat + ".  Setting stat to 0.");
+			console.log("Tried to set stat to " + stat + ". Setting stat to 0.");
+			return 0;
+		}
+
+		return stat;
 	}
 
 	getName() : string {
@@ -143,7 +157,7 @@ export class Dog {
 	}
 
 	setAffection(newAffection: number) : void {
-		this.affection = newAffection;
+		this.affection = this.enforceStatBounds(newAffection);
 	}
 
 	getFullness() : number {
@@ -151,7 +165,7 @@ export class Dog {
 	}
 
 	setFullness(newFullness: number) : void {
-		this.fullness = newFullness;
+		this.fullness = this.enforceStatBounds(newFullness);
 	}
 
 	getHydration() : number {
@@ -159,7 +173,7 @@ export class Dog {
 	}
 
 	setHydration(newHydration: number) : void {
-		this.hydration = newHydration;
+		this.hydration = this.enforceStatBounds(newHydration);
 	}
 
 	getCleanliness() : number {
@@ -167,7 +181,7 @@ export class Dog {
 	}
 
 	setCleanliness(newCleanliness: number) : void {
-		this.cleanliness = newCleanliness;
+		this.cleanliness = this.enforceStatBounds(newCleanliness);
 	}
 
 	getAffectionTime() : Date {
