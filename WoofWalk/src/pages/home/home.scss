@@ -1,4 +1,12 @@
 page-home {
+  .scroll-content{
+    background-image: url('../assets/images/room.png');
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+  }
   .dogImage{
     display: block;
     margin: auto;
