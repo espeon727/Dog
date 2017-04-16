@@ -19,10 +19,11 @@ export class WalkPage {
 
   private currLocation;
   private curr_marker;
-  private distance: number;
+  private distance: number = 0;
   private watch_id;
   private onTrack: boolean = false;
   private mapSet: boolean = false;
+  private clock: any;
 
   public latLng: any;
   private x: number;
@@ -47,7 +48,8 @@ export class WalkPage {
   ionViewDidLoad() 
   {
     console.log('ionViewDidLoad WalkPage');
-    this.loadMap();
+	this.loadMap();
+	this.clock = setInterval(this.loadMap, 5000);
   }
 
   startClicked() 
@@ -55,8 +57,6 @@ export class WalkPage {
     if (this.onTrack == false) 
     {
       this.onTrack = true;
-	    this.watch_id = Geolocation.watchPosition(this.updateMap); 
-    
       alert("Clicked start");
 
     }
@@ -69,8 +69,6 @@ export class WalkPage {
     if (this.onTrack == true) 
     {
       this.onTrack = false;
-	  navigator.geolocation.clearWatch(this.watch_id);
-      this.watch_id = null;
 	  this.pastDistance = this.distance;
       alert(this.distance);
 	}
@@ -79,33 +77,37 @@ export class WalkPage {
 
   showPosition()
   {
-    
+    Geolocation.getCurrentPosition().then( (position) => 
+    {
+      this.x = position.coords.longitude;
+      this.y = position.coords.latitude;
+      this.latLng = new google.maps.LatLng(this.x, this.y);
+	  alert("clicked update pos");
+      this.updateMap(position);
+
+    }, this.error);
   }
   
   loadMap() 
   {
     
-    Geolocation.watchPosition().subscribe( (position) => 
+    var n = Geolocation.getCurrentPosition( {enableHighAccuracy: true, timeout: 5000, maximumAge: 4000}).then( (position) => 
     {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.x, this.y);
-
-      if (!this.mapSet) {
+	  if (!this.mapSet) {
 	    this.makeMap();
+		this.updateMap(position);
 		this.mapSet = true;
 	  } else {
 	    this.updateMap(position);
 	  }
 
-    }, (err) =>
-    {
-      console.log(err);
-    });
-
-	  
-
-    this.distance = 0;
+    },this.error);
+	
+	
+	
   }
   
 
@@ -113,7 +115,7 @@ export class WalkPage {
 
   public makeMap()
   {
-      let mapOptions = 
+	let mapOptions = 
       {
         center: this.latLng,
         zoom: 15,
@@ -121,14 +123,12 @@ export class WalkPage {
       }
       
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions, this.locationOptions);
-      
       this.curr_marker = new google.maps.Marker(
       {
         position: this.latLng,
         map: this.map,
         title: "My Location"
       });
-
       this.currLocation = this.latLng;
 
   }
@@ -151,6 +151,7 @@ export class WalkPage {
   	this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
           .visible(true));
   	this.currLocation = curr;
+	alert("Finished update");
   }
 
   
@@ -161,6 +162,9 @@ export class WalkPage {
   
   gps_distance(lat1, lon1, lat2, lon2) 
   {
+    if (lat1 == lat2 && lon1 == lon2) {
+	  return 0;
+	}
 	// http://www.movable-type.co.uk/scripts/latlong.html
     var R: number = 6371; // km
     var dLat = (lat2-lat1) * (Math.PI / 180);

@@ -5,6 +5,8 @@ import { ImagePath, Consumable } from '../../app/app.module';
 
 import { Inventory } from '../../providers/inventory';
 
+import { ItemDetailsPage } from '../item-details/item-details';
+
 /*
   Generated class for the Inventory page.
 
@@ -25,7 +27,7 @@ export class InventoryPage {
     return [[NavController]];
   }
 
-  constructor(nav) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, nav) {
     this.nav = nav;
 
     // this.food = [ new Food("Dry Food", this.imgPath.getImagePath("food_dry.png"), 13, 10, "food"),
@@ -47,5 +49,10 @@ export class InventoryPage {
 
   getTreats() {
     return this.items.getListOfTreats();
+  }
+
+  navigateItemDetails(result)
+  {
+  	this.navCtrl.push(ItemDetailsPage, {item: result});
   }
 }
