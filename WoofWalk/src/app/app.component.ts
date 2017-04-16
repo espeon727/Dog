@@ -137,9 +137,12 @@ export class MyApp {
 			this.dogProvider = Dogs.getInstance();
 		}
 
-		return [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
-						 new Dog("Lucky", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
-						 new Dog("Spot", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 2, 1, 0, 12, 13) ];
+		return [ new Dog("Lucky", this.imgPath.getImagePath("dog_brown.png"), this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
+             new Dog("Spot", this.imgPath.getImagePath("dog_spot.png"), this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
+             new Dog("Daisy", this.imgPath.getImagePath("dog_goldie.png"), this.dogProvider.getCurrentDogId() + 2, 10, 83, 9, 90),
+             new Dog("Howard", this.imgPath.getImagePath("dog_black.png"), this.dogProvider.getCurrentDogId() + 3, 25, 72, 45, 46),
+             new Dog("Target", this.imgPath.getImagePath("dog_target.png"), this.dogProvider.getCurrentDogId() + 4, 56, 38, 10, 82),
+						 new Dog("Cerberus", this.imgPath.getImagePath("dog_demon.png"), this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13) ];
 	}
 
   // returns a list of item objects.  Should be used for testing and until local storage is implemented.
