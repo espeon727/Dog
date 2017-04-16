@@ -93,10 +93,6 @@ export class DogStatsPage {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	getAffectionBarImage() : string {
-		return this.imgPath.getImagePath("dog_stat_bars/affection_bars/affection_bar" + Math.floor(this.dog.getAffection()/10) + ".png");
-	}
-
 	getBarImage(stat: string) : string {
 		var val;
 		switch(stat) {
