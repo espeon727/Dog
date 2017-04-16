@@ -54,7 +54,6 @@ export class DogStatsPage {
 		this.dog = navParams.get("dog");
 
 		this.updateChart();
-		console.log(this.getAffectionBarImage());
   }
 
   ionViewDidLoad() : void {
@@ -82,9 +81,6 @@ export class DogStatsPage {
 		this.dog.setFullness(this.getRandomStat(0,100));
 		this.dog.setHydration(this.getRandomStat(0,100));
 		this.dog.setCleanliness(this.getRandomStat(0,100));
-
-		// console.log(this.dog);
-		// console.log(this.dogProvider.getDogById(0));
 
 		this.updateChart();
 	}
