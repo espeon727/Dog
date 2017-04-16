@@ -102,7 +102,7 @@ export class Dog {
 	private icon: string;
 	private id: number;
 
-	// These dates store the times since the respective event has occured.  For the stat times, it indicates the time since it has either been increased due to some action by the user, or decreased by the the system due to the user not interacting with the dog for a period of time.
+	// These dates store the times since the respective event has occurred.  For the stat times, it indicates the time since it has either been increased due to some action by the user, or decreased by the the system due to the user not interacting with the dog for a period of time.
 	private affectionTime: Date;
 	private fullnessTime: Date;
 	private hydrationTime: Date;
@@ -188,40 +188,40 @@ export class Dog {
 		return this.affectionTime;
 	}
 
-	setAffectionTime(time: Date) : void {
-		this.affectionTime = time;
+	setAffectionTime(time: number) : void {
+		this.affectionTime.setTime(time);
 	}
 
 	getFullnessTime() : Date {
 		return this.fullnessTime;
 	}
 
-	setFullnessTime(time: Date) : void {
-		this.fullnessTime = time;
+	setFullnessTime(time: number) : void {
+		this.fullnessTime.setTime(time);
 	}
 
 	getHydrationTime() : Date {
 		return this.hydrationTime;
 	}
 
-	setHydrationTime(time: Date) : void {
-		this.hydrationTime = time;
+	setHydrationTime(time: number) : void {
+		this.hydrationTime.setTime(time);
 	}
 
 	getCleanlinessTime() : Date {
 		return this.cleanlinessTime;
 	}
 
-	setCleanlinessTime(time: Date) : void {
-		this.cleanlinessTime = time;
+	setCleanlinessTime(time: number) : void {
+		this.cleanlinessTime.setTime(time);
 	}
 
 	getPetTime() : Date {
 		return this.petTime;
 	}
 
-	setPetTime(time: Date) : void {
-		this.petTime = time;
+	setPetTime(time: number) : void {
+		this.petTime.setTime(time);
 	}
 }
 
@@ -293,7 +293,10 @@ export class Consumable extends Item {
         {
           newFullness = 100;
         }
+        console.log("prv feed time: ", fedDog.getFullnessTime());
         fedDog.setFullness(newFullness);
+        fedDog.setFullnessTime(Date.now());
+        console.log("new feed time: ", fedDog.getFullnessTime());
         return 1;     // mark a successful feed
     }
 
@@ -309,7 +312,10 @@ export class Consumable extends Item {
         {
           newHydration = 100;
         }
+        console.log("prv water time: ", wateredDog.getHydrationTime());
         wateredDog.setHydration(newHydration);
+        wateredDog.setHydrationTime(Date.now());
+        console.log("new water time: ", wateredDog.getHydrationTime());
         return 1;     // mark a successful watering
 
     }
@@ -335,7 +341,10 @@ export class Consumable extends Item {
         {
           newFullness = 100;
         }
+        console.log("prv affection time: ", selectedDog.getAffectionTime());
         selectedDog.setAffection(newAffection);
+        selectedDog.setAffectionTime(Date.now());
+        console.log("new affection time: ", selectedDog.getAffectionTime());
         return 1;     // mark a successful treat giving
       }
     }
