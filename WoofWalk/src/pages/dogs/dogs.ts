@@ -27,6 +27,8 @@ export class DogsPage
 
 	private dogs: Dogs = Dogs.getInstance();
 
+  private databaseList = this.dogs.dogs;
+
   static get parameters() 
   {
     return [[NavController]];
@@ -36,24 +38,13 @@ export class DogsPage
   {
   	this.nav = nav;
 		
-		// this.dogs = [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), 13, 12, 10, 24),
-		// 						  new Dog("Lucky", this.imgPath.getImagePath("000.png"), 5, 16, 28, 2),
-		// 						  new Dog("Spot", this.imgPath.getImagePath("000.png"), 1, 0, 12, 13) ];
-		// for( var i = 0; i < this.dogs.length; i++) {
-		// 	console.log(this.dogs[i].getName() + " ID: " + this.dogs[i].getId());
-		// }
-
-		// for(var i = 0; i < this.dogs.getNumDogs(); i++) {
-		// 	console.log(this.dogs.getDogById(i));
-		// }
-
-		// console.log(this.dogs.getListOfDogs());
   }
 
   ionViewDidLoad() 
   {
     console.log('ionViewDidLoad DogsPage');
   }
+
 
   getDogs() {
 		return this.dogs.getListOfDogs();

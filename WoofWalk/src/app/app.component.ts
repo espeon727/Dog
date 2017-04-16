@@ -64,7 +64,7 @@ export class MyApp {
         location: "default"
       }).then(() => 
       {
-        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, affection NUMBER)",{}). then ((data) =>
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon, TEXT, dogid NUMBER, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER)",{}). then ((data) =>
         {
           console.log("TABLE CREATED: ", data);
         }, (error) => 
@@ -137,9 +137,9 @@ export class MyApp {
 			this.dogProvider = Dogs.getInstance();
 		}
 
-		return [ new Dog("Cerberus", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
-						 new Dog("Lucky", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
-						 new Dog("Spot", this.imgPath.getImagePath("000.png"), this.dogProvider.getCurrentDogId() + 2, 1, 0, 12, 13) ];
+		return [ new Dog("Cerberus", "000.png", this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
+						 new Dog("Lucky", "000.png", this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
+						 new Dog("Spot", "000.png", this.dogProvider.getCurrentDogId() + 2, 1, 0, 12, 13) ];
 	}
 
   // returns a list of item objects.  Should be used for testing and until local storage is implemented.

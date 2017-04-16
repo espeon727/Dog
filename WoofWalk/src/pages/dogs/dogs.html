@@ -19,6 +19,11 @@
 
 
 <ion-content padding style="background-color: white">
+
+	<button ion-button (click)="dogs.addDogToDatabase('Cerberus', 'dog_demon.png', 1)" color="danger">Add Cerberus To Database</button>
+	<button ion-button (click)="dogs.readDatabase()" color="danger">read database</button>
+  <button ion-button (click)="dogs.clearDatabase()" color="danger">clear database</button>
+
   <ion-list>
 			<!-- <ion-item *ngFor="let result of getDogs()" class="advanced-background" (click)="navigateDogStats(result)">
 					 <ion-thumbnail item-left>
@@ -28,9 +33,9 @@
 					 </ion-item> -->
 			<ion-item *ngFor="let d of getDogs()" class="advanced-background" (click)="navigateDogStats(d)">
 					<ion-thumbnail item-left>
-							<img src={{d.getIcon()}} >
+							<img src={{this.imgPath.getImagePath(d.getIcon())}} >
 					</ion-thumbnail>
-					<h2>{{d.getName()}}</h2>
+					<h2>{{d.getName()}} ID: {{d.getId()}}</h2>
 			</ion-item>
   </ion-list>
 </ion-content>
