@@ -7,17 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>item-details</ion-title>
+    <ion-title>{{ getItem().getName() }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <img src="{{ getItemImage() }}">
   <p>
-      <img src="{{ getItemImage() }}">
       Quantity: {{ getItem().getQuantity() }}
   </p>
 
-  <button (click)=confirmUse()>UseItem</button>
+  <button ion-button (click)=confirmUse()>UseItem</button>
 </ion-content>

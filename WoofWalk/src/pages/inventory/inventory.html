@@ -31,7 +31,7 @@
 
     <ion-item *ngFor="let food of getFood()" class="advanced-background" (click)="navigateItemDetails(food)">
       <ion-thumbnail item-left>
-        <img src={{food.getIcon()}}>
+        <img src={{this.imgPath.getImagePath(food.getIcon())}}>
       </ion-thumbnail>
         <h2>{{food.getName()}}</h2>
         <p [innerText]="food.getQuantity()"></p>
@@ -44,7 +44,7 @@
 
     <ion-item *ngFor="let treat of getTreats()" class="advanced-background" (click)="navigateItemDetails(treat)">
       <ion-thumbnail item-left>
-        <img src={{treat.getIcon()}}>
+        <img src={{this.imgPath.getImagePath(treat.getIcon())}}>
       </ion-thumbnail>
         <h2>{{treat.getName()}}</h2>
         <p [innerText]="treat.getQuantity()"></p>

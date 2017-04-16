@@ -93,15 +93,16 @@ export class HomePage
     this.rootPage = p;
   }
 
-  addDogToDatabase(dogName)
+  addDogToDatabase(dogName, dogIcon, dogId)
   {
-    let string = "INSERT INTO dogs (name, affection) VALUES ('" + dogName + "', 0)";
+    let string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('" + "'" + dogName + "', " + "1, 0, 100, 100, 100)";
     this.database.executeSql(string, []).then((data) =>
     {
       alert(dogName + "added");
       console.log("INSERTED: " + JSON.stringify(data));
     }, (error) => 
     {
+      alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
   }
