@@ -96,8 +96,13 @@ export class Dog {
 	cleanliness: number;
 
 	icon: string;
-	// count: number = 0; // when we make a dogs provider make this a static var
 	id: number;
+
+	// affectionTime: Date;
+	// fullnessTime: Date;
+	// hydrationTime: Date;
+	// cleanlinessTime: Date;
+	// petTime: Date;
 
 	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number) {
 		this.name = name;
@@ -107,7 +112,12 @@ export class Dog {
 		this.hydration = hydration;
 		this.cleanliness = cleanliness;
 		this.id = id;
-		// this.count++;
+
+		// this.affectionTime = Date.now();
+		// this.fullnessTime = Date.now();
+		// this.hydrationTime = Date.now();
+		// this.cleanlinessTime = Date.now();
+		// this.petTime = new Date(2017, 1, 1);
 	}
 
 	getName() : string {
@@ -153,6 +163,46 @@ export class Dog {
 	setCleanliness(newCleanliness: number) : void {
 		this.cleanliness = newCleanliness;
 	}
+
+	// getAffectionTime() : Date {
+	// 	return this.affectionTime;
+	// }
+
+	// setAffectionTime(time: Date) : void {
+	// 	this.affectionTime = time;
+	// }
+
+	// getFullnessTime() : Date {
+	// 	return this.fullnessTime;
+	// }
+
+	// setFullnessTime(time: Date) : void {
+	// 	this.fullnessTime = time;
+	// }
+
+	// getHydrationTime() : Date {
+	// 	return this.hydrationTime;
+	// }
+
+	// setHydrationTime(time: Date) : void {
+	// 	this.hydrationTime = time;
+	// }
+
+	// getCleanlinessTime() : Date {
+	// 	return this.cleanlinessTime;
+	// }
+
+	// setCleanlinessTime(time: Date) : void {
+	// 	this.cleanlinessTime = time;
+	// }
+
+	// getPetTime() : Date {
+	// 	return this.petTime;
+	// }
+
+	// setPetTime(time: Date) : void {
+	// 	this.petTime = time;
+	// }
 }
 
 

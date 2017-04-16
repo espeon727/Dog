@@ -103,18 +103,21 @@ export class DogStatsPage {
 		case'affection':
 			val = this.dog.getAffection();
 			break;
-		case'hunger':
+		case'fullness':
 			val = this.dog.getFullness();
 			break;
-		case'thirst':
+		case'hydration':
 			val = this.dog.getHydration();
+			break;
+		case'cleanliness':
+			val = this.dog.getCleanliness();
 			break;
 		default:
 			console.log("UNKNOWN ATTRIBUTE");
 			return "000.png";
 		}
 
-		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) + ".png");
+		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) * 10 + ".png");
 	}
 
 }
