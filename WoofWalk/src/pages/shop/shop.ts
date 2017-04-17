@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Item } from '../../app/app.module';
+import { Item, Consumable } from '../../app/app.module';
 import { ImagePath } from '../../app/app.module';
+
+import { Inventory } from '../../providers/inventory';
 
 /*
   Generated class for the Shop page.
@@ -16,16 +18,28 @@ import { ImagePath } from '../../app/app.module';
 })
 export class ShopPage {
 
-	imgpath : ImagePath = new ImagePath();
-	//stuff: Item = new Item("food", this.imgpath.getImagePath("000.png"), 1);
+  private imgPath: ImagePath = new ImagePath();
+  private items: Inventory = Inventory.getInstance();
 
   constructor(public navCtrl: NavController, public navParams: NavParams)
   {
-    // this.stuff = new Item("food", this.imgpath.getImagePath("000.png"), 1);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
+  }
+
+  showItems() : Consumable[]
+  {
+    var food = this.items.getListOfFood();
+    var treats = this.items.getListOfTreats();
+    var allItems = food.concat(treats);
+    return allItems;
+  }
+
+  getItemImage(item)
+  {
+    return this.imgPath.getImagePath(item.getIcon());
   }
 
 }

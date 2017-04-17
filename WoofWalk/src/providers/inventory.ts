@@ -16,6 +16,7 @@ export class Inventory {
 	static instance : Inventory;
 	static isCreating : boolean = false;
 
+  private puppyPoints : number = 0;
 	private foodList : Consumable[];
   private treatList : Consumable[];
 	private itemId : number = 0;
@@ -39,6 +40,16 @@ export class Inventory {
 
 		return Inventory.instance;
 	}
+
+  getPuppyPoints() : number
+  {
+    return this.puppyPoints;
+  }
+
+  setPuppyPoints(points : number) : void
+  {
+    this.puppyPoints = points;
+  }
 
 	addFood(food: Consumable) : void
 	{

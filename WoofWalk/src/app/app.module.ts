@@ -231,12 +231,16 @@ export class Item {
   name: string; // the name of the item
   icon: string; // the file path to the icon image
   quantity: number; // the quantity of the item that the player has in their inventory
+  cost: number; // amount item costs in the shop
+  description: string; // description of the item
 
-  constructor(id: number, name: string, icon: string, quantity: number) {
+  constructor(id: number, name: string, icon: string, quantity: number, cost: number, description: string) {
     this.id = id;
     this.name = name;
     this.icon = icon;
     this.quantity = quantity;
+    this. cost = cost;
+    this.description = description;
   }
 
   getName()
@@ -264,6 +268,11 @@ export class Item {
     return "none";
   }
 
+  getCost()
+  {
+    return this.cost;
+  }
+
 }
 
 export class Consumable extends Item {
@@ -271,12 +280,14 @@ export class Consumable extends Item {
   name: string; // the name of the item
   icon: string; // the file path to the icon image
   quantity: number; // the quantity of the item that the player has in their inventory
+  cost: number; // amount item costs in the shop
+  description: string; // description of the item
   effect: number; // how effective the item is
   type: string; // what aspect of the dog the item affects
 
-  constructor(id:number, name: string, icon: string, quantity: number, effect: number, type: string)
+  constructor(id:number, name: string, icon: string, quantity: number, cost: number, description: string, effect: number, type: string)
   {
-       super(id, name, icon, quantity);
+       super(id, name, icon, quantity, cost, description);
        this.effect = effect;
        this.type = type;
    }
