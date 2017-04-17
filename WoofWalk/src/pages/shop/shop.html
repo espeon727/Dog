@@ -11,28 +11,44 @@
 		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		
+
     <ion-title>Shop</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding style="background-color: white">
-    <p>
-	{{ stuff.getName() }}
-    </p>
+  <div padding>
+    <ion-segment [(ngModel)]="shop">
+      <ion-segment-button value="items">
+        Items
+      </ion-segment-button>
+      <ion-segment-button value="dogs">
+        Dogs
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-    <p>
-	{{ stuff.name }}
-    </p>
+      <div [ngSwitch]="shop">
+      <ion-list no-lines *ngSwitchCase="'items'">
+      <ion-item *ngFor="let item of showItems()">
+        <ion-thumbnail item-left>
+          <img src={{getItemImage(item)}}>
+        </ion-thumbnail>
+        <h2>{{item.getName()}}</h2>
+        <p [innerText]="item.getCost()"></p>
+      </ion-item>
+      </ion-list>
 
-    <p>
-	{{ stuff.quantity }}
-    </p>
+      <ion-list no-lines *ngSwitchCase="'dogs'">
+      <ion-item *ngFor="let item of showItems()">
+        <ion-thumbnail item-left>
+          <img src={{getItemImage(item)}}>
+        </ion-thumbnail>
+        <h2>{{item.getName()}}</h2>
+        <p [innerText]="item.getCost()"></p>
+      </ion-item>
+      </ion-list>
+      </div>
 
-    <p>
-	{{ stuff.icon }}
-    </p>
-    
 </ion-content>

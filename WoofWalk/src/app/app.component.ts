@@ -1,4 +1,4 @@
-/* 
+/*
 tutorial on local storage
 https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-local-storage/
 */
@@ -50,7 +50,7 @@ export class MyApp {
   cameraIcon: string;
 
   constructor(platform: Platform) {
-    platform.ready().then(() => 
+    platform.ready().then(() =>
     {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -62,12 +62,12 @@ export class MyApp {
       {
         name: "WoofWalk.db",
         location: "default"
-      }).then(() => 
+      }).then(() =>
       {
         db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon, TEXT, dogid NUMBER, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER)",{}). then ((data) =>
         {
           console.log("TABLE CREATED: ", data);
-        }, (error) => 
+        }, (error) =>
         {
           console.error("Unable to execute SQL", error);
         })
@@ -154,9 +154,9 @@ export class MyApp {
 			this.inventoryProvider = Inventory.getInstance();
 		}
 
-		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Dry Food", "food_dry.png", 1, 10, "food"),
-             new Consumable(this.inventoryProvider.getCurrentItemId(), "Canned Food", "food_can.png", 1, 20, "food"),
-             new Consumable(this.inventoryProvider.getCurrentItemId(), "Bottled Water", "water_bottle.png", 15, 20, "water") ];
+		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Dry Food", "food_dry.png", 1, 5, "dry food, adds 10 fullness", 10, "food"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Canned Food", "food_can.png", 1, 9, "food in a can, adds 20 fullness", 20, "food"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Bottled Water", "water_bottle.png", 15, 0, "a bottle of water, adds 20 hydration", 20, "water") ];
 	}
 
   getTreatList()
@@ -166,8 +166,8 @@ export class MyApp {
 			this.inventoryProvider = Inventory.getInstance();
 		}
 
-		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", "bone_normal.png", 5, 10, "treat"),
-         		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", "bone_fancy.png", 5, 50, "treat") ];
+		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", "bone_normal.png", 5, 10, "a tasty bone, gives 10 affection" , 10, "treat"),
+         		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", "bone_fancy.png", 5, 45, "a fancy bone, gives 50 affection", 50, "treat") ];
 	}
 
   openPage(page)
