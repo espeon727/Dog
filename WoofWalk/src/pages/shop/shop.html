@@ -18,6 +18,11 @@
 </ion-header>
 
 <ion-content padding style="background-color: white">
+  <div>
+    <img src="{{imgPath.getImagePath('inventory.png')}}" class="points"/>
+    <h2>{{this.items.getPuppyPoints()}}</h2>
+</div>
+
   <div padding>
     <ion-segment [(ngModel)]="shop">
       <ion-segment-button value="items">
@@ -31,7 +36,7 @@
 
       <div [ngSwitch]="shop">
       <ion-list no-lines *ngSwitchCase="'items'">
-      <ion-item *ngFor="let item of showItems()">
+      <ion-item *ngFor="let item of showItems()" (click) = "confirmBuyAlert(item)">
         <ion-thumbnail item-left>
           <img src={{getItemImage(item)}}>
         </ion-thumbnail>

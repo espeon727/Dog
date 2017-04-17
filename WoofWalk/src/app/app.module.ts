@@ -273,6 +273,11 @@ export class Item {
     return this.cost;
   }
 
+  getDescription()
+  {
+    return this.description;
+  }
+
 }
 
 export class Consumable extends Item {
