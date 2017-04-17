@@ -19,7 +19,9 @@ export class Dogs {
 
 	private dogList : Dog[];
 	private dogId : number = 0;
+
   private activeId : number;
+  private activeDog : Dog;
 
   public database: SQLite;
   public dogs: Array<Object>;
