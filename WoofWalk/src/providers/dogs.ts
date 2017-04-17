@@ -19,7 +19,7 @@ export class Dogs {
 
 	private dogList : Dog[];
 	private dogId : number = 0;
-  private activeId : number = 0;
+  private activeId : number;
 
   public database: SQLite;
   public dogs: Array<Object>;
@@ -31,17 +31,17 @@ export class Dogs {
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
     	alert("database loaded");
-      this.addDefaultDogs();
+      //this.addDefaultDogs();
       this.readDatabase();
+      if (this.activeId == null)
+      {
+        this.activeId = this.dogList[0].getId();
+      }
     }, (error) => 
     {
       console.log("ERROR: ", error);
     });
       
-
-
-
-   
 
 		if(!Dogs.isCreating)
 		{
@@ -91,18 +91,13 @@ export class Dogs {
 	}
 
 	getDogById(id: number) : Dog {
-    this.database.executeSql("SELECT FROM dogs WHERE id = " + id.toString(), []).then((data) =>
+    for (var i = 0; i < this.dogList.length; i++)
     {
-      if (data.rows.length > 0)
+      if ( this.dogList[i].getId() == id)
       {
-        let result = new Dog(data.rows.item(0).name, data.rows.item(0).icon, data.rows.item(0).id, data.rows.item(0).affection, data.rows.item(0).fullness, data.rows.item(0).hydration, data.rows.item(0).cleanliness);
-        return result;
+        return this.dogList[i];
       }
-    }, (error) => 
-    {
-      console.log("ERROR: ", JSON.stringify(error.err));
-    });
-    return;
+    }
 	}
 
 	getListOfDogs() {
