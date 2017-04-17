@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import { Item, Consumable } from '../../app/app.module';
 import { ImagePath } from '../../app/app.module';
@@ -21,7 +22,7 @@ export class ShopPage {
   private imgPath: ImagePath = new ImagePath();
   private items: Inventory = Inventory.getInstance();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController)
   {
   }
 
@@ -37,9 +38,88 @@ export class ShopPage {
     return allItems;
   }
 
-  getItemImage(item)
+  getItemImage(oneItem)
   {
-    return this.imgPath.getImagePath(item.getIcon());
+    return this.imgPath.getImagePath(oneItem.getIcon());
+  }
+
+  confirmBuyAlert(oneItem : Item)
+  {
+    let confirm = this.alertCtrl.create({
+      title: 'Buy 1 ' + oneItem.getName() + '?',
+      message: oneItem.getDescription(),
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+            this.buyItem(oneItem);
+          }
+        }
+      ]
+    });
+    confirm.present()
+  }
+
+  buyItem(oneItem)
+  {
+    var availablePoints = this.items.getPuppyPoints();
+    var itemCost = oneItem.getCost();
+    if (itemCost <= availablePoints)
+    {
+      this.didBuyAlert(oneItem);
+      console.log("buy item alert");
+      var newPoints = availablePoints - itemCost;
+      this.items.setPuppyPoints(newPoints);
+      var current = oneItem.getQuantity();
+      oneItem.setQuantity(current + 1);
+    }
+    else
+    {
+      this.noMoneyAlert(oneItem);
+      console.log("you don't have money alert");
+    }
+  }
+
+  didBuyAlert(oneItem : Item)
+  {
+    let confirm = this.alertCtrl.create({
+      title: 'Bought 1 ' + oneItem.getName() + '!',
+      message: 'now you have ' + oneItem.getQuantity() + ' ' + oneItem.getName(),
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('Item bought');
+          }
+        }
+      ]
+    });
+    confirm.present()
+  }
+
+  noMoneyAlert(oneItem : Item)
+  {
+    var deficit = oneItem.getCost() - this.items.getPuppyPoints();
+    let confirm = this.alertCtrl.create({
+      title: 'You can\'t buy ' + oneItem.getName() + '!',
+      message: 'You need '+ deficit +' more puppy points',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('Can\'t afford item');
+          }
+        }
+      ]
+    });
+    confirm.present()
   }
 
 }

@@ -126,6 +126,8 @@ export class MyApp {
 				this.inventoryProvider.addTreat(listOfTreats[i]);
 			}
 
+      this.inventoryProvider.setPuppyPoints(500); //give users 500 puppy points to begin with
+
     });
   }
 
@@ -156,7 +158,8 @@ export class MyApp {
 
 		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Dry Food", "food_dry.png", 1, 5, "dry food, adds 10 fullness", 10, "food"),
              new Consumable(this.inventoryProvider.getCurrentItemId(), "Canned Food", "food_can.png", 1, 9, "food in a can, adds 20 fullness", 20, "food"),
-             new Consumable(this.inventoryProvider.getCurrentItemId(), "Bottled Water", "water_bottle.png", 15, 0, "a bottle of water, adds 20 hydration", 20, "water") ];
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Bottled Water", "water_bottle.png", 15, 0, "a bottle of water, adds 20 hydration", 20, "water"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Spring Water", "water_bottle.png", 15, 1000, "a fancier bottle of water, adds 20 hydration", 20, "water")];
 	}
 
   getTreatList()
