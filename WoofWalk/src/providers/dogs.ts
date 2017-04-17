@@ -31,12 +31,16 @@ export class Dogs {
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
     	alert("database loaded");
+      this.addDefaultDogs();
       this.readDatabase();
     }, (error) => 
     {
       console.log("ERROR: ", error);
     });
       
+
+
+
    
 
 		if(!Dogs.isCreating)
@@ -87,7 +91,18 @@ export class Dogs {
 	}
 
 	getDogById(id: number) : Dog {
-		return this.dogList[id];
+    this.database.executeSql("SELECT FROM dogs WHERE id = " + id.toString(), []).then((data) =>
+    {
+      if (data.rows.length > 0)
+      {
+        let result = new Dog(data.rows.item(0).name, data.rows.item(0).icon, data.rows.item(0).id, data.rows.item(0).affection, data.rows.item(0).fullness, data.rows.item(0).hydration, data.rows.item(0).cleanliness);
+        return result;
+      }
+    }, (error) => 
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    return;
 	}
 
 	getListOfDogs() {
@@ -100,6 +115,57 @@ export class Dogs {
 
   setActiveDog(dog : Dog){
     this.activeId = dog.getId();
+  }
+
+
+  //For Testing purposes
+  addDefaultDogs()
+  {
+    let string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 1, 13, 12, 10, 24)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      alert("Error adding dog to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 1, 5, 16, 28, 2)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      alert("Error adding dog to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Daisy', 'dog_goldie.png', 1, 2, 10, 83, 90)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      alert("Error adding dog to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Howard', 'dog_black.png', 1, 25, 72, 45, 46)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      alert("Error adding dog to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Target', 'dog_target.png', 1, 56, 38, 10, 82)";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+    }, (error) => 
+    {
+      alert("Error adding dog to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
   }
 
 

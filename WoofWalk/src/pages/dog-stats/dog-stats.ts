@@ -112,4 +112,10 @@ export class DogStatsPage {
 		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) * 10 + ".png");
 	}
 
+	changeActiveDog()
+	{
+		this.dogProvider.setActiveDog(this.getDog());
+		alert("Changed dog");
+	}
+
 }

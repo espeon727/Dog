@@ -35,15 +35,18 @@
 				Cleanliness: {{ getDog().getCleanliness() }}
 				<img src="{{ getBarImage('cleanliness') }}">
 		</p>
+		<button ion-button (click)="changeActiveDog()">
+			Change Dog
+		</button>
 
-		<button (click)="randomStats()">ChangeStats</button>
-		<div style="display: block">
+		<!--button (click)="randomStats()">ChangeStats</button -->
+		<!--div style="display: block">
 		    <canvas baseChart id="bar"
 			    [datasets]="chartData"
 			    [labels]="chartLabels"
 			    [chartType]="barChartType"
 			    [options]="barChartOptions"
 		    ></canvas>
-		</div>
+		</div-->
 
 </ion-content>
