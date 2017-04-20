@@ -144,8 +144,16 @@ export class Dog {
 		return this.name;
 	}
 
+	setName(newName: string) : void {
+		this.name = newName;
+	}
+
 	getIcon() : string {
 		return this.icon;
+	}
+
+	setIcon(newIcon: string) : void {
+		this.icon = newIcon;
 	}
 
 	getId() : number {

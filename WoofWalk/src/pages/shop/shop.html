@@ -25,7 +25,7 @@
 
   <div>
     <h2>${{this.items.getPuppyPoints()}}</h2>
-		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points!> </button>
+		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points! </button>
   </div>
 
 
@@ -52,12 +52,12 @@
       </ion-list>
 
       <ion-list no-lines *ngSwitchCase="'dogs'">
-      <ion-item *ngFor="let item of showItems()">
+      <ion-item *ngFor="let dog of getRandomDogs()" (click)="confirmBuyDogAlert(dog)">
         <ion-thumbnail item-left>
-          <img src={{getItemImage(item)}}>
+          <img src={{getDogImage(dog)}}>
         </ion-thumbnail>
-        <h2>{{item.getName()}}</h2>
-        <p [innerText]="item.getCost()"></p>
+        <h2>{{dog.getName()}}</h2>
+        <p [innerText]="getDogCost(dog)"></p>
       </ion-item>
       </ion-list>
       </div>
