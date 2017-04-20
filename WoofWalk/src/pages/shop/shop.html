@@ -18,11 +18,16 @@
 </ion-header>
 
 <ion-content padding style="background-color: white">
+
+  <button ion-button (click)="items.readDatabaseFood()" color="danger">refresh food</button>
+  <button ion-button (click)="items.readDatabaseTreats()" color="danger">refresh treats</button>
+
+
   <div>
-    <img src="{{imgPath.getImagePath('inventory.png')}}" class="points"/>
     <h2>${{this.items.getPuppyPoints()}}</h2>
-		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points!</button>
-</div>
+		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points!> </button>
+  </div>
+
 
   <div padding>
     <ion-segment [(ngModel)]="shop">

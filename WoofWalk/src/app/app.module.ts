@@ -302,6 +302,11 @@ export class Item {
     this.description = description;
   }
 
+  getId()
+  {
+    return this.id;
+  }
+
   getName()
   {
     return this.name;
