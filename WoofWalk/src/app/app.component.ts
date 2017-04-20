@@ -64,13 +64,105 @@ export class MyApp {
         location: "default"
       }).then(() =>
       {
-        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon, TEXT, dogid NUMBER, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER)",{}). then ((data) =>
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, dogid NUMBER, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER);",{}). then ((data) =>
         {
           console.log("TABLE CREATED: ", data);
+
+          db.executeSql("SELECT * FROM dogs",{}). then ((data) =>
+          {
+            if (data.rows.length < 2)
+            {
+              db.executeSql("INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 1, 13, 12, 10, 24);",{}). then ((data) =>
+              {
+                console.log("TABLE CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert dog");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 1, 5, 16, 28, 2);",{}). then ((data) =>
+              {
+                console.log("TABLE CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert dog");
+                console.error("Unable to execute SQL", error);
+              });
+            }
+            
+        }, (error) =>
+        {
+          alert("could not make dog table");
+          console.error("Unable to execute SQL", error);
+        });
+
+        db.executeSql("CREATE TABLE IF NOT EXISTS food (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
+        {
+          alert("food table made");
+          console.log("TABLE CREATED: ", data);
+
+          db.executeSql("SELECT * FROM food",{}). then ((data) =>
+          {
+            if (data.rows.length < 2)
+            {
+              db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Dry Food', 'food_dry.png', 2, 5, 'Dry food, increases fullness by 10', 10, 'food');",{}). then ((data) =>
+              {
+                alert("added dry food");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert food");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Canned Food', 'food_can.png', 1, 9, 'Canned food, increases fullness by 20', 20, 'food');",{}). then ((data) =>
+              {
+                alert("added canned food");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert food");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Bottled Water', 'water_bottle.png', 15, 0, 'Bottled Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
+              {
+                alert("added bottled water");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert food");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Spring Water', 'water_bottle.png', 1, 1000, 'Spring Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
+              {
+                alert("added spring water");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert food");
+                console.error("Unable to execute SQL", error);
+              });
+            }
+          });
+
+          }, (error) =>
+          {
+            alert("could not make food table");
+            console.error("Unable to execute SQL", error);
+          });
+          
+
+
         }, (error) =>
         {
           console.error("Unable to execute SQL", error);
-        })
+        });
+
+
+
       }, (error) =>
       {
         console.error("Unable to open database", error);

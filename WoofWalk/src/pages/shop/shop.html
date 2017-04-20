@@ -18,10 +18,22 @@
 </ion-header>
 
 <ion-content padding style="background-color: white">
+
+  <button ion-button (click)="items.readDatabaseFood()" color="danger">read database</button>
+  <button ion-button (click)="items.addFoodToDatabase('Dry Food', 'food_dry.png', 1, 5, 'Standard food with a long shelf life adds 10 fullness', 10)" color="danger">add to database</button>
+
   <div>
     <img src="{{imgPath.getImagePath('inventory.png')}}" class="points"/>
     <h2>{{this.items.getPuppyPoints()}}</h2>
-</div>
+  </div>
+
+  <div>
+    Food List {{this.items.foodList}}
+  </div>
+  <div>
+    Treat List {{this.items.treatList}}
+  </div>
+
 
   <div padding>
     <ion-segment [(ngModel)]="shop">

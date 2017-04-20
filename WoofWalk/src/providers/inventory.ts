@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 
 import { Consumable } from '../app/app.module';
 
+import { Platform } from 'ionic-angular';
+import { SQLite } from 'ionic-native';
+
 /*
   Generated class for the Inventory provider.
 
@@ -21,8 +24,22 @@ export class Inventory {
   private treatList : Consumable[];
 	private itemId : number = 0;
 
+	public database: SQLite;
+
+
   constructor()
 	{
+		this.database = new SQLite();
+    this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
+    {
+    	alert("database loaded");
+      //this.addDefaultDogs();
+      this.readDatabaseFood();
+    }, (error) =>
+    {
+      console.log("ERROR: ", error);
+    });
+
 		if(!Inventory.isCreating)
 		{
 			throw new Error("Improperly Instantiated Inventory");
@@ -105,6 +122,59 @@ export class Inventory {
   {
     console.log("treat list being fetched");
     return this.treatList;
+  }
+
+  readDatabaseFood()
+  {
+    this.database.executeSql("SELECT * FROM food", []).then((data) =>
+    {
+      this.foodList = [];
+      if (data.rows.length > 0)
+      {
+        for (var i = 0; i < data.rows.length; i++)
+        {
+          this.foodList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
+        }
+      }
+    
+      alert("read database");
+    }, (error) =>
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  addFoodToDatabase(foodName, foodIcon, foodQuantity, foodCost, foodDescription, foodEffect)
+  {
+    let string = "INSERT INTO food (name, icon, quantity, cost, description, effect) VALUES ('" + foodName + "', " + "'" + foodIcon + "', " + "'" + foodCost.toString() + "', " + "'" + foodDescription + "', " + "'" + foodEffect.toString() + ", 'food')";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      alert(foodName + "added");
+      console.log("INSERTED: " + JSON.stringify(data));
+      this.readDatabaseFood();
+    }, (error) =>
+    {
+      alert("Error adding food to database");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  updateItem(itemType, itemId, itemQuantity)
+  {
+  	if (itemType == 'food' || itemType == 'water')
+  	{
+  		let string = "UPDATE food SET quantity = '" + itemQuantity + "' WHERE id = '" + itemId + "';";
+  		this.database.executeSql(string, []).then((data) =>
+	    {
+	      console.log("INSERTED: " + JSON.stringify(data));
+	      alert("Item updated");
+	      this.readDatabaseFood();
+	    }, (error) =>
+	    {
+	      alert("Error updating item");
+	      console.log("ERROR: ", JSON.stringify(error.err));
+	    });
+  	} 
   }
 
 }

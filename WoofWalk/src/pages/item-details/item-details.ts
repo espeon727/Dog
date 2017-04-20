@@ -59,6 +59,9 @@ export class ItemDetailsPage {
         q = q - 1
         this.item.setQuantity(q);
         this.validUse();
+
+        // Update database item quantity
+        this.inventoryProvider.updateItem(this.item.getType(), this.item.getId(), q);
       }
       else
       {
@@ -152,6 +155,9 @@ export class ItemDetailsPage {
       stat = "hydration";
       newAmount = actingDog.getHydration();
     }
+
+   
+
     let confirm = this.alertCtrl.create({
       title: 'Used ' + this.item.getName(),
       message: actingDog.getName() + ' had their ' + stat + ' increase to ' + newAmount,

@@ -79,6 +79,9 @@ export class ShopPage {
       this.items.setPuppyPoints(newPoints);
       var current = oneItem.getQuantity();
       oneItem.setQuantity(current + 1);
+
+      this.items.updateItem(oneItem.getType, oneItem.getId(), oneItem.getQuantity() + 1);
+
     }
     else
     {
