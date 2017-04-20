@@ -1,3 +1,12 @@
+/* 
+*  Created by Chelsea
+*  Shows current location, and follows the user
+*  calculates the distance that the uesr had walked
+*
+*  Edited: 4/20/16 Chelsea - added comments
+*/
+
+
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Diagnostic } from 'ionic-native';
@@ -10,14 +19,19 @@ declare var google;
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
 @Component({
   selector: 'page-walk',
   templateUrl: 'walk.html'
 })
+
 export class WalkPage {
 
+  /* Variables determining the functionality of the program */
   public currLocation = null;
   private curr_marker;
+  
+  /* distance a user has walked */
   public distance: number = 0;
   private watch_id;
   private onTrack: boolean = false;
@@ -28,6 +42,9 @@ export class WalkPage {
   private x: number;
   private y: number;
 
+  /* Just what it sounds like, the timeout and the accuracy of
+     each call to geolocation
+  */
   private locationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -51,6 +68,7 @@ export class WalkPage {
 	this.clock = setInterval(() => this.showPosition(), 5000);
   }
 
+  /* When start is clicked, starts to track the distance */
   startClicked() 
   {
     if (this.onTrack == false) 
@@ -62,10 +80,9 @@ export class WalkPage {
 	  this.locationList.push(p);
 
     }
-
-    
   }
   
+  /* Once stop is clicked, the code will determine the end distance */
   stopClicked() 
   {
     if (this.onTrack == true) 
@@ -80,6 +97,9 @@ export class WalkPage {
 	
   }
 
+  /* code to set up the geolocation variables so that
+     updating the map works properly
+  */
   showPosition()
   {
     Geolocation.getCurrentPosition().then( (position) => 
@@ -92,6 +112,7 @@ export class WalkPage {
     }, this.error);
   }
   
+  /* this function deals with the original set up of the map */
   loadMap() 
   {
     
@@ -105,8 +126,7 @@ export class WalkPage {
 	},this.error);
   }
   
-
-
+  /* this inserts the map in the html */
   public makeMap()
   {
 	let mapOptions = 
@@ -126,9 +146,11 @@ export class WalkPage {
       this.currLocation = this.latLng;
   }
 
-
+  /* Updates the map without reloading it */
   public updateMap() 
   {
+  
+    ?* only add to the distance if we are 'walking' */
     if (this.onTrack)
 	{
 	  this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
@@ -142,12 +164,15 @@ export class WalkPage {
 
   }
 
-  
+  /* this gives the user an alert in the case of an error */
   public error(err) 
   {
     alert("There was an error: " + err);
   }
-  
+  /* DEPRECATED
+	 This function is a back up for calculating the distance between
+	 two location points
+  */
   gps_distance(lat1, lon1, lat2, lon2) 
   {
     alert("In GPS");
