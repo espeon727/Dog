@@ -10,19 +10,19 @@
 
 <ion-content padding style="background-image: url('../www/assets/images/room.png')">
   <p>
-    
+
   </p>
   <div (click)="petDog()">
-    <img class = "dogImage" id="dogpic" src = "../www/assets/images/dpa_01_transparent_bg_large.png" onerror = "this.onerror=null;this.src='../assets/images/dpa_01_transparent_bg_large.png'" >
+    <img class = "dogImage" id="dogpic" src = "{{ getDogImage() }}">
   </div>
 
   <p>{{this.dogProvider.activeId}}<p>
-    
+
 
   <p>Affection: {{ affection }}</p>
-  <p>Fullness: {{fullness}}</p>
-  <p>Hydration: {{hydration}}</p>
-  <p>Cleanliness: {{cleanliness}}</p>
+  <p>Fullness: {{ fullness }}</p>
+  <p>Hydration: {{ hydration }}</p>
+  <p>Cleanliness: {{ cleanliness }}</p>
 
     <!-- <button  id="toggle" onclick="clicked()">Toggle Picture</button> -->
 	<button ion-button (click)="clicked()" color="danger">Toggle</button>

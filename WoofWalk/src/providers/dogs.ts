@@ -17,7 +17,7 @@ export class Dogs {
 	static instance : Dogs;
 	static isCreating : boolean = false;
 
-	private dogList : Dog[];
+	private dogList : Dog[] = [];
 	private dogId : number = 0;
 
   private activeId : number;
@@ -25,7 +25,7 @@ export class Dogs {
 
   public database: SQLite;
   public dogs: Array<Object>;
-  
+
 
   constructor()
 	{
@@ -39,15 +39,15 @@ export class Dogs {
       {
         this.activeId = this.dogList[0].getId();
       }
-    }, (error) => 
+    }, (error) =>
     {
       console.log("ERROR: ", error);
     });
-      
+
 
 		if(!Dogs.isCreating)
 		{
-			throw new Error("Improperly Instanciated Dogs");
+			throw new Error("Improperly Instantiated Dogs");
 		}
 
   }
@@ -64,9 +64,9 @@ export class Dogs {
 
 		return Dogs.instance;
 	}
-	
 
-	
+
+
 
 	addDog(dog: Dog) : void
 	{
@@ -100,6 +100,8 @@ export class Dogs {
         return this.dogList[i];
       }
     }
+    //if no active dog, display first dog
+    return this.dogList[0];
 	}
 
 	getListOfDogs() {
@@ -122,7 +124,7 @@ export class Dogs {
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -131,7 +133,7 @@ export class Dogs {
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -140,7 +142,7 @@ export class Dogs {
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -149,7 +151,7 @@ export class Dogs {
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -158,7 +160,7 @@ export class Dogs {
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -174,7 +176,7 @@ export class Dogs {
       alert(dogName + "added");
       console.log("INSERTED: " + JSON.stringify(data));
       this.readDatabase();
-    }, (error) => 
+    }, (error) =>
     {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -194,7 +196,7 @@ export class Dogs {
         }
       }
       alert(data);
-    }, (error) => 
+    }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
     });
@@ -205,7 +207,7 @@ export class Dogs {
     this.database.executeSql("DELETE FROM dogs", []).then((data) =>
     {
       alert("Table: dogs cleared");
-    }, (error) => 
+    }, (error) =>
     {
       alert("Could not clear dogs table");
       console.log("ERROR: ", JSON.stringify(error.err));

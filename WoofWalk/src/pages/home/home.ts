@@ -1,4 +1,4 @@
-/* 
+/*
 tutorial on local storage
 https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-local-storage/
 */
@@ -34,17 +34,18 @@ export class HomePage
   imgPath: ImagePath = new ImagePath();
   background: string;
 
-
-  public affection: number;
-  public fullness: number;
-  public hydration: number;
-  public cleanliness: number;
-
   public lastPetDate: any;
   public now: any;
 
+  public affection: number = 0;
+  public fullness: number = 0;
+  public hydration: number = 0;
+  public cleanliness: number = 0;
+  public icon: string = 'dog_brown';
+
   private dogProvider: Dogs = Dogs.getInstance();
- 
+  private activeDog: Dog;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform)
   {
@@ -59,13 +60,19 @@ export class HomePage
 
     this.background = "../www/assets/images/background.png";
 
-    // Dog Stats
-    this.affection = 13;
-    this.fullness = 12;
-    this.hydration = 10;
-    this.cleanliness = 24;
-
     this.lastPetDate = new Date(2017, 1, 1);
+
+    this.dogProvider.readDatabase();
+    this.activeDog = this.dogProvider.getActiveDog();
+    if (this.activeDog != null)
+    {
+      this.affection = this.activeDog.getAffection();
+      this.fullness = this.activeDog.getFullness();
+      this.hydration = this.activeDog.getHydration();
+      this.cleanliness = this.activeDog.getCleanliness();
+      this.icon = this.activeDog.getIcon();
+    }
+    console.log(this.activeDog);
 
   }
 
@@ -87,7 +94,9 @@ export class HomePage
     this.now = Date.now();
     if (this.now - this.lastPetDate > 86400000)
     {
-      this.affection += 1;
+      var newAffection = this.activeDog.getAffection();
+      newAffection = newAffection + 1;
+      this.activeDog.setAffection(newAffection);
       this.lastPetDate = this.now;
     }
 
@@ -112,6 +121,15 @@ export class HomePage
   navigateCamera()
   {
     this.navCtrl.push(CameraPage);
+  }
+
+  getDogImage()
+  {
+    if (this.activeDog == null)
+    {
+      return "../assets/images/" + this.icon;
+    }
+    return this.imgPath.getImagePath(this.icon);
   }
 
 }
