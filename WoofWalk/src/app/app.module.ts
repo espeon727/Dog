@@ -188,32 +188,32 @@ export class Dog {
 		return this.affectionTime;
 	}
 
-	setAffectionTime(time: number) : void {
-		this.affectionTime.setTime(time);
+	setAffectionTime(date : Date ) : void {
+		this.affectionTime = date;
 	}
 
 	getFullnessTime() : Date {
 		return this.fullnessTime;
 	}
 
-	setFullnessTime(time: number) : void {
-		this.fullnessTime.setTime(time);
+	setFullnessTime(date : Date) : void {
+		this.fullnessTime = date;
 	}
 
 	getHydrationTime() : Date {
 		return this.hydrationTime;
 	}
 
-	setHydrationTime(time: number) : void {
-		this.hydrationTime.setTime(time);
+	setHydrationTime(date : Date) : void {
+		this.hydrationTime = date;
 	}
 
 	getCleanlinessTime() : Date {
 		return this.cleanlinessTime;
 	}
 
-	setCleanlinessTime(time: number) : void {
-		this.cleanlinessTime.setTime(time);
+	setCleanlinessTime(date : Date) : void {
+		this.cleanlinessTime = date;
 	}
 
 	getPetTime() : Date {
@@ -223,6 +223,65 @@ export class Dog {
 	setPetTime(time: number) : void {
 		this.petTime.setTime(time);
 	}
+
+  updateStats()
+  {
+    var currentTime = new Date;
+    var affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
+    var fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
+    var hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
+    var cleanlinessDrain = (currentTime.getTime() - this.cleanlinessTime.getTime()) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
+
+    affectionDrain = Math.floor(affectionDrain);
+    fullnessDrain = Math.floor(fullnessDrain);
+    hydrationDrain = Math.floor(hydrationDrain);
+    cleanlinessDrain = Math.floor(cleanlinessDrain);
+
+    var newAffection = this.getAffection() - affectionDrain;
+    var newFullness = this.getFullness() - fullnessDrain;
+    var newHydration = this.getHydration() - hydrationDrain;
+    var newCleanliness = this.getCleanliness() - cleanlinessDrain;
+
+    if (newAffection < 0)
+    {
+      newAffection = 0;
+    }
+    if (newFullness < 0)
+    {
+      newFullness = 0;
+    }
+    if (newHydration < 0)
+    {
+      newHydration = 0;
+    }
+    if (newCleanliness < 0)
+    {
+      newCleanliness = 0;
+    }
+
+    this.setAffection(newAffection);
+    this.setFullness(newFullness);
+    this.setHydration(newHydration);
+    this.setCleanliness(newCleanliness);
+
+    if (affectionDrain >= 1)
+    {
+      this.affectionTime = currentTime;
+    }
+    if (fullnessDrain >= 1)
+    {
+      this.fullnessTime = currentTime;
+    }
+    if (hydrationDrain >= 1)
+    {
+      this.hydrationTime = currentTime;
+    }
+    if (cleanlinessDrain >= 1)
+    {
+      this.cleanlinessTime = currentTime;
+    }
+
+  }
 }
 
 
@@ -311,7 +370,7 @@ export class Consumable extends Item {
         }
         console.log("prv feed time: ", fedDog.getFullnessTime());
         fedDog.setFullness(newFullness);
-        fedDog.setFullnessTime(Date.now());
+        fedDog.setFullnessTime(new Date());
         console.log("new feed time: ", fedDog.getFullnessTime());
         return 1;     // mark a successful feed
     }
@@ -330,7 +389,7 @@ export class Consumable extends Item {
         }
         console.log("prv water time: ", wateredDog.getHydrationTime());
         wateredDog.setHydration(newHydration);
-        wateredDog.setHydrationTime(Date.now());
+        wateredDog.setHydrationTime(new Date());
         console.log("new water time: ", wateredDog.getHydrationTime());
         return 1;     // mark a successful watering
 
@@ -359,7 +418,7 @@ export class Consumable extends Item {
         }
         console.log("prv affection time: ", selectedDog.getAffectionTime());
         selectedDog.setAffection(newAffection);
-        selectedDog.setAffectionTime(Date.now());
+        selectedDog.setAffectionTime(new Date());
         console.log("new affection time: ", selectedDog.getAffectionTime());
         return 1;     // mark a successful treat giving
       }
