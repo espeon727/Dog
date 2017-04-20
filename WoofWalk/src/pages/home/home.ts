@@ -7,6 +7,7 @@ https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-lo
 import { Component } from '@angular/core';
 
 import { NavController, NavParams, Platform } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import { DogsPage } from '../dogs/dogs';
 import { ShopPage } from '../shop/shop';
@@ -47,7 +48,7 @@ export class HomePage
   private activeDog: Dog;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform)
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, public alertCtrl: AlertController)
   {
     // Pages
     this.rootPage = HomePage;
@@ -76,12 +77,6 @@ export class HomePage
 
   }
 
-
-  clicked()
-  {
-    return 0;
-  }
-
   openPage(p)
   {
     this.rootPage = p;
@@ -96,10 +91,28 @@ export class HomePage
     {
       var newAffection = this.activeDog.getAffection();
       newAffection = newAffection + 1;
+      this.affection = newAffection;
       this.activeDog.setAffection(newAffection);
       this.lastPetDate = this.now;
+      this.petPopUp(this.activeDog);
     }
 
+  }
+
+  petPopUp(dog : Dog)
+  {
+    let confirm = this.alertCtrl.create({
+      title: 'You pet your Dog ' + dog.getName() + "!",
+      message: 'Come back tomorrow to pet it again',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present()
   }
 
   navigateDogs()
