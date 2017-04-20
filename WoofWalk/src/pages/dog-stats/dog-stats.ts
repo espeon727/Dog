@@ -16,7 +16,7 @@ import { Dogs } from '../../providers/Dogs';
   templateUrl: 'dog-stats.html'
 })
 export class DogStatsPage {
-	
+
 	public dog: Dog;
 	public imgPath: ImagePath = new ImagePath();
 
@@ -49,7 +49,7 @@ export class DogStatsPage {
   }
   public barChartType:string = 'horizontalBar';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) 
+  constructor(public navCtrl: NavController, public navParams: NavParams)
   {
 		this.dog = navParams.get("dog");
 
@@ -58,12 +58,13 @@ export class DogStatsPage {
 
   ionViewDidLoad() : void {
     console.log('ionViewDidLoad DogStatsPage');
+    //call update stats for the dog
   }
 
 	updateChart() : void {
 		this.chartData = [{
 			label: "",
-			data: [ 
+			data: [
 				this.dog.getAffection(),
 				this.dog.getFullness(),
 				this.dog.getHydration(),
@@ -118,4 +119,27 @@ export class DogStatsPage {
 		alert("Changed dog");
 	}
 
+  fastForward()
+  {
+    var dog = this.getDog();
+
+    var affectionDate = dog.getAffectionTime();
+    var fullnessDate = dog.getFullnessTime();
+    var hydrationDate = dog.getHydrationTime();
+    var cleanlinessDate = dog.getCleanlinessTime();
+
+    affectionDate.setHours(affectionDate.getHours() - 1);
+    fullnessDate.setHours(fullnessDate.getHours() - 1);
+    hydrationDate.setHours(hydrationDate.getHours() - 1);
+    cleanlinessDate.setHours(cleanlinessDate.getHours() - 1);
+
+
+    dog.setAffectionTime(affectionDate);
+    dog.setFullnessTime(fullnessDate);
+    dog.setHydrationTime(hydrationDate);
+    dog.setCleanlinessTime(cleanlinessDate);
+
+    dog.updateStats();
+
+  }
 }
