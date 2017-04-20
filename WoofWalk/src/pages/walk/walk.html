@@ -19,6 +19,7 @@
 
 
 <ion-content padding style="background-color: white">
+  <!-- Added buttons for starting and stopping the walk -->
   <button ion-button (click)="startClicked()">Start</button>
   <button ion-button (click)="stopClicked()" color="danger">Stop</button>
 
@@ -32,7 +33,6 @@
 	  Distance: {{distance}}
     </p>
   </div>
-
-  <div #pastDistance id="pastDistance"></div>
+  <!-- Sopt for the map to go after it loads -->
   <div #map id="map"></div>
 </ion-content>
