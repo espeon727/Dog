@@ -11,6 +11,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Diagnostic } from 'ionic-native';
 
+import { Inventory } from '../../providers/inventory';
+
 declare var google;
 
 /*
@@ -50,6 +52,8 @@ export class WalkPage {
     timeout: 5000,
     maximumAge: 4000
   };
+
+	private inventory: Inventory = Inventory.getInstance();
   
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
@@ -64,8 +68,8 @@ export class WalkPage {
   ionViewDidLoad() 
   {
     console.log('ionViewDidLoad WalkPage');
-	this.loadMap();
-	this.clock = setInterval(() => this.showPosition(), 5000);
+		this.loadMap();
+		this.clock = setInterval(() => this.showPosition(), 5000);
   }
 
   /* When start is clicked, starts to track the distance */
@@ -75,9 +79,9 @@ export class WalkPage {
     {
       this.onTrack = true;
       alert("Clicked start");
-	  let p: [any, String];
-	  p = [this.currLocation, "Start"];
-	  this.locationList.push(p);
+			let p: [any, String];
+			p = [this.currLocation, "Start"];
+			this.locationList.push(p);
 
     }
   }
@@ -88,13 +92,21 @@ export class WalkPage {
     if (this.onTrack == true) 
     {
       this.onTrack = false;
-	  this.pastDistance = this.distance;
-	  let p: [any, String];
-	  p = [this.currLocation, "End"];
-	  this.locationList.push(p);
+			this.pastDistance = this.distance;
+			let p: [any, String];
+			p = [this.currLocation, "End"];
+			this.locationList.push(p);
       alert(this.distance);
-	}
-	
+		}
+
+		// for updating the PuppyPoints at the end of a walk.
+		var PPperMile = 250;
+		var currentPP = this.inventory.getPuppyPoints();
+		var gainedPP = Math.floor(this.distance * PPperMile);
+		this.inventory.setPuppyPoints(currentPP + gainedPP);
+		alert("You gained " + gainedPP + " PuppyPoints!");
+
+		// TODO: Make a pretty alert for puppy points gained.
   }
 
   /* code to set up the geolocation variables so that
@@ -121,29 +133,29 @@ export class WalkPage {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.x, this.y);
-	  this.makeMap();
+			this.makeMap();
 	    this.updateMap();
-	},this.error);
+		},this.error);
   }
   
   /* this inserts the map in the html */
   public makeMap()
   {
-	let mapOptions = 
-      {
-        center: this.latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions, this.locationOptions);
-      this.curr_marker = new google.maps.Marker(
+		let mapOptions = 
+				{
+					center: this.latLng,
+					zoom: 15,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+    
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions, this.locationOptions);
+    this.curr_marker = new google.maps.Marker(
       {
         position: this.latLng,
         map: this.map,
         title: "My Location"
       });
-      this.currLocation = this.latLng;
+    this.currLocation = this.latLng;
   }
 
   /* Updates the map without reloading it */
@@ -152,13 +164,13 @@ export class WalkPage {
   
     /* only add to the distance if we are 'walking' */
     if (this.onTrack)
-	{
-	  this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
-	  this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
-          .visible(true));
-	}
-	this.currLocation = this.latLng;
-	this.map.setCenter(this.latLng);
+		{
+			this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
+			this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
+													 .visible(true));
+		}
+		this.currLocation = this.latLng;
+		this.map.setCenter(this.latLng);
   	this.curr_marker.setPosition(this.currLocation);
   	
 
@@ -177,20 +189,20 @@ export class WalkPage {
   {
     alert("In GPS");
     if (lat1 == lat2 && lon1 == lon2) {
-	  return 0;
-	}
-	// http://www.movable-type.co.uk/scripts/latlong.html
+			return 0;
+		}
+		// http://www.movable-type.co.uk/scripts/latlong.html
     var R: number = 6371; // km
     var dLat = (lat2-lat1) * (Math.PI / 180);
     var dLon = (lon2-lon1) * (Math.PI / 180);
     var lat1: any = lat1 * (Math.PI / 180);
     var lat2: any = lat2 * (Math.PI / 180);
- 
+		
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c;
-     alert(.000621371 * d);
+    alert(.000621371 * d);
     return d;
   }
   
