@@ -213,6 +213,21 @@ export class Dogs {
     this.dogs = [];
   }
 
+  updateDog(statType, dogId, statTotal)
+  {
+    let string = "UPDATE dogs SET "  + statType + " = '" + statTotal + "' WHERE id = '" + dogId + "';";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+      this.readDatabase();
+    }, (error) =>
+    {
+      alert("Error updating item");
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+   
+  }
+
 
 
 }

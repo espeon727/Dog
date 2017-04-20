@@ -461,5 +461,11 @@ export class Consumable extends Item {
       return this.type;
     }
 
+    getEffect()
+    {
+      return this.effect;
+    }
+
+
 
 }

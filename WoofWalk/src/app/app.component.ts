@@ -91,6 +91,10 @@ export class MyApp {
                 console.error("Unable to execute SQL", error);
               });
             }
+            else
+            {
+              alert(data.rows.length);
+            }
             
         }, (error) =>
         {

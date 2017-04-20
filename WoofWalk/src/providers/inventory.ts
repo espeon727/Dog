@@ -136,8 +136,7 @@ export class Inventory {
           this.foodList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
         }
       }
-    
-      alert("read database");
+  
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -157,7 +156,6 @@ export class Inventory {
         }
       }
     
-      alert("read database");
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -173,7 +171,6 @@ export class Inventory {
   		this.database.executeSql(string, []).then((data) =>
 	    {
 	      console.log("INSERTED: " + JSON.stringify(data));
-	      alert("Item updated");
 	      this.readDatabaseFood();
 	    }, (error) =>
 	    {
@@ -187,7 +184,6 @@ export class Inventory {
   		this.database.executeSql(string, []).then((data) =>
 	    {
 	      console.log("INSERTED: " + JSON.stringify(data));
-	      alert("Item updated");
 	      this.readDatabaseTreats();
 	    }, (error) =>
 	    {

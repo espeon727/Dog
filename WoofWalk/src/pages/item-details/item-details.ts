@@ -146,15 +146,22 @@ export class ItemDetailsPage {
     if (type == "food"){
       stat = "fullness";
       newAmount = actingDog.getFullness();
+      this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getFullness() );
     }
     else if (type == "treat"){
       stat = "affection";
       newAmount = actingDog.getAffection();
+
+      this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getAffection()  );
     }
     else if (type == "water"){
       stat = "hydration";
       newAmount = actingDog.getHydration();
+
+      this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getHydration()  );
     }
+
+
 
    
 
