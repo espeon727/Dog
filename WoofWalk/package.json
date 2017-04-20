@@ -10,7 +10,7 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@angular/common": "2.2.1",
+    "@angular/common": "^2.2.1",
     "@angular/compiler": "2.2.1",
     "@angular/compiler-cli": "2.2.1",
     "@angular/core": "2.2.1",
@@ -21,7 +21,7 @@
     "@angular/platform-server": "2.2.1",
     "@ionic-native/camera-preview": "^3.2.4",
     "@ionic-native/diagnostic": "^3.2.4",
-    "@ionic-native/geolocation": "^3.2.4",
+    "@ionic-native/geolocation": "^3.5.0",
     "@ionic/storage": "^1.1.7",
     "ionic-angular": "2.0.1",
     "ionic-native": "2.4.1",

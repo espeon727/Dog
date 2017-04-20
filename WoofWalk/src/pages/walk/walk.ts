@@ -4,7 +4,6 @@ import { Geolocation, Diagnostic } from 'ionic-native';
 
 declare var google;
 
-
 /*
   Generated class for the Walk page.
 
@@ -17,14 +16,14 @@ declare var google;
 })
 export class WalkPage {
 
-  private currLocation;
+  public currLocation = null;
   private curr_marker;
-  private distance: number = 0;
+  public distance: number = 0;
   private watch_id;
   private onTrack: boolean = false;
-  private mapSet: boolean = false;
-  private clock: any;
-
+  public clock: any;
+  private locationList: any[] = [];
+  public mapSet = false;
   public latLng: any;
   private x: number;
   private y: number;
@@ -49,7 +48,7 @@ export class WalkPage {
   {
     console.log('ionViewDidLoad WalkPage');
 	this.loadMap();
-	this.clock = setInterval(this.loadMap, 5000);
+	this.clock = setInterval(() => this.showPosition(), 5000);
   }
 
   startClicked() 
@@ -58,6 +57,9 @@ export class WalkPage {
     {
       this.onTrack = true;
       alert("Clicked start");
+	  let p: [any, String];
+	  p = [this.currLocation, "Start"];
+	  this.locationList.push(p);
 
     }
 
@@ -70,6 +72,9 @@ export class WalkPage {
     {
       this.onTrack = false;
 	  this.pastDistance = this.distance;
+	  let p: [any, String];
+	  p = [this.currLocation, "End"];
+	  this.locationList.push(p);
       alert(this.distance);
 	}
 	
@@ -82,8 +87,7 @@ export class WalkPage {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.x, this.y);
-	  alert("clicked update pos");
-      this.updateMap(position);
+      this.updateMap();
 
     }, this.error);
   }
@@ -91,27 +95,17 @@ export class WalkPage {
   loadMap() 
   {
     
-    var n = Geolocation.getCurrentPosition( {enableHighAccuracy: true, timeout: 5000, maximumAge: 4000}).then( (position) => 
+    var n = Geolocation.getCurrentPosition( this.locationOptions ).then( (position) => 
     {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.x, this.y);
-	  if (!this.mapSet) {
-	    this.makeMap();
-		this.updateMap(position);
-		this.mapSet = true;
-	  } else {
-	    this.updateMap(position);
-	  }
-
-    },this.error);
-	
-	
-	
+	  this.makeMap();
+	    this.updateMap();
+	},this.error);
   }
   
 
-  
 
   public makeMap()
   {
@@ -130,28 +124,22 @@ export class WalkPage {
         title: "My Location"
       });
       this.currLocation = this.latLng;
-
   }
-  
 
 
-  public updateMap(pos) 
+  public updateMap() 
   {
-    this.latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-    var curr = pos.coords;
-    if (curr.latitude == this.currLocation.latitude && curr.longitude == this.currLocation.longitude ) 
-    {
-      return;
-    }
-    if (this.onTrack) {
-	  this.distance = this.distance + 0.62137119 * this.gps_distance(curr.latitude, curr.longitude, this.currLocation.latitude, this.currLocation.longitude);
-	}
-	this.map.setCenter(this.latLng);
-  	this.curr_marker.setPosition(this.latLng);
-  	this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
+    if (this.onTrack)
+	{
+	  this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
+	  this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
           .visible(true));
-  	this.currLocation = curr;
-	alert("Finished update");
+	}
+	this.currLocation = this.latLng;
+	this.map.setCenter(this.latLng);
+  	this.curr_marker.setPosition(this.currLocation);
+  	
+
   }
 
   
@@ -162,6 +150,7 @@ export class WalkPage {
   
   gps_distance(lat1, lon1, lat2, lon2) 
   {
+    alert("In GPS");
     if (lat1 == lat2 && lon1 == lon2) {
 	  return 0;
 	}
@@ -176,7 +165,7 @@ export class WalkPage {
             Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c;
-     
+     alert(.000621371 * d);
     return d;
   }
   

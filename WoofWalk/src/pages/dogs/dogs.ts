@@ -17,7 +17,7 @@ import { DogStatsPage } from '../dog-stats/dog-stats';
   selector: 'page-dogs',
   templateUrl: 'dogs.html'
 })
-export class DogsPage 
+export class DogsPage
 {
 	private nav;
 
@@ -29,19 +29,26 @@ export class DogsPage
 
   private databaseList = this.dogs.dogs;
 
-  static get parameters() 
+  static get parameters()
   {
     return [[NavController]];
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, nav) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, nav)
   {
   	this.nav = nav;
-		
+
   }
 
-  ionViewDidLoad() 
+  ionViewDidLoad()
   {
+    var listOfDogs = this.dogs.getListOfDogs();
+    //console.log("Dog list", this.dogs.getListOfDogs())
+    for (var i = 0; i < this.dogs.getListOfDogs().length; i++)
+    {
+      var dog = listOfDogs[i];
+      dog.updateStats();
+    }
     console.log('ionViewDidLoad DogsPage');
   }
 
@@ -56,7 +63,7 @@ export class DogsPage
       //   {"name": "Cerberus", "affection": 13, "fullness": 12, "hydration": 10, "cleanliness": 24, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
       //   {"name": "Lucky", "affection": 5, "fullness": 16, "hydration": 28, "cleanliness": 2, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
       //   {"name": "Spot", "affection": 1, "fullness": 0, "hydration": 12, "cleanliness": 13, "icon": "../www/assets/images/000.png", "icon2": "../assets/images/000.png"},
-        
+
       // ];
   }
 

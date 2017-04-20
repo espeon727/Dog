@@ -24,6 +24,7 @@
 
   <div>
     <img src="{{imgPath.getImagePath('inventory.png')}}" class="points"/>
+
     <h2>{{this.items.getPuppyPoints()}}</h2>
   </div>
 
@@ -32,6 +33,10 @@
   </div>
   <div>
     Treat List {{this.items.treatList}}
+  </div>
+
+    <h2>${{this.items.getPuppyPoints()}}</h2>
+		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points!</button>
   </div>
 
 
