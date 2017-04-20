@@ -33,7 +33,6 @@ export class Dogs {
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
     	alert("database loaded");
-      //this.addDefaultDogs();
       this.readDatabase();
       if (this.activeId == null)
       {
@@ -120,7 +119,7 @@ export class Dogs {
   //For Testing purposes
   addDefaultDogs()
   {
-    let string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 1, 13, 12, 10, 24)";
+    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24)";
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
@@ -129,7 +128,7 @@ export class Dogs {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
-    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 1, 5, 16, 28, 2)";
+    string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2)";
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
@@ -138,7 +137,7 @@ export class Dogs {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
-    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Daisy', 'dog_goldie.png', 1, 2, 10, 83, 90)";
+    string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Daisy', 'dog_goldie.png', 2, 10, 83, 90)";
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
@@ -147,7 +146,7 @@ export class Dogs {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
-    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Howard', 'dog_black.png', 1, 25, 72, 45, 46)";
+    string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Howard', 'dog_black.png', 25, 72, 45, 46)";
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
@@ -156,7 +155,7 @@ export class Dogs {
       alert("Error adding dog to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
-    string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Target', 'dog_target.png', 1, 56, 38, 10, 82)";
+    string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Target', 'dog_target.png', 1, 56, 38, 10, 82)";
     this.database.executeSql(string, []).then((data) =>
     {
       console.log("INSERTED: " + JSON.stringify(data));
@@ -170,7 +169,7 @@ export class Dogs {
 
   addDogToDatabase(dogName, dogIcon, dogId)
   {
-    let string = "INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', " + "1, 0, 100, 100, 100)";
+    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', " + " 0, 100, 100, 100)";
     this.database.executeSql(string, []).then((data) =>
     {
       alert(dogName + "added");
@@ -195,7 +194,6 @@ export class Dogs {
           this.dogList.push(new Dog(data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).id, data.rows.item(i).affection, data.rows.item(i).fullness, data.rows.item(i).hydration, data.rows.item(i).cleanliness))
         }
       }
-      alert(data);
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));

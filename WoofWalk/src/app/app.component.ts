@@ -64,15 +64,16 @@ export class MyApp {
         location: "default"
       }).then(() =>
       {
-        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, dogid NUMBER, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER);",{}). then ((data) =>
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER);",{}). then ((data) =>
         {
+          alert("dogs table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM dogs",{}). then ((data) =>
           {
             if (data.rows.length < 2)
             {
-              db.executeSql("INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 1, 13, 12, 10, 24);",{}). then ((data) =>
+              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24);",{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
@@ -81,7 +82,7 @@ export class MyApp {
                 console.error("Unable to execute SQL", error);
               });
 
-              db.executeSql("INSERT INTO dogs (name, icon, dogid, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 1, 5, 16, 28, 2);",{}). then ((data) =>
+              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2);",{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
@@ -96,6 +97,9 @@ export class MyApp {
           alert("could not make dog table");
           console.error("Unable to execute SQL", error);
         });
+
+        
+
 
         db.executeSql("CREATE TABLE IF NOT EXISTS treats (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
@@ -239,7 +243,7 @@ export class MyApp {
 			for(var i = 0; i < listOfDogs.length; i++) {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
-      this.dogProvider.setActiveDog(listOfDogs[1])  //set active dog to Lucky for testing
+      this.dogProvider.setActiveDog(listOfDogs[0])  //set active dog to Lucky for testing
 
       // instantiated the inventory Provider
       this.inventoryProvider = Inventory.getInstance();

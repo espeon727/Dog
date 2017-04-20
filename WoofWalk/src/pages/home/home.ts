@@ -64,6 +64,7 @@ export class HomePage
     this.lastPetDate = new Date(2017, 1, 1);
 
     this.dogProvider.readDatabase();
+    
     this.activeDog = this.dogProvider.getActiveDog();
     if (this.activeDog != null)
     {
@@ -74,6 +75,8 @@ export class HomePage
       this.icon = this.activeDog.getIcon();
     }
     console.log(this.activeDog);
+  
+    
 
   }
 
