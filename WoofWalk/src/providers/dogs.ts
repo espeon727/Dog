@@ -167,9 +167,15 @@ export class Dogs {
   }
 
 
-  addDogToDatabase(dogName, dogIcon, dogId)
+  addDogToDatabase(dog : Dog)
   {
-    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', " + " 0, 100, 100, 100)";
+    var dogName = dog.getName();
+    var dogIcon = dog.getIcon();
+    var dogAffection = dog.getAffection();
+    var dogFullness = dog.getFullness();
+    var dogHydration = dog.getHydration();
+    var dogCleanliness = dog.getCleanliness();
+    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', dogAffection, dogFullness, dogHydration, dogCleanliness)";
     this.database.executeSql(string, []).then((data) =>
     {
       alert(dogName + "added");
@@ -222,10 +228,30 @@ export class Dogs {
       this.readDatabase();
     }, (error) =>
     {
-      alert("Error updating item");
+      alert("Error updating dog");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
-   
+
+  }
+
+  updateDatabase()
+  {
+    for (var i = 0; i < this.dogList.length; i++)
+    {
+      var dog = this.dogList[i];
+      console.log("dog", dog);
+      var dogID = dog.getId();
+      var newAffection = dog.getAffection();
+      var newFullness = dog.getFullness();
+      var newHydration = dog.getHydration();
+      var newCleanliness = dog.getCleanliness();
+
+      this.updateDog("affection", dogID, newAffection);
+      this.updateDog("fullness", dogID, newFullness);
+      this.updateDog("hydration", dogID, newHydration);
+      this.updateDog("cleanliness", dogID, newCleanliness);
+    }
+    console.log("Updated Database");
   }
 
 

@@ -250,19 +250,19 @@ export class ShopPage {
 		this.dogs.addDog(dog); // adds the dog to the local array
 		console.log("Added dog to array");
 		// alert("added " + dog.getName() + " to array");
-		
+
 		// TODO: fix addDogToDatabase function call when function is updated
-		this.dogs.addDogToDatabase(dog.getName(), dog.getIcon(), dog.getId());
+		this.dogs.addDogToDatabase(dog);
 		console.log("Added dog to database");
 		// alert("added " + dog.getName() + " to database");
-		
+
 		console.log("dog saved");
 	}
 
 	//////////////////////
 	// Dog Alerts
 	//////////////////////
-	
+
 	confirmBuyDogAlert(dog : Dog)
   {
     let confirm = this.alertCtrl.create({
@@ -351,7 +351,7 @@ export class ShopPage {
     confirm.present()
   }
 
-	// alert that prompts the user to rename the dog.  
+	// alert that prompts the user to rename the dog.
 	renameDogAlert(dog: Dog)
 	{
 		let confirm = this.alertCtrl.create({

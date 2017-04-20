@@ -49,6 +49,8 @@ export class DogsPage
       var dog = listOfDogs[i];
       dog.updateStats();
     }
+    console.log('Trying to Update Database');
+    this.dogs.updateDatabase();
     console.log('ionViewDidLoad DogsPage');
   }
 

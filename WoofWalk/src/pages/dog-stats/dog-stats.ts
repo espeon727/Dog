@@ -133,13 +133,19 @@ export class DogStatsPage {
     hydrationDate.setHours(hydrationDate.getHours() - 1);
     cleanlinessDate.setHours(cleanlinessDate.getHours() - 1);
 
-
     dog.setAffectionTime(affectionDate);
     dog.setFullnessTime(fullnessDate);
     dog.setHydrationTime(hydrationDate);
     dog.setCleanlinessTime(cleanlinessDate);
 
     dog.updateStats();
+    this.dogProvider.updateDatabase();
+    var currentTime = new Date;
+
+    dog.setAffectionTime(currentTime);
+    dog.setFullnessTime(currentTime);
+    dog.setHydrationTime(currentTime);
+    dog.setCleanlinessTime(currentTime);
 
   }
 }
