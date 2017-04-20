@@ -97,6 +97,43 @@ export class MyApp {
           console.error("Unable to execute SQL", error);
         });
 
+        db.executeSql("CREATE TABLE IF NOT EXISTS treats (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
+        {
+          alert("treats table made");
+          console.log("TABLE CREATED: ", data);
+
+          db.executeSql("SELECT * FROM food",{}). then ((data) =>
+          {
+            if (data.rows.length < 2)
+            {
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Bone', 'bone_normal.png', 5, 10, 'A tasty bone, gives 10 affection', 10, 'treat');",{}). then ((data) =>
+              {
+                alert("added bone");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert treat");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Fancy Bone', 'bone_fancy.png', 5, 45, 'A fancy bone, gives 50 affection', 50, 'treat');",{}). then ((data) =>
+              {
+                alert("added fancy bone");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert treat");
+                console.error("Unable to execute SQL", error);
+              });
+            }
+          });
+
+          }, (error) =>
+          {
+            alert("could not make treats table");
+            console.error("Unable to execute SQL", error);
+          });
+
         db.executeSql("CREATE TABLE IF NOT EXISTS food (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
           alert("food table made");
@@ -108,7 +145,7 @@ export class MyApp {
             {
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Dry Food', 'food_dry.png', 2, 5, 'Dry food, increases fullness by 10', 10, 'food');",{}). then ((data) =>
               {
-                alert("added dry food");
+                
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -118,7 +155,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Canned Food', 'food_can.png', 1, 9, 'Canned food, increases fullness by 20', 20, 'food');",{}). then ((data) =>
               {
-                alert("added canned food");
+              
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -128,7 +165,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Bottled Water', 'water_bottle.png', 15, 0, 'Bottled Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
               {
-                alert("added bottled water");
+               
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -138,7 +175,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Spring Water', 'water_bottle.png', 1, 1000, 'Spring Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
               {
-                alert("added spring water");
+               
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {

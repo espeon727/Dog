@@ -33,8 +33,8 @@ export class Inventory {
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
     	alert("database loaded");
-      //this.addDefaultDogs();
       this.readDatabaseFood();
+      this.readDatabaseTreats();
     }, (error) =>
     {
       console.log("ERROR: ", error);
@@ -144,20 +144,26 @@ export class Inventory {
     });
   }
 
-  addFoodToDatabase(foodName, foodIcon, foodQuantity, foodCost, foodDescription, foodEffect)
+  readDatabaseTreats()
   {
-    let string = "INSERT INTO food (name, icon, quantity, cost, description, effect) VALUES ('" + foodName + "', " + "'" + foodIcon + "', " + "'" + foodCost.toString() + "', " + "'" + foodDescription + "', " + "'" + foodEffect.toString() + ", 'food')";
-    this.database.executeSql(string, []).then((data) =>
+    this.database.executeSql("SELECT * FROM treats", []).then((data) =>
     {
-      alert(foodName + "added");
-      console.log("INSERTED: " + JSON.stringify(data));
-      this.readDatabaseFood();
+      this.treatList = [];
+      if (data.rows.length > 0)
+      {
+        for (var i = 0; i < data.rows.length; i++)
+        {
+          this.treatList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
+        }
+      }
+    
+      alert("read database");
     }, (error) =>
     {
-      alert("Error adding food to database");
       console.log("ERROR: ", JSON.stringify(error.err));
     });
   }
+
 
   updateItem(itemType, itemId, itemQuantity)
   {
@@ -175,6 +181,20 @@ export class Inventory {
 	      console.log("ERROR: ", JSON.stringify(error.err));
 	    });
   	} 
+  	if (itemType == 'treat')
+  	{
+  		let string = "UPDATE treats SET quantity = '" + itemQuantity + "' WHERE id = '" + itemId + "';";
+  		this.database.executeSql(string, []).then((data) =>
+	    {
+	      console.log("INSERTED: " + JSON.stringify(data));
+	      alert("Item updated");
+	      this.readDatabaseTreats();
+	    }, (error) =>
+	    {
+	      alert("Error updating item");
+	      console.log("ERROR: ", JSON.stringify(error.err));
+	    });
+  	}
   }
 
 }
