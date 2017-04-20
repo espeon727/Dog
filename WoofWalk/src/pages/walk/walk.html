@@ -23,10 +23,13 @@
   <button ion-button (click)="stopClicked()" color="danger">Stop</button>
 
   <button ion-button (click)="showPosition()" color="danger">Show Position</button>
-
+  
   <div>
     <p>
-      distance {{distance}} latLng {{latLng}}
+      Current Location: {{latLng}}
+	</p>
+	<p>
+	  Distance: {{distance}}
     </p>
   </div>
 
