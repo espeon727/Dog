@@ -122,4 +122,23 @@ export class ShopPage {
     confirm.present()
   }
 
+	incrementPuppyPoints(points: number) : void
+	{
+		this.items.setPuppyPoints(this.items.getPuppyPoints() + points);
+		// this.items.setPuppyPoints(Infinity);
+		let confirm = this.alertCtrl.create({
+			title: 'You found some PuppyPoints on the ground!',
+			message: 'You now have ' + this.items.getPuppyPoints() + ' PuppyPoints!',
+			buttons: [
+				{
+					text: 'Ok',
+					handler: () => {
+						console.log('Holla Holla Dolla Dolla');
+					}
+				}
+			]
+		});
+    confirm.present()
+	}
+
 }

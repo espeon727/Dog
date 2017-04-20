@@ -20,7 +20,8 @@
 <ion-content padding style="background-color: white">
   <div>
     <img src="{{imgPath.getImagePath('inventory.png')}}" class="points"/>
-    <h2>{{this.items.getPuppyPoints()}}</h2>
+    <h2>${{this.items.getPuppyPoints()}}</h2>
+		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points!</button>
 </div>
 
   <div padding>
