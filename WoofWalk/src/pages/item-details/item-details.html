@@ -18,6 +18,11 @@
   <p>
       Quantity: {{ getItem().getQuantity() }}
   </p>
+  <p>
+      {{ getItem().getDescription() }}
+  </p>
 
-  <button ion-button (click)=confirmUse()>Use Item </button>
+  <div text-center>
+    <button fab-center ion-button (click)=confirmUse() color="danger"> Use Item </button>
+  </div>
 </ion-content>
