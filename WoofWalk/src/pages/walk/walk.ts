@@ -150,7 +150,7 @@ export class WalkPage {
   public updateMap() 
   {
   
-    ?* only add to the distance if we are 'walking' */
+    /* only add to the distance if we are 'walking' */
     if (this.onTrack)
 	{
 	  this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
