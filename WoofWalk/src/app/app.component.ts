@@ -3,7 +3,6 @@ tutorial on local storage
 https://www.thepolyglotdeveloper.com/2015/12/use-sqlite-in-ionic-2-instead-of-local-storage/
 */
 
-
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen, SQLite } from 'ionic-native';
@@ -57,6 +56,7 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
 
+      //create DB
       let db = new SQLite();
       db.openDatabase(
       {
@@ -64,6 +64,7 @@ export class MyApp {
         location: "default"
       }).then(() =>
       {
+        // create "dogs" table in db and populate with defaults
         db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER);",{}). then ((data) =>
         {
           alert("dogs table made");
@@ -95,16 +96,15 @@ export class MyApp {
             {
               alert(data.rows.length);
             }
-            
+
         }, (error) =>
         {
           alert("could not make dog table");
           console.error("Unable to execute SQL", error);
         });
 
-        
 
-
+        // create "treats" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS treats (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
           alert("treats table made");
@@ -142,6 +142,7 @@ export class MyApp {
             console.error("Unable to execute SQL", error);
           });
 
+        // create "food" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS food (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
           alert("food table made");
@@ -153,7 +154,7 @@ export class MyApp {
             {
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Dry Food', 'food_dry.png', 2, 5, 'Dry food, increases fullness by 10', 10, 'food');",{}). then ((data) =>
               {
-                
+
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -163,7 +164,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Canned Food', 'food_can.png', 1, 9, 'Canned food, increases fullness by 20', 20, 'food');",{}). then ((data) =>
               {
-              
+
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -173,7 +174,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Bottled Water', 'water_bottle.png', 15, 0, 'Bottled Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
               {
-               
+
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -183,7 +184,7 @@ export class MyApp {
 
               db.executeSql("INSERT INTO food (name, icon, quantity, cost, description, effect, type) VALUES ('Spring Water', 'water_bottle.png', 1, 1000, 'Spring Water, increases hydration by 20', 20, 'water');",{}). then ((data) =>
               {
-               
+
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
@@ -198,7 +199,7 @@ export class MyApp {
             alert("could not make food table");
             console.error("Unable to execute SQL", error);
           });
-          
+
 
 
         }, (error) =>
@@ -215,15 +216,22 @@ export class MyApp {
 
       this.settings = Settings.getInstance();
 
-      if(platform.is("android")) {
+      //check and setting platform to ensure correct image paths
+      if(platform.is("android"))
+      {
 				this.settings.setPlatform("android");
-      } else {
-				if(platform.is("ios")) {
+      } else
+      {
+				if(platform.is("ios"))
+        {
 					this.settings.setPlatform("ios");
-				} else {
-					if(platform.is("core")) {
+				} else
+        {
+					if(platform.is("core"))
+          {
 						this.settings.setPlatform("core");
-					} else {
+					} else
+          {
 						// unknown/unsupported platform
 						this.settings.setPlatform("other");
 					}
@@ -244,7 +252,8 @@ export class MyApp {
 
 			// adds dogs to the dog provider.  Should be removed after local storage is implemented.  Should only be used for testing.
 			var listOfDogs = this.getListOfDogs();
-			for(var i = 0; i < listOfDogs.length; i++) {
+			for(var i = 0; i < listOfDogs.length; i++)
+      {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
       this.dogProvider.setActiveDog(listOfDogs[0])  //set active dog to Lucky for testing
@@ -254,12 +263,14 @@ export class MyApp {
 
       // adds items to the inventory provider.  Should be removed after local storage is implemented.  Should only be used for testing.
 			var listOfFood = this.getFoodList();
-			for(var i = 0; i < listOfFood.length; i++) {
+			for(var i = 0; i < listOfFood.length; i++)
+      {
 				this.inventoryProvider.addFood(listOfFood[i]);
 			}
 
       var listOfTreats = this.getTreatList();
-			for(var i = 0; i < listOfTreats.length; i++) {
+			for(var i = 0; i < listOfTreats.length; i++)
+      {
 				this.inventoryProvider.addTreat(listOfTreats[i]);
 			}
 
@@ -285,7 +296,7 @@ export class MyApp {
 						 new Dog("Cerberus", "dog_demon.png", this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13) ];
 	}
 
-  // returns a list of item objects.  Should be used for testing and until local storage is implemented.
+  // returns a list of food item objects.  Should be used for testing and until local storage is implemented.
 	getFoodList()
 	{
 		if(this.inventoryProvider == null)
@@ -299,6 +310,7 @@ export class MyApp {
              new Consumable(this.inventoryProvider.getCurrentItemId(), "Spring Water", "water_bottle.png", 15, 1000, "a fancier bottle of water, adds 20 hydration", 20, "water")];
 	}
 
+  // returns a list of treat item objects.  Should be used for testing and until local storage is implemented.
   getTreatList()
 	{
 		if(this.inventoryProvider == null)

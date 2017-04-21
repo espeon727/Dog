@@ -2,10 +2,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler, Platform } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-
-import '../../node_modules/chart.js/dist/Chart.bundle.min.js';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
-
 import { HomePage } from '../pages/home/home';
 import { DogsPage } from '../pages/dogs/dogs';
 import { ShopPage } from '../pages/shop/shop';
@@ -16,7 +12,6 @@ import { DogStatsPage } from '../pages/dog-stats/dog-stats';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 
 import { Settings } from '../providers/Settings';
-
 
 
 
@@ -35,7 +30,6 @@ import { Settings } from '../providers/Settings';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -65,7 +59,8 @@ export class ImagePath {
 
   private settings: Settings;
 
-  constructor() {
+  constructor()
+  {
     this.settings = Settings.getInstance();
   }
 
@@ -90,6 +85,10 @@ export class ImagePath {
   }
 }
 
+// This class is used to store and manage details about Dogs; it is used to create a dog object
+//     in the file you want to use it in, include the line
+//         import { Dog } from '../app/app.module';
+
 export class Dog {
 	// These variables represent the outward facing stats of each dog.
 	private name: string;
@@ -109,7 +108,8 @@ export class Dog {
 	private cleanlinessTime: Date;
 	private petTime: Date;
 
-	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number) {
+	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number)
+  {
 		this.name = name;
 		this.icon = icon;
 		this.affection = this.enforceStatBounds(affection);
@@ -118,6 +118,8 @@ export class Dog {
 		this.cleanliness = this.enforceStatBounds(cleanliness);
 		this.id = id;
 
+    // stat times are initialized to the current time to avoid unnecessary stat decay
+    // pet time is set to well before the public release so users may pet their dogs right away
 		this.affectionTime = new Date();
 		this.fullnessTime = new Date();
 		this.hydrationTime = new Date();
@@ -125,13 +127,17 @@ export class Dog {
 		this.petTime = new Date(2017, 0, 0);
 	}
 
-	enforceStatBounds(stat: number) : number {
-		if(stat > 100) {
+  //this function prevents dog stats from being set below 0 or above 100
+	enforceStatBounds(stat: number) : number
+  {
+		if(stat > 100)
+    {
 			alert("Tried to set stat to " + stat + ". Setting stat to 100.");
 			console.log("Tried to set stat to " + stat + ". Setting stat to 100.");
 			return 100;
 		}
-		if(stat < 0) {
+		if(stat < 0)
+    {
 			alert("Tried to set stat to " + stat + ".  Setting stat to 0.");
 			console.log("Tried to set stat to " + stat + ". Setting stat to 0.");
 			return 0;
@@ -140,98 +146,145 @@ export class Dog {
 		return stat;
 	}
 
-	getName() : string {
+  // gets the name of the dog as a string
+	getName() : string
+  {
 		return this.name;
 	}
 
-	setName(newName: string) : void {
+  // sets the name of the dog - this should only be called when naming a dog for the first time
+	setName(newName: string) : void
+  {
 		this.name = newName;
 	}
 
-	getIcon() : string {
+  // gets the filename of the dog's image as a string. Should be used to get arguments for getImagePath
+	getIcon() : string
+  {
 		return this.icon;
 	}
 
-	setIcon(newIcon: string) : void {
+  // sets a different string as the dog's filename - will not check if filename exists before setting! Be careful to avoid broken images!
+	setIcon(newIcon: string) : void
+  {
 		this.icon = newIcon;
 	}
 
-	getId() : number {
+  // returns the dog's unique ID - unlike name, this cannot be reused between dogs or changed.
+	getId() : number
+  {
 		return this.id;
 	}
 
-	getAffection() : number {
+  // return the dog's affection stat as a number
+	getAffection() : number
+  {
 		return this.affection;
 	}
 
-	setAffection(newAffection: number) : void {
+  // set the dog's affection stat to the passed number, if in bounds
+	setAffection(newAffection: number) : void
+  {
 		this.affection = this.enforceStatBounds(newAffection);
 	}
 
-	getFullness() : number {
+  // return the dog's fullness stat as a number
+	getFullness() : number
+  {
 		return this.fullness;
 	}
 
-	setFullness(newFullness: number) : void {
+  // set the dog's fullness stat to the passed number, if in bounds
+	setFullness(newFullness: number) : void
+  {
 		this.fullness = this.enforceStatBounds(newFullness);
 	}
 
-	getHydration() : number {
+  // get the dog's hydration stat as a number
+	getHydration() : number
+  {
 		return this.hydration;
 	}
 
-	setHydration(newHydration: number) : void {
+  // set the dog's hydration stat to the passed number, if in bounds
+	setHydration(newHydration: number) : void
+  {
 		this.hydration = this.enforceStatBounds(newHydration);
 	}
 
-	getCleanliness() : number {
+  // get the dog's cleanliness stat as a number
+	getCleanliness() : number
+  {
 		return this.cleanliness;
 	}
 
-	setCleanliness(newCleanliness: number) : void {
+  // set the dog's cleanliness stat to the passed number, if in bounds
+	setCleanliness(newCleanliness: number) : void
+  {
 		this.cleanliness = this.enforceStatBounds(newCleanliness);
 	}
 
-	getAffectionTime() : Date {
+  // get the time the dog's affection stat was last updated as a Date object
+	getAffectionTime() : Date
+  {
 		return this.affectionTime;
 	}
 
-	setAffectionTime(date : Date ) : void {
+  // set the last time the dog's affection stat was updated to the passed Date object
+	setAffectionTime(date : Date ) : void
+  {
 		this.affectionTime = date;
 	}
 
-	getFullnessTime() : Date {
+  // get the time the dog's fullness stat was last updated as a Date object
+	getFullnessTime() : Date
+  {
 		return this.fullnessTime;
 	}
 
-	setFullnessTime(date : Date) : void {
+  // set the last time the dog's fullness stat was updated to the passed Date object
+	setFullnessTime(date : Date) : void
+  {
 		this.fullnessTime = date;
 	}
 
-	getHydrationTime() : Date {
+  // get the time the dog's hydration stat was last updated as a Date object
+	getHydrationTime() : Date
+  {
 		return this.hydrationTime;
 	}
 
-	setHydrationTime(date : Date) : void {
+  // set the last time the dog's hydration stat was updated to the passed Date object
+	setHydrationTime(date : Date) : void
+  {
 		this.hydrationTime = date;
 	}
 
-	getCleanlinessTime() : Date {
+  // get the time the dog's cleanliness stat was last updated as a Date object
+	getCleanlinessTime() : Date
+  {
 		return this.cleanlinessTime;
 	}
 
-	setCleanlinessTime(date : Date) : void {
+  // set the last time the dog's cleanliness stat was updated to the passed Date object
+	setCleanlinessTime(date : Date) : void
+  {
 		this.cleanlinessTime = date;
 	}
 
-	getPetTime() : Date {
+  // get the time the dog was last pet as a Date object
+	getPetTime() : Date
+  {
 		return this.petTime;
 	}
 
-	setPetTime(time: number) : void {
+  // set the last time the dog was pet to the passed Date object
+	setPetTime(time: number) : void
+  {
 		this.petTime.setTime(time);
 	}
 
+  // update the dog's stats and calculate the decay from when it was last checked or updated
   updateStats()
   {
     var currentTime = new Date;
@@ -292,16 +345,19 @@ export class Dog {
   }
 }
 
-
+// This class is used to store and manage details about Items; it is used to create a dog object
+//     in the file you want to use it in, include the line
+//         import { Item } from '../app/app.module';
 export class Item {
   id: number;
-  name: string; // the name of the item
-  icon: string; // the file path to the icon image
-  quantity: number; // the quantity of the item that the player has in their inventory
-  cost: number; // amount item costs in the shop
+  name: string;       // the name of the item
+  icon: string;       // the file path to the icon image
+  quantity: number;   // the quantity of the item that the player has in their inventory
+  cost: number;       // amount item costs in the shop
   description: string; // description of the item
 
-  constructor(id: number, name: string, icon: string, quantity: number, cost: number, description: string) {
+  constructor(id: number, name: string, icon: string, quantity: number, cost: number, description: string)
+  {
     this.id = id;
     this.name = name;
     this.icon = icon;
@@ -310,41 +366,43 @@ export class Item {
     this.description = description;
   }
 
+  // return the item's unique ID as a number
   getId()
   {
     return this.id;
   }
 
+  // return the name of the item as a string
   getName()
   {
     return this.name;
   }
 
+  // return the filename of the item's icon as a string. This should be used to get arguments for getImagePath
   getIcon()
   {
     return this.icon;
   }
 
+  // return the quantity of the item as a number
   getQuantity()
   {
     return this.quantity;
   }
 
+  // set the quantity of the item to the passed number
   setQuantity(q: number)
   {
     this.quantity = q;
   }
 
-  getType()
-  {
-    return "none";
-  }
-
+  // return the cost of an item as a number
   getCost()
   {
     return this.cost;
   }
 
+  //return the description of the item as a string
   getDescription()
   {
     return this.description;
@@ -352,15 +410,18 @@ export class Item {
 
 }
 
+// This class is used to store and manage details about Consumable Items; it inherits from the item class
+//     in the file you want to use it in, include the line
+//         import { Consumable } from '../app/app.module';
 export class Consumable extends Item {
   id: number;
-  name: string; // the name of the item
-  icon: string; // the file path to the icon image
-  quantity: number; // the quantity of the item that the player has in their inventory
-  cost: number; // amount item costs in the shop
-  description: string; // description of the item
-  effect: number; // how effective the item is
-  type: string; // what aspect of the dog the item affects
+  name: string;         // the name of the item
+  icon: string;         // the file path to the icon image
+  quantity: number;     // the quantity of the item that the player has in their inventory
+  cost: number;         // amount item costs in the shop
+  description: string;  // description of the item
+  effect: number;       // how effective the item is
+  type: string;         // what aspect of the dog the item affects
 
   constructor(id:number, name: string, icon: string, quantity: number, cost: number, description: string, effect: number, type: string)
   {
@@ -369,6 +430,7 @@ export class Consumable extends Item {
        this.type = type;
    }
 
+   // use the item to feed the Dog. This function should not be called outside of use()! return a bool of success (1) or failure (0)
     feedDog(fedDog: Dog)
     {
         var fullness = fedDog.getFullness();
@@ -388,6 +450,7 @@ export class Consumable extends Item {
         return 1;     // mark a successful feed
     }
 
+    // use the item to give water to the Dog. This function should not be called outside of use()! return a bool of success (1) or failure (0)
     waterDog(wateredDog: Dog)
     {
         var hydration = wateredDog.getHydration();
@@ -408,6 +471,7 @@ export class Consumable extends Item {
 
     }
 
+    // use the item to treat the Dog. This function should not be called outside of use()! return a bool of success (1) or failure (0)
     treatDog(selectedDog: Dog)
     {
       if (this.quantity > 0)
@@ -437,6 +501,7 @@ export class Consumable extends Item {
       }
     }
 
+    // use the item on the passed Dog. return a bool of success (1) or failure (0)
     use(selectedDog: Dog)
     {
       if (this.quantity > 0)
@@ -456,16 +521,16 @@ export class Consumable extends Item {
       }
     }
 
+    // returns the type of consumable item the item is as a string - "food", "water", "treat", etc
     getType()
     {
       return this.type;
     }
 
+    // return the item's effectiveness (how many stat points it restores) as a number
     getEffect()
     {
       return this.effect;
     }
-
-
 
 }
