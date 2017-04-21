@@ -40,6 +40,8 @@ export class DogsPage
 
   }
 
+	// loads the list of dogs from the database.
+	// This function executes when the page is loaded. (this is a feature of Ionic)
   ionViewDidLoad()
   {
 
@@ -60,7 +62,7 @@ export class DogsPage
  
   }
 
-
+	// returns the list of all available dogs from the Dogs provider.
   getDogs() {
 		return this.dogs.getListOfDogs();
 
@@ -75,6 +77,7 @@ export class DogsPage
       // ];
   }
 
+	// allows navigation to the Dog-Stats page when a dog is selected on this page.
   navigateDogStats(result)
   {
   	this.navCtrl.push(DogStatsPage, {dog: result});

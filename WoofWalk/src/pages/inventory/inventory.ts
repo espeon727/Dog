@@ -43,14 +43,17 @@ export class InventoryPage {
     console.log('ionViewDidLoad InventoryPage');
   }
 
+	// returns the list of food from the Inventory provider
   getFood() {
     return this.items.getListOfFood();
   }
 
+	// returns the list of treats from the Inventory provider
   getTreats() {
     return this.items.getListOfTreats();
   }
 
+	// allows for navigation to the Item Details page when the user selects an item on this page.
   navigateItemDetails(result)
   {
   	this.navCtrl.push(ItemDetailsPage, {item: result});

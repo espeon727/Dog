@@ -42,6 +42,7 @@ export class CameraPage{
     // $("#draggable").draggable();
   }
 
+  // enables the camera feed.
   public cameraOn() 
   {
     // input is (rectangle, front/rear, tapEnabled, dragEnabled, toBack, alpha)
@@ -62,6 +63,7 @@ export class CameraPage{
     CameraPreview.show();
   }
 
+  // disables the camera feed.
   public cameraOff()
   {
     CameraPreview.stopCamera();
