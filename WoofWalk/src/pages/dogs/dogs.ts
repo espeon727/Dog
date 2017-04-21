@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
 import { ImagePath, Dog } from '../../app/app.module';
 
@@ -34,7 +34,7 @@ export class DogsPage
     return [[NavController]];
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, nav)
+  constructor(public navCtrl: NavController, public navParams: NavParams, nav, private platform : Platform)
   {
   	this.nav = nav;
 
@@ -42,16 +42,22 @@ export class DogsPage
 
   ionViewDidLoad()
   {
-    var listOfDogs = this.dogs.getListOfDogs();
-    //console.log("Dog list", this.dogs.getListOfDogs())
-    for (var i = 0; i < this.dogs.getListOfDogs().length; i++)
+
+    this.platform.ready().then( () => 
     {
-      var dog = listOfDogs[i];
-      dog.updateStats();
-    }
-    console.log('Trying to Update Database');
-    this.dogs.updateDatabase();
-    console.log('ionViewDidLoad DogsPage');
+      this.dogs.readDatabase();
+      var listOfDogs = this.dogs.getListOfDogs();
+      //console.log("Dog list", this.dogs.getListOfDogs())
+      for (var i = 0; i < this.dogs.getListOfDogs().length; i++)
+      {
+        var dog = listOfDogs[i];
+        dog.updateStats();
+      }
+      console.log('Trying to Update Database');
+      this.dogs.updateDatabase();
+      console.log('ionViewDidLoad DogsPage');
+    });
+ 
   }
 
 
