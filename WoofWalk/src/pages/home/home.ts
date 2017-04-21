@@ -79,10 +79,6 @@ export class HomePage
       }
       console.log(this.activeDog);
     });
-    
-  
-    
-
   }
 
   openPage(p)
@@ -91,6 +87,7 @@ export class HomePage
   }
 
 
+  // allows the user to pet the dog.
   petDog()
   {
 
@@ -107,6 +104,7 @@ export class HomePage
 
   }
 
+  // displays an alert to indicate that the active dog has been petted
   petPopUp(dog : Dog)
   {
     let confirm = this.alertCtrl.create({
@@ -144,6 +142,7 @@ export class HomePage
     this.navCtrl.push(CameraPage);
   }
 
+  // returns the correct image for the active dog
   getDogImage()
   {
     if (this.activeDog == null)

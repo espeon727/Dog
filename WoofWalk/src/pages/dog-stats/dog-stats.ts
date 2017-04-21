@@ -35,10 +35,12 @@ export class DogStatsPage {
     //call update stats for the dog
   }
 
+	// returns the dog object that this dog-stats page is currently associated with
 	getDog() : Dog {
 		return this.dog;
 	}
 
+	// this function returns the appropriate image for each stat bar according to the values of each of the dog's stats.
 	getBarImage(stat: string) : string {
 		var val;
 		switch(stat) {
@@ -62,6 +64,7 @@ export class DogStatsPage {
 		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) * 10 + ".png");
 	}
 
+	// an alert that happens when the user attempts to switch the active dog to the dog on this page.  The user must confirm before the active dog is switched.
   confirmSwitch()
   {
     var currentDog = this.dogProvider.getActiveDog();
@@ -87,12 +90,15 @@ export class DogStatsPage {
     confirm.present()
   }
 
+	// Changes the active dog to the dog on this page.
 	changeActiveDog()
 	{
 		this.dogProvider.setActiveDog(this.getDog());
 		console.log("Changed dog");
 	}
 
+	// For testing purposes.
+	// Changes the times the dog was last interacted with so that the updateStats function will be forced to decrement stats without having to wait the normal amount of time for them to decrement.
   fastForward()
   {
     var dog = this.getDog();
