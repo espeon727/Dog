@@ -177,7 +177,7 @@ export class Dogs {
     var dogFullness = dog.getFullness();
     var dogHydration = dog.getHydration();
     var dogCleanliness = dog.getCleanliness();
-    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', dogAffection, dogFullness, dogHydration, dogCleanliness)";
+    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', "  + dogAffection + ", " + dogFullness + ", " + dogHydration + ", " + dogCleanliness + " )";
     this.database.executeSql(string, []).then((data) =>
     {
       alert(dogName + "added");
