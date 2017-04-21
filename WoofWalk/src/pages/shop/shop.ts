@@ -31,11 +31,13 @@ export class ShopPage {
 		this.randomDogList = this.showRandomDogs();
   }
 
+	// initiallizes the list of random dogs in the shop when the page loads.
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
 		this.randomDogList = this.showRandomDogs();
   }
 
+	// returns a list of all items available in the shop
   showItems() : Consumable[]
   {
     var food = this.items.getListOfFood();
@@ -44,11 +46,13 @@ export class ShopPage {
     return allItems;
   }
 
+	// returns the image path of the icon for the item oneItem
   getItemImage(oneItem)
   {
     return this.imgPath.getImagePath(oneItem.getIcon());
   }
 
+	// displays an alert prompting the user to confirm that they would like to purchase the selected item.
   confirmBuyAlert(oneItem : Item)
   {
     let confirm = this.alertCtrl.create({
@@ -73,6 +77,9 @@ export class ShopPage {
     confirm.present()
   }
 
+	// attempts to purchase the item.
+	// If the user has enough PuppyPoints to purchase the item, then the item is purchased and the didBuyAlert is displayed.
+	// If the user does not have enough PuppyPoints, the noMoneyAlert is displayed and the item is not purchased.
   buyItem(oneItem)
   {
     var availablePoints = this.items.getPuppyPoints();
@@ -96,6 +103,7 @@ export class ShopPage {
     }
   }
 
+	// displays an alert indicating that the user successfully purchased the selected item.
   didBuyAlert(oneItem : Item)
   {
     let confirm = this.alertCtrl.create({
@@ -113,6 +121,8 @@ export class ShopPage {
     confirm.present()
   }
 
+	// displays an alert indicating that the user has insufficient PuppyPoints to purchase the selected item.
+	// The user is informed of the amount of PuppyPoints required.
   noMoneyAlert(oneItem : Item)
   {
     var deficit = oneItem.getCost() - this.items.getPuppyPoints();
@@ -131,6 +141,8 @@ export class ShopPage {
     confirm.present()
   }
 
+	// Awards the user PuppyPoints.
+	// Displays an alert stating that the user has obtained PuppyPoints
 	incrementPuppyPoints(points: number) : void
 	{
 		this.items.setPuppyPoints(this.items.getPuppyPoints() + points);
@@ -142,7 +154,7 @@ export class ShopPage {
 				{
 					text: 'Ok',
 					handler: () => {
-						console.log('Holla Holla Dolla Dolla');
+						console.log('' + points + ' PuppyPoints added.');
 					}
 				}
 			]
@@ -263,6 +275,7 @@ export class ShopPage {
 	// Dog Alerts
 	//////////////////////
 
+	// displays an alert to confirm that the user would like to buy the selected dog.
 	confirmBuyDogAlert(dog : Dog)
   {
     let confirm = this.alertCtrl.create({
@@ -287,6 +300,9 @@ export class ShopPage {
     confirm.present()
   }
 
+	// attempts to purchase the selected dog.
+	// If the user has sufficient PuppyPoints, the dog is purchased and added to the database.
+	// If the user has insuffucuent PuppyPoints, the dog is not 
 	buyDog(dog: Dog)
   {
     var availablePoints = this.items.getPuppyPoints();
@@ -305,6 +321,9 @@ export class ShopPage {
     }
   }
 
+	// displays an alert to indicate that the selected dog was purchased successfully.
+	// Prompts the user if they would like to rename their newly purchased dog.
+	// Also removes the purchased dog from the shop.
   didBuyDogAlert(dog: Dog)
   {
     let confirm = this.alertCtrl.create({
@@ -328,11 +347,14 @@ export class ShopPage {
       ]
     });
     confirm.present()
-
+		
+		// removes the dog from the shop
 		var index = this.randomDogList.indexOf(dog);
 		this.randomDogList.splice(index, 1);
   }
 
+	// Alert to tell the user that they have insufficient PuppyPoints to purchase the selected dog.
+	// Tells the user the amount of PuppyPoints required to purchase the selected dog.
 	noMoneyForDogAlert(dog: Dog)
   {
     var deficit = this.getDogCost(dog) - this.items.getPuppyPoints();

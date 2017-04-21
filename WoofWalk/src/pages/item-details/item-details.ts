@@ -35,15 +35,18 @@ export class ItemDetailsPage {
     console.log('ionViewDidLoad ItemDetailsPage');
   }
 
+	// returns the item object associated with this page.
   getItem() : Consumable {
 		return this.item;
 	}
 
+	// returns the path of the image for the item associated with this page.
   getItemImage()
   {
     return this.imgPath.getImagePath(this.item.getIcon());
   }
 
+	// Attempts to use the item.  As long as the the item has sufficient quantity, it will be consumed and its effect will happen.
   useItem(dog : Dog) : void {
 		var q = this.item.getQuantity();
     if (q <= 0)
@@ -70,6 +73,7 @@ export class ItemDetailsPage {
     }
 	}
 
+	// displays a confirmation screen when attempting to use the item.  If the user selects the option to use the item, then the item is used.  Otherwise, the use of the item is aborted.
   confirmUse()
   {
     let confirm = this.alertCtrl.create({
@@ -94,6 +98,8 @@ export class ItemDetailsPage {
     confirm.present()
   }
 
+	// displays an alert if the active dog's stat which is relevent to the current item is full when the current item is used.
+	// if this alert is displayed, then the item is not used.
   dogStatFull()
   {
     var stat = "";
@@ -121,6 +127,8 @@ export class ItemDetailsPage {
     confirm.present()
   }
 
+	// displays an alert when the user attempts to use an item of which they have none of.
+	// aborts the using of the item.
   noItem()
   {
     let confirm = this.alertCtrl.create({
@@ -137,6 +145,7 @@ export class ItemDetailsPage {
     confirm.present()
   }
 
+	// Displays an alert to inform the user that their dog's stats changed.
   validUse()
   {
     var actingDog = this.dogProvider.getActiveDog();
@@ -160,11 +169,7 @@ export class ItemDetailsPage {
 
       this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getHydration()  );
     }
-
-
-
-   
-
+		
     let confirm = this.alertCtrl.create({
       title: 'Used ' + this.item.getName(),
       message: actingDog.getName() + ' had their ' + stat + ' increase to ' + newAmount,
