@@ -77,6 +77,7 @@ export class HomePage
         this.cleanliness = this.activeDog.getCleanliness();
         this.icon = this.activeDog.getIcon();
       }
+
       console.log(this.activeDog);
     });
   }

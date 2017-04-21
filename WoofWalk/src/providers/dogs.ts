@@ -51,7 +51,7 @@ export class Dogs {
 
   }
 
-
+  // Ensures there is only one Dogs Provider
   static getInstance() : Dogs
 	{
 		if(Dogs.instance == null)
@@ -65,8 +65,7 @@ export class Dogs {
 	}
 
 
-
-
+  // Used by shop page to add a new dog
 	addDog(dog: Dog) : void
 	{
 		if(this.dogId == 0)
@@ -83,9 +82,11 @@ export class Dogs {
 		this.dogId += 1;
 	}
 
+  // Not to be confused with the Active Dog
 	getCurrentDogId() : number {
 		return this.dogId;
 	}
+
 
 	getNumDogs() : number {
 		return this.dogList.length;
@@ -116,7 +117,7 @@ export class Dogs {
   }
 
 
-  //For Testing purposes
+  //Adds Stock Dogs to the database for testing
   addDefaultDogs()
   {
     let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24)";
@@ -167,6 +168,7 @@ export class Dogs {
   }
 
 
+  // Reads a new Dog into the database
   addDogToDatabase(dog : Dog)
   {
     var dogName = dog.getName();
@@ -188,6 +190,7 @@ export class Dogs {
     });
   }
 
+  // Populates the dogList with Dogs from the SQL dog table 
   readDatabase()
   {
     this.database.executeSql("SELECT * FROM dogs", []).then((data) =>
@@ -206,6 +209,7 @@ export class Dogs {
     });
   }
 
+  // Removes everything from the SQL dogs table
   clearDatabase()
   {
     this.database.executeSql("DELETE FROM dogs", []).then((data) =>
@@ -219,6 +223,8 @@ export class Dogs {
     this.dogs = [];
   }
 
+  // Modifies one stat for a Dog in the database
+  // Replaces old value with new statTotal
   updateDog(statType, dogId, statTotal)
   {
     let string = "UPDATE dogs SET "  + statType + " = '" + statTotal + "' WHERE id = '" + dogId + "';";
@@ -234,6 +240,7 @@ export class Dogs {
 
   }
 
+  // Used for time based stat decay
   updateDatabase()
   {
     for (var i = 0; i < this.dogList.length; i++)
