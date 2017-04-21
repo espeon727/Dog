@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { CameraPreview, Diagnostic } from 'ionic-native';
 
 import { ImagePath } from '../../app/app.module';
+import { Dogs } from '../../providers/Dogs';
+import { Dog } from '../../app/app.module';
 
 
 // import * as $ from 'jquery';
@@ -24,11 +26,11 @@ export class CameraPage{
   public dogPicture: string;
 
 	private imgPath: ImagePath = new ImagePath();
+  private dogProvider : Dogs = Dogs.getInstance();
 
   constructor(public navCtrl: NavController, public navParams: NavParams) 
   {
-		this.base64Image = this.imgPath.getImagePath("dpa_02_transparent_bg_large.png");
-		this.dogPicture = this.imgPath.getImagePath("dpa_01_transparent_bg_large.png");
+		this.dogPicture = this.imgPath.getImagePath(this.dogProvider.getActiveDog().getIcon());
 
     Diagnostic.requestCameraAuthorization();
 
@@ -38,10 +40,6 @@ export class CameraPage{
   {
     console.log('ionViewDidLoad CameraPage');
     // $("#draggable").draggable();
-
-    
-    
-
   }
 
   public cameraOn() 
@@ -55,7 +53,7 @@ export class CameraPage{
         height: window.screen.height
       },
       "rear", 
-      false, 
+      true, 
       false, 
       true,
       1
@@ -69,5 +67,24 @@ export class CameraPage{
     CameraPreview.stopCamera();
   }
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

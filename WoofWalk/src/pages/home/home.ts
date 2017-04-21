@@ -50,6 +50,7 @@ export class HomePage
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, public alertCtrl: AlertController)
   {
+
     // Pages
     this.rootPage = HomePage;
 
@@ -63,18 +64,22 @@ export class HomePage
 
     this.lastPetDate = new Date(2017, 1, 1);
 
-    this.dogProvider.readDatabase();
-    
-    this.activeDog = this.dogProvider.getActiveDog();
-    if (this.activeDog != null)
+    this.platform.ready().then( () => 
     {
-      this.affection = this.activeDog.getAffection();
-      this.fullness = this.activeDog.getFullness();
-      this.hydration = this.activeDog.getHydration();
-      this.cleanliness = this.activeDog.getCleanliness();
-      this.icon = this.activeDog.getIcon();
-    }
-    console.log(this.activeDog);
+      this.dogProvider.readDatabase();
+    
+      this.activeDog = this.dogProvider.getActiveDog();
+      if (this.activeDog != null)
+      {
+        this.affection = this.activeDog.getAffection();
+        this.fullness = this.activeDog.getFullness();
+        this.hydration = this.activeDog.getHydration();
+        this.cleanliness = this.activeDog.getCleanliness();
+        this.icon = this.activeDog.getIcon();
+      }
+      console.log(this.activeDog);
+    });
+    
   
     
 
