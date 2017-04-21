@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import { ImagePath, Dog } from '../../app/app.module';
 
@@ -22,38 +23,11 @@ export class DogStatsPage {
 
 	public dogProvider: Dogs = Dogs.getInstance();
 
-  public chartLabels:string[] = ['Affection', 'Fullness', 'Hydration', 'Cleanliness'];
-  public chartData:any;
-  public barChartOptions:any = {
-    scales: {
-      xAxes: [{
-        display:false,
-        ticks: {
-          beginAtZero: true,
-          min: 0,
-          max: 100,
-        },
-        gridLines: {
-          display:true
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display:false
-        }
-      }]
-    },
-    legend: {
-      display: false
-    }
-  }
-  public barChartType:string = 'horizontalBar';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController)
   {
 		this.dog = navParams.get("dog");
 
-		this.updateChart();
   }
 
   ionViewDidLoad() : void {
@@ -61,33 +35,8 @@ export class DogStatsPage {
     //call update stats for the dog
   }
 
-	updateChart() : void {
-		this.chartData = [{
-			label: "",
-			data: [
-				this.dog.getAffection(),
-				this.dog.getFullness(),
-				this.dog.getHydration(),
-				this.dog.getCleanliness()
-			]
-		}];
-	}
-
 	getDog() : Dog {
 		return this.dog;
-	}
-
-	randomStats() : void {
-		this.dog.setAffection(this.getRandomStat(0,100));
-		this.dog.setFullness(this.getRandomStat(0,100));
-		this.dog.setHydration(this.getRandomStat(0,100));
-		this.dog.setCleanliness(this.getRandomStat(0,100));
-
-		this.updateChart();
-	}
-
-	getRandomStat(min: number, max: number) : number {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	getBarImage(stat: string) : string {
@@ -113,10 +62,35 @@ export class DogStatsPage {
 		return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) * 10 + ".png");
 	}
 
+  confirmSwitch()
+  {
+    var currentDog = this.dogProvider.getActiveDog();
+    let confirm = this.alertCtrl.create({
+      title: 'Switch active dog to ' + this.dog.getName() + '?',
+      message: 'Current dog is ' + currentDog.getName(),
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+            this.changeActiveDog();
+          }
+        }
+      ]
+    });
+    confirm.present()
+  }
+
 	changeActiveDog()
 	{
 		this.dogProvider.setActiveDog(this.getDog());
-		alert("Changed dog");
+		console.log("Changed dog");
 	}
 
   fastForward()
