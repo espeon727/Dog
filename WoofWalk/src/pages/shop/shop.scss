@@ -1,3 +1,13 @@
 page-shop {
-
+		.scroll-content {
+				background-image: url('../assets/images/shop_background.png');
+				image-rendering: pixelated;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: right;
+				margin: auto;
+		}
+		.shop-section-header {
+				background-color: white;
+		}
 }

@@ -121,6 +121,8 @@ export class WalkPage {
       this.latLng = new google.maps.LatLng(this.y, this.x);
       this.updateMap();
 
+			// alert("Position: " + "(" + position.coords.latitude + ", " + position.coords.longitude + ")");
+
     }, this.error);
   }
   
@@ -165,7 +167,7 @@ export class WalkPage {
     /* only add to the distance if we are 'walking' */
     if (this.onTrack)
 		{
-			this.distance = this.distance + 0.000621371 * /*google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); */ this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
+			this.distance = this.distance + 0.000621371 * google.maps.geometry.spherical.computeDistanceBetween(this.latLng, this.currLocation ); //this.gps_distance(this.latLng.latitude, this.latLng.longitude, this.currLocation.latitude, this.currLocation.longitude);
 			this.map.addPolyline((new google.maps.PolylineOptions()).add(this.currLocation, this.latLng).width(6).color(google.maps.Color.BLUE)
 													 .visible(true));
 		}
