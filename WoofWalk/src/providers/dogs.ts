@@ -27,6 +27,7 @@ export class Dogs {
   public dogs: Array<Object>;
 
 
+
   constructor()
 	{
     this.database = new SQLite();
@@ -177,7 +178,17 @@ export class Dogs {
     var dogFullness = dog.getFullness();
     var dogHydration = dog.getHydration();
     var dogCleanliness = dog.getCleanliness();
-    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('" + dogName + "', " + "'" + dogIcon + "', "  + dogAffection + ", " + dogFullness + ", " + dogHydration + ", " + dogCleanliness + " )";
+
+    var dogAffectionTime = dog.getAffectionTime().toISOString().substring(0, 10);
+    var dogFullnessTime = dog.getFullnessTime().toISOString().substring(0, 10);
+    var dogHydrationTime = dog.getHydrationTime().toISOString().substring(0, 10);
+    var dogCleanlinessTime = dog.getCleanlinessTime().toISOString().substring(0, 10);
+    var dogPetTime = dog.getPetTime().toISOString().substring(0, 10);
+
+    alert(dogAffectionTime);
+
+    //let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('" + dogName + "', " + "'" + dogIcon + "', "  + dogAffection + ", " + dogFullness + ", " + dogHydration + ", " + dogCleanliness + ", '2017-04-23', '2017-04-23', '2017-04-23', '2017-04-23','2017-01-01')" ;
+    let string = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('" + dogName + "', " + "'" + dogIcon + "', "  + dogAffection + ", " + dogFullness + ", " + dogHydration + ", " + dogCleanliness + ", " + "'" + dogAffectionTime + "', " + "'" + dogFullnessTime + "', " + "'" + dogHydrationTime + "', " + "'" + dogCleanlinessTime + "', " + "'" + dogPetTime + "' )" ;
     this.database.executeSql(string, []).then((data) =>
     {
       alert(dogName + "added");
@@ -200,7 +211,7 @@ export class Dogs {
       {
         for (var i = 0; i < data.rows.length; i++)
         {
-          this.dogList.push(new Dog(data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).id, data.rows.item(i).affection, data.rows.item(i).fullness, data.rows.item(i).hydration, data.rows.item(i).cleanliness))
+          this.dogList.push(new Dog(data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).id, data.rows.item(i).affection, data.rows.item(i).fullness, data.rows.item(i).hydration, data.rows.item(i).cleanliness, data.rows.item(i).affectionTime, data.rows.item(i).fullnessTime, data.rows.item(i).hydrationTime, data.rows.item(i).cleanlinessTime, data.rows.item(i).petTime ))
         }
       }
     }, (error) =>
@@ -253,14 +264,47 @@ export class Dogs {
       var newHydration = dog.getHydration();
       var newCleanliness = dog.getCleanliness();
 
+      var newAffectionTime = dog.getAffectionTime().toISOString().substring(0, 10);
+      var newFullnessTime = dog.getFullnessTime().toISOString().substring(0, 10);
+      var newHydrationTime = dog.getHydrationTime().toISOString().substring(0, 10);
+      var newCleanlinessTime = dog.getCleanlinessTime().toISOString().substring(0, 10);
+      var newPetTime = dog.getPetTime().toISOString().substring(0, 10);
+
       this.updateDog("affection", dogID, newAffection);
       this.updateDog("fullness", dogID, newFullness);
       this.updateDog("hydration", dogID, newHydration);
       this.updateDog("cleanliness", dogID, newCleanliness);
+
+      this.updateDog("affectionTime", dogID, newAffectionTime);
+      this.updateDog("fullnessTime", dogID, newFullnessTime);
+      this.updateDog("hydrationTime", dogID, newHydrationTime);
+      this.updateDog("cleanlinessTime", dogID, newCleanlinessTime);
+      this.updateDog("petTime", dogID, newPetTime);
     }
     console.log("Updated Database");
   }
 
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -108,6 +108,7 @@ export class Dog {
 	private cleanlinessTime: Date;
 	private petTime: Date;
 
+  /*
 	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number)
   {
 		this.name = name;
@@ -126,6 +127,24 @@ export class Dog {
 		this.cleanlinessTime = new Date();
 		this.petTime = new Date(2017, 0, 0);
 	}
+  */
+
+  constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number, affectionTime: Date, fullnessTime: Date, hydrationTime: Date, cleanlinessTime: Date, petTime: Date)
+  {
+    this.name = name;
+    this.icon = icon;
+    this.affection = this.enforceStatBounds(affection);
+    this.fullness = this.enforceStatBounds(fullness);
+    this.hydration = this.enforceStatBounds(hydration);
+    this.cleanliness = this.enforceStatBounds(cleanliness);
+    this.id = id;
+
+    this.affectionTime = affectionTime;
+    this.fullnessTime = fullnessTime;
+    this.hydrationTime = hydrationTime;
+    this.cleanlinessTime = cleanlinessTime;
+    this.petTime = petTime;
+  }
 
   //this function prevents dog stats from being set below 0 or above 100
 	enforceStatBounds(stat: number) : number

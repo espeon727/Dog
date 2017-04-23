@@ -20,11 +20,9 @@
 
 <ion-content padding style="background-color: white">
 
-	<button ion-button (click)="dogs.addDogToDatabase('Cerberus', 'dog_demon.png', 1)" color="danger">Add Cerberus To Database</button>
-	<button ion-button (click)="dogs.addDefaultDogs()" color="danger">Add Default Dogs</button>
-	<button ion-button (click)="dogs.readDatabase()" color="danger">read database</button>
-  <button ion-button (click)="dogs.clearDatabase()" color="danger">clear database</button>
-  <p>{{dogs.activeId}}<p>
+<button ion-button (click)="dogs.readDatabase()" color="danger">read database</button>
+<button ion-button (click)="dogs.clearDatabase()" color="danger">clear database</button>
+<p>{{dogs.activeId}}<p>
 
 
 

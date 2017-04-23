@@ -65,7 +65,7 @@ export class MyApp {
       }).then(() =>
       {
         // create "dogs" table in db and populate with defaults
-        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER);",{}). then ((data) =>
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER, affectionTime DATE, fullnessTime DATE, hydrationTime DATE, cleanlinessTime DATE, petTime DATE);",{}). then ((data) =>
         {
           alert("dogs table made");
           console.log("TABLE CREATED: ", data);
@@ -74,7 +74,7 @@ export class MyApp {
           {
             if (data.rows.length < 2)
             {
-              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24);",{}). then ((data) =>
+              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24, 'now', 'now', 'now', 'now', '2017-01-01');",{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
@@ -83,7 +83,7 @@ export class MyApp {
                 console.error("Unable to execute SQL", error);
               });
 
-              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2);",{}). then ((data) =>
+              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2, 'now', 'now', 'now', 'now', '2017-01-01');",{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
@@ -288,12 +288,12 @@ export class MyApp {
 		}
 
 
-		return [ new Dog("Lucky", "dog_brown.png", this.dogProvider.getCurrentDogId(), 13, 12, 10, 24),
-             new Dog("Spot", "dog_spot.png", this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2),
-             new Dog("Daisy", "dog_goldie.png", this.dogProvider.getCurrentDogId() + 2, 10, 83, 9, 90),
-             new Dog("Howard", "dog_black.png", this.dogProvider.getCurrentDogId() + 3, 25, 72, 45, 46),
-             new Dog("Target", "dog_target.png", this.dogProvider.getCurrentDogId() + 4, 56, 38, 10, 82),
-						 new Dog("Cerberus", "dog_demon.png", this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13) ];
+		return [ new Dog("Lucky", "dog_brown.png", this.dogProvider.getCurrentDogId(), 13, 12, 10, 24, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
+             new Dog("Spot", "dog_spot.png", this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
+             new Dog("Daisy", "dog_goldie.png", this.dogProvider.getCurrentDogId() + 2, 10, 83, 9, 90, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
+             new Dog("Howard", "dog_black.png", this.dogProvider.getCurrentDogId() + 3, 25, 72, 45, 46, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
+             new Dog("Target", "dog_target.png", this.dogProvider.getCurrentDogId() + 4, 56, 38, 10, 82, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
+						 new Dog("Cerberus", "dog_demon.png", this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ) ];
 	}
 
   // returns a list of food item objects.  Should be used for testing and until local storage is implemented.
