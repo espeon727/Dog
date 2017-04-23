@@ -17,20 +17,21 @@
 
 </ion-header>
 
-<ion-content padding style="background-color: white">
+<ion-content padding style="background-image: url('../www/assets/images/shop_background.png')">
 
   <button ion-button (click)="items.readDatabaseFood()" color="danger">refresh food</button>
   <button ion-button (click)="items.readDatabaseTreats()" color="danger">refresh treats</button>
 
 
   <div>
+		<br>
     <h2>${{this.items.getPuppyPoints()}}</h2>
 		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points! </button>
   </div>
 
 
   <div padding>
-    <ion-segment [(ngModel)]="shop">
+		<ion-segment [(ngModel)]="shop" color="dark">
       <ion-segment-button value="items">
         Items
       </ion-segment-button>

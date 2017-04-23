@@ -118,8 +118,10 @@ export class WalkPage {
     {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
-      this.latLng = new google.maps.LatLng(this.x, this.y);
+      this.latLng = new google.maps.LatLng(this.y, this.x);
       this.updateMap();
+
+			// alert("Position: " + "(" + position.coords.latitude + ", " + position.coords.longitude + ")");
 
     }, this.error);
   }
@@ -132,7 +134,7 @@ export class WalkPage {
     {
       this.x = position.coords.longitude;
       this.y = position.coords.latitude;
-      this.latLng = new google.maps.LatLng(this.x, this.y);
+      this.latLng = new google.maps.LatLng(this.y, this.x);
 			this.makeMap();
 	    this.updateMap();
 		},this.error);
