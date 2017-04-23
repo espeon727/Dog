@@ -24,43 +24,43 @@
 
 
   <div>
-		<br>
-    <h2>${{this.items.getPuppyPoints()}}</h2>
-		<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points! </button>
+			<br>
+			<h2 color="light">${{this.items.getPuppyPoints()}}</h2>
+			<button ion-button (click)="incrementPuppyPoints(500)">Get 500 Puppy Points! </button>
   </div>
 
 
   <div padding>
-		<ion-segment [(ngModel)]="shop" color="dark">
-      <ion-segment-button value="items">
-        Items
-      </ion-segment-button>
-      <ion-segment-button value="dogs">
-        Dogs
-      </ion-segment-button>
-    </ion-segment>
+			<ion-segment [(ngModel)]="shop" color="light">
+					<ion-segment-button value="items">
+							Items
+					</ion-segment-button>
+					<ion-segment-button value="dogs">
+							Dogs
+					</ion-segment-button>
+			</ion-segment>
   </div>
 
-      <div [ngSwitch]="shop">
+  <div [ngSwitch]="shop">
       <ion-list no-lines *ngSwitchCase="'items'">
-      <ion-item *ngFor="let item of showItems()" (click) = "confirmBuyAlert(item)">
-        <ion-thumbnail item-left>
-          <img src={{getItemImage(item)}}>
-        </ion-thumbnail>
-        <h2>{{item.getName()}}</h2>
-        <p [innerText]="item.getCost()"></p>
-      </ion-item>
+					<ion-item *ngFor="let item of showItems()" (click) = "confirmBuyAlert(item)">
+							<ion-thumbnail item-left>
+									<img src={{getItemImage(item)}}>
+							</ion-thumbnail>
+							<h2 color="light">{{item.getName()}}</h2>
+							<p color="light" [innerText]="item.getCost()"></p>
+					</ion-item>
       </ion-list>
 
       <ion-list no-lines *ngSwitchCase="'dogs'">
-      <ion-item *ngFor="let dog of getRandomDogs()" (click)="confirmBuyDogAlert(dog)">
-        <ion-thumbnail item-left>
-          <img src={{getDogImage(dog)}}>
-        </ion-thumbnail>
-        <h2>{{dog.getName()}}</h2>
-        <p [innerText]="getDogCost(dog)"></p>
-      </ion-item>
+					<ion-item *ngFor="let dog of getRandomDogs()" (click)="confirmBuyDogAlert(dog)">
+							<ion-thumbnail item-left>
+									<img src={{getDogImage(dog)}}>
+							</ion-thumbnail>
+							<h2 color="light">{{dog.getName()}}</h2>
+							<p color="light" [innerText]="getDogCost(dog)"></p>
+					</ion-item>
       </ion-list>
-      </div>
+  </div>
 
 </ion-content>
