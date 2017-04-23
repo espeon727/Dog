@@ -104,6 +104,7 @@ export class MyApp {
         });
 
 
+
         // create "treats" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS treats (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
@@ -133,6 +134,36 @@ export class MyApp {
                 alert("could not insert treat");
                 console.error("Unable to execute SQL", error);
               });
+            }
+          });
+
+          }, (error) =>
+          {
+            alert("could not make treats table");
+            console.error("Unable to execute SQL", error);
+          });
+
+
+        // create "misc" table in DB and populate
+        db.executeSql("CREATE TABLE IF NOT EXISTS misc (id INTEGER PRIMARY KEY AUTOINCREMENT, puppyPoints NUMBER);",{}). then ((data) =>
+        {
+          alert("treats table made");
+          console.log("TABLE CREATED: ", data);
+
+          db.executeSql("SELECT * FROM misc",{}). then ((data) =>
+          {
+            if (data.rows.length < 2)
+            {
+              db.executeSql("INSERT INTO misc(puppyPoints) VALUES (1000);",{}). then ((data) =>
+              {
+                alert("added puppy points");
+                console.log("MISC CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert puppy points");
+                console.error("Unable to execute SQL", error);
+              });
+
             }
           });
 
