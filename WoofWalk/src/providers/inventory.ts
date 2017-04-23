@@ -35,6 +35,7 @@ export class Inventory {
     	alert("database loaded");
       this.readDatabaseFood();
       this.readDatabaseTreats();
+      this.readDatabaseMisc();
     }, (error) =>
     {
       console.log("ERROR: ", error);
@@ -66,6 +67,16 @@ export class Inventory {
   setPuppyPoints(points : number) : void
   {
     this.puppyPoints = points;
+
+    let string = "UPDATE misc SET puppyPoints = '" + points + "';";
+    this.database.executeSql(string, []).then((data) =>
+    {
+      console.log("INSERTED: " + JSON.stringify(data));
+      this.readDatabaseMisc();
+    }, (error) =>
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
   }
 
 	addFood(food: Consumable) : void
@@ -156,6 +167,24 @@ export class Inventory {
         }
       }
     
+    }, (error) =>
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  readDatabaseMisc()
+  {
+    this.database.executeSql("SELECT * FROM misc", []).then((data) =>
+    {
+      if (data.rows.length > 0)
+      {
+        for (var i = 0; i < data.rows.length; i++)
+        {
+          this.puppyPoints = data.rows.item(i).puppyPoints;
+        }
+      }
+  
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
