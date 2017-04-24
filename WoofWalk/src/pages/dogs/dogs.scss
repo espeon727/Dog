@@ -1,3 +1,11 @@
 page-dogs {
-
+  .scroll-content {
+    background-image: url('../assets/images/background_dogs.png');
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    margin: auto;
+  }
 }
+
