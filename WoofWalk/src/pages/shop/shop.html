@@ -48,7 +48,8 @@
 									<img src={{getItemImage(item)}}>
 							</ion-thumbnail>
 							<h2 color="light">{{item.getName()}}</h2>
-							<p color="light" [innerText]="item.getCost()"></p>
+							<p color="light" [innerText]="getCostString(item)"></p>
+              <p color="light" [innerText]="getQuantityString(item)"></p>
 					</ion-item>
       </ion-list>
 

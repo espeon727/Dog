@@ -42,14 +42,27 @@ export class ShopPage {
   {
     var food = this.items.getListOfFood();
     var treats = this.items.getListOfTreats();
+    //var cleaning = this.items.getListOfCleaning();
+    //console.log(cleaning);
     var allItems = food.concat(treats);
+    //allItems = allItems.concat(cleaning);
     return allItems;
   }
 
 	// returns the image path of the icon for the item oneItem
-  getItemImage(oneItem)
+  getItemImage(oneItem : Item)
   {
     return this.imgPath.getImagePath(oneItem.getIcon());
+  }
+
+  getCostString(item : Item) : string
+  {
+    return "Cost: " + item.getCost();
+  }
+
+  getQuantityString(item : Item)
+  {
+    return "Currently Owned: " + item.getQuantity();
   }
 
 	// displays an alert prompting the user to confirm that they would like to purchase the selected item.
@@ -93,7 +106,7 @@ export class ShopPage {
       var current = oneItem.getQuantity();
       oneItem.setQuantity(current + 1);
 
-      this.items.updateItem(oneItem.getType, oneItem.getId(), oneItem.getQuantity() + 1);
+      this.items.updateItem(oneItem.getType(), oneItem.getId(), oneItem.getQuantity());
 
     }
     else
@@ -106,9 +119,10 @@ export class ShopPage {
 	// displays an alert indicating that the user successfully purchased the selected item.
   didBuyAlert(oneItem : Item)
   {
+    var newQuantity = oneItem.getQuantity() + 1;
     let confirm = this.alertCtrl.create({
       title: 'Bought 1 ' + oneItem.getName() + '!',
-      message: 'now you have ' + oneItem.getQuantity() + ' ' + oneItem.getName(),
+      message: 'now you have ' + newQuantity + ' ' + oneItem.getName(),
       buttons: [
         {
           text: 'Ok',
@@ -302,7 +316,7 @@ export class ShopPage {
 
 	// attempts to purchase the selected dog.
 	// If the user has sufficient PuppyPoints, the dog is purchased and added to the database.
-	// If the user has insuffucuent PuppyPoints, the dog is not 
+	// If the user has insuffucuent PuppyPoints, the dog is not
 	buyDog(dog: Dog)
   {
     var availablePoints = this.items.getPuppyPoints();
@@ -347,7 +361,7 @@ export class ShopPage {
       ]
     });
     confirm.present()
-		
+
 		// removes the dog from the shop
 		var index = this.randomDogList.indexOf(dog);
 		this.randomDogList.splice(index, 1);

@@ -23,6 +23,9 @@
       <ion-segment-button value="treats">
         Treats
       </ion-segment-button>
+      <ion-segment-button value="cleaning">
+        Cleaning
+      </ion-segment-button>
     </ion-segment>
   </div>
 
@@ -48,6 +51,18 @@
       </ion-thumbnail>
         <h2>{{treat.getName()}}</h2>
         <p [innerText]="treat.getQuantity()"></p>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'cleaning'">
+
+    <ion-item *ngFor="let clean of getCleaning()" class="advanced-background" (click)="navigateItemDetails(treat)">
+      <ion-thumbnail item-left>
+        <img src={{this.imgPath.getImagePath(clean.getIcon())}}>
+      </ion-thumbnail>
+        <h2>{{clean.getName()}}</h2>
+        <p [innerText]="clean.getQuantity()"></p>
     </ion-item>
 
   </ion-list>

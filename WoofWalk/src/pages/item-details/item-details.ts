@@ -98,7 +98,7 @@ export class ItemDetailsPage {
     confirm.present()
   }
 
-	// displays an alert if the active dog's stat which is relevent to the current item is full when the current item is used.
+	// displays an alert if the active dog's stat which is relevant to the current item is full when the current item is used.
 	// if this alert is displayed, then the item is not used.
   dogStatFull()
   {
@@ -114,7 +114,7 @@ export class ItemDetailsPage {
       stat = "hydrated";
     }
     let confirm = this.alertCtrl.create({
-      title: 'Your Dog is already' + stat + '!',
+      title: 'Your Dog is already ' + stat + '!',
       message: 'Go play with your puppy!',
       buttons: [
         {
@@ -169,7 +169,7 @@ export class ItemDetailsPage {
 
       this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getHydration()  );
     }
-		
+
     let confirm = this.alertCtrl.create({
       title: 'Used ' + this.item.getName(),
       message: actingDog.getName() + ' had their ' + stat + ' increase to ' + newAmount,

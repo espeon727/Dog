@@ -520,6 +520,28 @@ export class Consumable extends Item {
       }
     }
 
+    // use the item to clean the Dog. This function should not be called outside of use()! return a bool of success (1) or failure (0)
+    cleanDog(cleanedDog: Dog)
+    {
+        var cleanliness = cleanedDog.getCleanliness();
+        if (cleanliness >= 100)
+        {
+          return 0;     // mark that the dog is already clean!
+        }
+        var newCleanliness = cleanliness + this.effect;
+        if (newCleanliness > 100)
+        {
+          newCleanliness = 100;
+        }
+        console.log("prv cleaning time: ", cleanedDog.getCleanlinessTime());
+        cleanedDog.setCleanliness(newCleanliness);
+        cleanedDog.setCleanlinessTime(new Date());
+        console.log("new cleaning time: ", cleanedDog.getCleanlinessTime());
+        return 1;     // mark a successful cleaning
+
+    }
+
+
     // use the item on the passed Dog. return a bool of success (1) or failure (0)
     use(selectedDog: Dog)
     {
@@ -536,6 +558,10 @@ export class Consumable extends Item {
         else if (this.type == "treat")
         {
           return this.treatDog(selectedDog);
+        }
+        else if (this.type == "clean")
+        {
+          return this.cleanDog(selectedDog);
         }
       }
     }

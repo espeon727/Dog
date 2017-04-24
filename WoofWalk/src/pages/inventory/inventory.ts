@@ -53,6 +53,11 @@ export class InventoryPage {
     return this.items.getListOfTreats();
   }
 
+  // returns the list of cleaning items from the Inventory provider
+  getCleaning() {
+    return this.items.getListOfCleaning();
+  }
+
 	// allows for navigation to the Item Details page when the user selects an item on this page.
   navigateItemDetails(result)
   {

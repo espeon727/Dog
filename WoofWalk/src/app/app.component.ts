@@ -111,7 +111,7 @@ export class MyApp {
           alert("treats table made");
           console.log("TABLE CREATED: ", data);
 
-          db.executeSql("SELECT * FROM food",{}). then ((data) =>
+          db.executeSql("SELECT * FROM treats",{}). then ((data) =>
           {
             if (data.rows.length < 2)
             {
@@ -128,7 +128,7 @@ export class MyApp {
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Fancy Bone', 'bone_fancy.png', 5, 45, 'A fancy bone, gives 50 affection', 50, 'treat');",{}). then ((data) =>
               {
                 alert("added fancy bone");
-                console.log("FOOD CREATED: ", data);
+                console.log("TREAT CREATED: ", data);
               }, (error) =>
               {
                 alert("could not insert treat");
@@ -142,6 +142,35 @@ export class MyApp {
             alert("could not make treats table");
             console.error("Unable to execute SQL", error);
           });
+
+          // create "clean" table in DB and populate
+          db.executeSql("CREATE TABLE IF NOT EXISTS clean (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
+          {
+            alert("clean table made");
+            console.log("TABLE CREATED: ", data);
+
+            db.executeSql("SELECT * FROM clean",{}). then ((data) =>
+            {
+              if (data.rows.length < 1)
+              {
+                db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');",{}). then ((data) =>
+                {
+                  alert("added brush");
+                  console.log("CLEANER CREATED: ", data);
+                }, (error) =>
+                {
+                  alert("could not insert clean");
+                  console.error("Unable to execute SQL", error);
+                });
+              }
+            });
+
+            }, (error) =>
+            {
+              alert("could not make treats table");
+              console.error("Unable to execute SQL", error);
+            });
+
 
 
         // create "misc" table in DB and populate
