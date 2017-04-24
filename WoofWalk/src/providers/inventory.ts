@@ -22,6 +22,7 @@ export class Inventory {
   private puppyPoints : number = 0;
 	private foodList : Consumable[];
   private treatList : Consumable[];
+  private cleanList : Consumable[];
 	private itemId : number = 0;
 
 	public database: SQLite;
@@ -135,6 +136,12 @@ export class Inventory {
     return this.treatList;
   }
 
+  getListOfCleaning = (): Consumable[] =>
+  {
+    console.log("cleaning list being fetched");
+    return this.cleanList;
+  }
+
   readDatabaseFood()
   {
     this.database.executeSql("SELECT * FROM food", []).then((data) =>
@@ -147,7 +154,7 @@ export class Inventory {
           this.foodList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
         }
       }
-  
+
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -166,7 +173,26 @@ export class Inventory {
           this.treatList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
         }
       }
-    
+
+    }, (error) =>
+    {
+      console.log("ERROR: ", JSON.stringify(error.err));
+    });
+  }
+
+  readDatabaseClean()
+  {
+    this.database.executeSql("SELECT * FROM clean", []).then((data) =>
+    {
+      this.cleanList = [];
+      if (data.rows.length > 0)
+      {
+        for (var i = 0; i < data.rows.length; i++)
+        {
+          this.cleanList.push(new Consumable(data.rows.item(i).id, data.rows.item(i).name, data.rows.item(i).icon, data.rows.item(i).quantity, data.rows.item(i).cost, data.rows.item(i).description, data.rows.item(i).effect, data.rows.item(i).type) );
+        }
+      }
+
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -184,7 +210,7 @@ export class Inventory {
           this.puppyPoints = data.rows.item(i).puppyPoints;
         }
       }
-  
+
     }, (error) =>
     {
       console.log("ERROR: ", JSON.stringify(error.err));
@@ -206,7 +232,7 @@ export class Inventory {
 	      alert("Error updating item");
 	      console.log("ERROR: ", JSON.stringify(error.err));
 	    });
-  	} 
+  	}
   	if (itemType == 'treat')
   	{
   		let string = "UPDATE treats SET quantity = '" + itemQuantity + "' WHERE id = '" + itemId + "';";
@@ -214,6 +240,19 @@ export class Inventory {
 	    {
 	      console.log("INSERTED: " + JSON.stringify(data));
 	      this.readDatabaseTreats();
+	    }, (error) =>
+	    {
+	      alert("Error updating item");
+	      console.log("ERROR: ", JSON.stringify(error.err));
+	    });
+  	}
+    if (itemType == 'clean')
+  	{
+  		let string = "UPDATE clean SET quantity = '" + itemQuantity + "' WHERE id = '" + itemId + "';";
+  		this.database.executeSql(string, []).then((data) =>
+	    {
+	      console.log("INSERTED: " + JSON.stringify(data));
+	      this.readDatabaseClean();
 	    }, (error) =>
 	    {
 	      alert("Error updating item");
