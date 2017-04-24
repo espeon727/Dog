@@ -143,35 +143,33 @@ export class MyApp {
             console.error("Unable to execute SQL", error);
           });
 
-          // create "clean" table in DB and populate
-          db.executeSql("CREATE TABLE IF NOT EXISTS clean (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
+        // create "clean" table in DB and populate
+        db.executeSql("CREATE TABLE IF NOT EXISTS clean (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
+        {
+          alert("clean table made");
+          console.log("TABLE CREATED: ", data);
+
+          db.executeSql("SELECT * FROM clean",{}). then ((data) =>
           {
-            alert("clean table made");
-            console.log("TABLE CREATED: ", data);
-
-            db.executeSql("SELECT * FROM clean",{}). then ((data) =>
+            if (data.rows.length < 1)
             {
-              if (data.rows.length < 1)
+              db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');",{}). then ((data) =>
               {
-                db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');",{}). then ((data) =>
-                {
-                  alert("added brush");
-                  console.log("CLEANER CREATED: ", data);
-                }, (error) =>
-                {
-                  alert("could not insert clean");
-                  console.error("Unable to execute SQL", error);
-                });
-              }
-            });
+                alert("added brush");
+                console.log("CLEANER CREATED: ", data);
+              }, (error) =>
+              {
+                alert("could not insert clean");
+                console.error("Unable to execute SQL", error);
+              });
+            }
+          });
 
-            }, (error) =>
-            {
-              alert("could not make treats table");
-              console.error("Unable to execute SQL", error);
-            });
-
-
+          }, (error) =>
+          {
+            alert("could not make clean table");
+            console.error("Unable to execute SQL", error);
+          });
 
         // create "misc" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS misc (id INTEGER PRIMARY KEY AUTOINCREMENT, puppyPoints NUMBER);",{}). then ((data) =>
@@ -334,6 +332,9 @@ export class MyApp {
 				this.inventoryProvider.addTreat(listOfTreats[i]);
 			}
 
+      var brushItem = new Consumable(this.inventoryProvider.getCurrentItemId(), 'Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');
+      this.inventoryProvider.addClean(brushItem);
+
       this.inventoryProvider.setPuppyPoints(500); //give users 500 puppy points to begin with
 
     });
@@ -379,7 +380,8 @@ export class MyApp {
 		}
 
 		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", "bone_normal.png", 5, 10, "a tasty bone, gives 10 affection" , 10, "treat"),
-         		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", "bone_fancy.png", 5, 45, "a fancy bone, gives 50 affection", 50, "treat") ];
+         		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", "bone_fancy.png", 5, 45, "a fancy bone, gives 50 affection", 50, "treat"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Rope Toy", "rope.png", 2, 65, "a woven rope toy to play tug of war, adds 75 affection", 75, "treat") ];
 	}
 
   openPage(page)

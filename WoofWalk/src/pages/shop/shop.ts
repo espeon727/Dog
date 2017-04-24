@@ -25,10 +25,12 @@ export class ShopPage {
   private items: Inventory = Inventory.getInstance();
 	private dogs: Dogs = Dogs.getInstance();
 	private randomDogList: Dog[];
+  public shop;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController)
   {
 		this.randomDogList = this.showRandomDogs();
+    this.shop = "items";
   }
 
 	// initiallizes the list of random dogs in the shop when the page loads.
@@ -42,10 +44,10 @@ export class ShopPage {
   {
     var food = this.items.getListOfFood();
     var treats = this.items.getListOfTreats();
-    //var cleaning = this.items.getListOfCleaning();
-    //console.log(cleaning);
+    var cleaning = this.items.getListOfCleaning();
+    console.log(cleaning);
     var allItems = food.concat(treats);
-    //allItems = allItems.concat(cleaning);
+    allItems = allItems.concat(cleaning);
     return allItems;
   }
 

@@ -110,6 +110,21 @@ export class Inventory {
 		this.itemId += 1;
 	}
 
+  addClean(clean: Consumable) : void
+	{
+		if(this.itemId == 0 || this.cleanList == undefined)
+		{
+			// first item added to array
+			this.cleanList = [clean];
+		}
+		else
+		{
+			// not first item
+			this.cleanList.push(clean);
+		}
+		this.itemId += 1;
+	}
+
 	getCurrentItemId() : number
   {
 		return this.itemId;

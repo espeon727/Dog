@@ -22,6 +22,7 @@ export class InventoryPage {
   private nav;
   private imgPath: ImagePath = new ImagePath();
   private items: Inventory = Inventory.getInstance();
+  public stuff;
 
   static get parameters() {
     return [[NavController]];
@@ -29,6 +30,7 @@ export class InventoryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, nav) {
     this.nav = nav;
+    this.stuff = "food";
 
     // this.food = [ new Food("Dry Food", this.imgPath.getImagePath("food_dry.png"), 13, 10, "food"),
 		//						  new Food("Canned Food", this.imgPath.getImagePath("food_can.png"), 14, 20, "food"),
