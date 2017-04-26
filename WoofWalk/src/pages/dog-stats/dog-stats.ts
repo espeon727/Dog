@@ -6,6 +6,9 @@ import { ImagePath, Dog } from '../../app/app.module';
 
 import { Dogs } from '../../providers/Dogs';
 
+import { HomePage } from '../home/home';
+import { WalkPage } from '../walk/walk';
+
 /*
   Generated class for the DogStats page.
 
@@ -79,10 +82,64 @@ export class DogStatsPage {
           }
         },
         {
-          text: 'Yes',
+          text: 'Switch Dog',
           handler: () => {
             console.log('Agree clicked');
             this.changeActiveDog();
+          }
+        }
+      ]
+    });
+    confirm.present()
+  }
+
+  // an alert that happens when the user attempts to switch the active dog to the dog on this page.  The user must confirm before the active dog is switched.
+  confirmSwitchHome()
+  {
+    var currentDog = this.dogProvider.getActiveDog();
+    let confirm = this.alertCtrl.create({
+      title: 'Switch active dog to ' + this.dog.getName() + '?',
+      message: 'Current dog is ' + currentDog.getName(),
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Switch Dog and Go to Home',
+          handler: () => {
+            console.log('Agree and Navigate clicked');
+            this.changeActiveDog();
+            this.navCtrl.push(HomePage);
+          }
+        }
+      ]
+    });
+    confirm.present()
+  }
+
+  // lets the user shortcut to the walk screen after selecting a dog
+  confirmSwitchWalk()
+  {
+    var currentDog = this.dogProvider.getActiveDog();
+    let confirm = this.alertCtrl.create({
+      title: 'Switch active dog to ' + this.dog.getName() + '?',
+      message: 'Current dog is ' + currentDog.getName(),
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Switch Dog and Go to Walk',
+          handler: () => {
+            console.log('Agree and Navigate clicked');
+            this.changeActiveDog();
+            this.navCtrl.push(WalkPage);
           }
         }
       ]

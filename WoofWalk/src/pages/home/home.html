@@ -19,10 +19,22 @@
 
 
 
-  <p>Affection: {{ affection }}</p>
-  <p>Fullness: {{ fullness }}</p>
-  <p>Hydration: {{ hydration }}</p>
-  <p>Cleanliness: {{ cleanliness }}</p>
+  <p>
+    Affection: {{ affection }}
+    <img src="{{ getBarImage('affection') }}">
+  </p>
+  <p>
+    Fullness: {{ fullness }}
+    <img src="{{ getBarImage('fullness') }}">
+  </p>
+  <p>
+    Hydration: {{ hydration }}
+    <img src="{{ getBarImage('hydration') }}">
+  </p>
+  <p>
+    Cleanliness: {{ cleanliness }}
+    <img src="{{ getBarImage('cleanliness') }}">
+  </p>
 
     <!-- <button  id="toggle" onclick="clicked()">Toggle Picture</button> -->
 	<button ion-button (click)="clicked()" color="danger">Toggle</button>

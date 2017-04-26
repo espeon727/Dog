@@ -64,10 +64,10 @@ export class HomePage
 
     this.lastPetDate = new Date(2017, 1, 1);
 
-    this.platform.ready().then( () => 
+    this.platform.ready().then( () =>
     {
       this.dogProvider.readDatabase();
-    
+
       this.activeDog = this.dogProvider.getActiveDog();
       if (this.activeDog != null)
       {
@@ -86,7 +86,6 @@ export class HomePage
   {
     this.rootPage = p;
   }
-
 
   // allows the user to pet the dog.
   petDog()
@@ -109,8 +108,8 @@ export class HomePage
   petPopUp(dog : Dog)
   {
     let confirm = this.alertCtrl.create({
-      title: 'You pet your Dog ' + dog.getName() + "!",
-      message: 'Come back tomorrow to pet it again',
+      title: 'You pet your dog ' + dog.getName() + "!",
+      message: 'Come back tomorrow to pet them again',
       buttons: [
         {
           text: 'OK',
@@ -152,5 +151,34 @@ export class HomePage
     }
     return this.imgPath.getImagePath(this.icon);
   }
+
+  getBarImage(stat: string) : string {
+		var val;
+    if (this.activeDog != null)
+    {
+  		switch(stat) {
+  		case'affection':
+  			val = this.activeDog.getAffection();
+  			break;
+  		case'fullness':
+  			val = this.activeDog.getFullness();
+  			break;
+  		case'hydration':
+  			val = this.activeDog.getHydration();
+  			break;
+  		case'cleanliness':
+  			val = this.activeDog.getCleanliness();
+  			break;
+  		default:
+  			console.log("UNKNOWN ATTRIBUTE");
+  			return "000.png";
+  		}
+      return this.imgPath.getImagePath("dog_stat_bars/" + stat + "_bars/" + stat + "_bar" + Math.floor(val/10) * 10 + ".png");
+    }
+    else
+    {
+      return "../www/assets/images/dog_stat_bars/" + stat + "_bars/" + stat + "_bar0.png";
+    }
+	}
 
 }
