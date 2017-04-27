@@ -306,7 +306,7 @@ export class Dog {
   // update the dog's stats and calculate the decay from when it was last checked or updated
   updateStats()
   {
-    var currentTime = new Date;
+    var currentTime = new Date();
     var affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
     var fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
     var hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes

@@ -96,22 +96,27 @@ export class WalkPage {
   /* When start is clicked, starts to track the distance */
   startClicked()
   {
+		alert("Entered Start");
     if (this.onTrack == false)
     {
+			alert("Checking Stats");
       var statCheck = this.dogStatCheck();
+			alert("Got Stat check");
       if (statCheck == 1)
       {
         this.onTrack = true;
         alert("Started walk");
       }
     }
-	var activeDog = this.dogList.getActiveDog();
+		alert("Getting Active Dog");
+		var activeDog = this.dogList.getActiveDog();
     var preparse = activeDog.getIcon();
-	var parts = preparse.split('.');
-	var gif = parts[0].concat("_animated.gif");
-	this.curr_marker.setIcon(this.imgPath.getImagePath(gif));
-	document.getElementById("EndButton").style.display = 'block';
-	document.getElementById("StartButton").style.display = 'none';
+		var parts = preparse.split('.');
+		var gif = parts[0].concat("_animated.gif");
+		alert(gif);
+		this.curr_marker.setIcon(this.imgPath.getImagePath(gif));
+		document.getElementById("EndButton").style.display = 'block';
+		document.getElementById("StartButton").style.display = 'none';
   }
 
   /* Once stop is clicked, the code will determine the end distance */
@@ -250,7 +255,8 @@ export class WalkPage {
   dogStatCheck()
   {
     var activeDog = this.dogList.getActiveDog();
-    activeDog.updateStats();
+		// TODO: uncomment updateStats when updateStats isnt broken
+    // activeDog.updateStats();
     if (activeDog.getFullness() < 10 || activeDog.getHydration() < 10)
     {
       this.badStatsAlert(activeDog);

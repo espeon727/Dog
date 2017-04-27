@@ -18,7 +18,7 @@ export class Dogs {
 	static isCreating : boolean = false;
 
 	private dogList : Dog[] = [];
-	private dogId : number = 0;
+	private dogId : number = 1;
 
   private activeId : number;
   private activeDog : Dog;
