@@ -21,6 +21,8 @@ import { WalkPage } from '../walk/walk';
 })
 export class DogStatsPage {
 
+	private nvCtrl: NavController;
+
 	public dog: Dog;
 	public imgPath: ImagePath = new ImagePath();
 
@@ -29,8 +31,8 @@ export class DogStatsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController)
   {
+		this.nvCtrl = navCtrl;
 		this.dog = navParams.get("dog");
-
   }
 
   ionViewDidLoad() : void {
@@ -112,7 +114,7 @@ export class DogStatsPage {
           handler: () => {
             console.log('Agree and Navigate clicked');
             this.changeActiveDog();
-            this.navCtrl.push(HomePage);
+						this.nvCtrl.setRoot(HomePage);
           }
         }
       ]
@@ -139,7 +141,7 @@ export class DogStatsPage {
           handler: () => {
             console.log('Agree and Navigate clicked');
             this.changeActiveDog();
-            this.navCtrl.push(WalkPage);
+						this.nvCtrl.setRoot(WalkPage);
           }
         }
       ]
