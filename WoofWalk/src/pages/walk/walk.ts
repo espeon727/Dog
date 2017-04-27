@@ -76,7 +76,7 @@ export class WalkPage {
     console.log('ionViewDidLoad WalkPage');
 	this.loadMap();
 	this.clock = setInterval(() => this.showPosition(), 5000);
-	document.getElementById("#EndButton").style.display = 'none';
+	document.getElementById("EndButton").style.display = 'none';
   }
 
   /* When start is clicked, starts to track the distance */
