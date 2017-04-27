@@ -80,6 +80,19 @@ export class WalkPage {
 	document.getElementById("EndButton").style.display = 'none';
   }
 
+  ionViewDidEnter()
+  {
+    this.loadMap();
+	this.clock = setInterval(() => this.showPosition(), 5000);
+  }
+  
+  ionViewDidLeave()
+  {
+    this.clock = null;
+  }
+  
+  
+  
   /* When start is clicked, starts to track the distance */
   startClicked()
   {
@@ -92,6 +105,11 @@ export class WalkPage {
         alert("Started walk");
       }
     }
+	var activeDog = this.dogList.getActiveDog();
+    var preparse = activeDog.getIcon();
+	var parts = preparse.split('.');
+	var gif = parts[0].concat("_animated.gif");
+	this.curr_marker.setIcon(this.imgPath.getImagePath(gif));
 	document.getElementById("EndButton").style.display = 'block';
 	document.getElementById("StartButton").style.display = 'none';
   }
@@ -107,6 +125,7 @@ export class WalkPage {
 	}
     document.getElementById("StartButton").style.display = 'block';
 	document.getElementById("EndButton").style.display = 'none';
+	this.curr_marker.setIcon(this.imgPath.getImagePath("location_marker.png"));
 	// for updating the PuppyPoints at the end of a walk.
 	var PPperMile = 250;
 	var currentPP = this.inventory.getPuppyPoints();
@@ -172,6 +191,7 @@ export class WalkPage {
         position: this.latLng,
         map: this.map,
 		draggable: false,
+		optimized: false,
         title: "My Location",
 		icon: this.imgPath.getImagePath("location_marker.png")
       });
