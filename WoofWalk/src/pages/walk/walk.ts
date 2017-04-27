@@ -16,7 +16,7 @@ import { Inventory } from '../../providers/inventory';
 import { Dogs } from '../../providers/Dogs';
 
 import { Dog } from '../../app/app.module';
-
+import { ImagePath } from '../../app/app.module';
 import { InventoryPage } from '../inventory/inventory';
 
 declare var google;
@@ -48,6 +48,7 @@ export class WalkPage {
   public latLng: any;
   private x: number;
   private y: number;
+  private imgPath: ImagePath = new ImagePath();
 
   /* Just what it sounds like, the timeout and the accuracy of
      each call to geolocation
@@ -151,8 +152,8 @@ export class WalkPage {
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.y, this.x);
 			this.makeMap();
-	    this.updateMap();
-		},this.error);
+	  this.updateMap();
+	},this.error);
   }
 
   /* this inserts the map in the html */
@@ -170,7 +171,9 @@ export class WalkPage {
       {
         position: this.latLng,
         map: this.map,
-        title: "My Location"
+		draggable: false,
+        title: "My Location",
+		icon: this.imgPath.getImagePath("location_marker.png")
       });
     this.currLocation = this.latLng;
   }

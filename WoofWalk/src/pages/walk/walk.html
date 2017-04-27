@@ -20,10 +20,10 @@
 
 <ion-content padding style="background-color: white">
   <!-- Added buttons for starting and stopping the walk -->
-  <button ion-button id="StartButton" (click)="startClicked()">Start</button>
+  <button ion-button id="StartButton" (click)="startClicked()" color="secondary">Start</button>
   <button ion-button id="EndButton" (click)="stopClicked()" color="danger">Stop</button>
 
-  <button ion-button (click)="centerMap()" color="danger">Center Map</button>
+  <button ion-button (click)="centerMap()">Center Map</button>
   
   <div>
     <p>
