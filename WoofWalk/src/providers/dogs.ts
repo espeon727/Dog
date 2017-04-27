@@ -37,7 +37,7 @@ export class Dogs {
       this.readDatabase();
       if (this.activeId == null)
       {
-        this.activeId = this.dogList[0].getId();
+        this.activeId = (this.dogList[0]).getId();
       }
     }, (error) =>
     {

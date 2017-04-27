@@ -67,7 +67,6 @@ export class HomePage
     this.platform.ready().then( () =>
     {
       this.dogProvider.readDatabase();
-
       this.activeDog = this.dogProvider.getActiveDog();
       if (this.activeDog != null)
       {
@@ -77,6 +76,7 @@ export class HomePage
         this.cleanliness = this.activeDog.getCleanliness();
         this.icon = this.activeDog.getIcon();
       }
+
 
       console.log(this.activeDog);
     });
@@ -97,7 +97,7 @@ export class HomePage
       var newAffection = this.activeDog.getAffection();
       newAffection = newAffection + 1;
       this.affection = newAffection;
-      this.activeDog.setAffection(newAffection);
+      this.dogProvider.updateDog("affection", newAffection, this.activeDog.getId());
       this.lastPetDate = this.now;
       this.petPopUp(this.activeDog);
     }
