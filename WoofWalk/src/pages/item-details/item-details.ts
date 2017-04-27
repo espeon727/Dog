@@ -113,6 +113,9 @@ export class ItemDetailsPage {
     else if (type == "water"){
       stat = "hydrated";
     }
+    else if (type == "clean"){
+      stat = "clean";
+    }
     let confirm = this.alertCtrl.create({
       title: 'Your Dog is already ' + stat + '!',
       message: 'Go play with your puppy!',
@@ -168,6 +171,12 @@ export class ItemDetailsPage {
       newAmount = actingDog.getHydration();
 
       this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getHydration()  );
+    }
+    else if (type == "clean"){
+      stat = "cleanliness";
+      newAmount = actingDog.getCleanliness();
+
+      this.dogProvider.updateDog(stat, this.dogProvider.getActiveDog().getId(), this.dogProvider.getActiveDog().getCleanliness()  );
     }
 
     let confirm = this.alertCtrl.create({
