@@ -59,7 +59,7 @@
 
   <ion-list *ngSwitchCase="'cleaning'">
 
-    <ion-item *ngFor="let clean of getCleaning()" class="advanced-background" (click)="navigateItemDetails(treat)">
+    <ion-item *ngFor="let clean of getCleaning()" class="advanced-background" (click)="navigateItemDetails(clean)">
       <ion-thumbnail item-left>
         <img src={{this.imgPath.getImagePath(clean.getIcon())}}>
       </ion-thumbnail>
