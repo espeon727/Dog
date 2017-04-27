@@ -16,7 +16,7 @@ import { Inventory } from '../../providers/inventory';
 import { Dogs } from '../../providers/Dogs';
 
 import { Dog } from '../../app/app.module';
-
+import { ImagePath } from '../../app/app.module';
 import { InventoryPage } from '../inventory/inventory';
 
 declare var google;
@@ -44,11 +44,11 @@ export class WalkPage {
   private watch_id;
   private onTrack: boolean = false;
   public clock: any;
-  private locationList: any[] = [];
   public mapSet = false;
   public latLng: any;
   private x: number;
   private y: number;
+  private imgPath: ImagePath = new ImagePath();
 
   /* Just what it sounds like, the timeout and the accuracy of
      each call to geolocation
@@ -75,8 +75,9 @@ export class WalkPage {
   ionViewDidLoad()
   {
     console.log('ionViewDidLoad WalkPage');
-		this.loadMap();
-		this.clock = setInterval(() => this.showPosition(), 5000);
+	this.loadMap();
+	this.clock = setInterval(() => this.showPosition(), 5000);
+	document.getElementById("EndButton").style.display = 'none';
   }
 
   /* When start is clicked, starts to track the distance */
@@ -88,12 +89,11 @@ export class WalkPage {
       if (statCheck == 1)
       {
         this.onTrack = true;
-        alert("Clicked start");
-    		let p: [any, String];
-    		p = [this.currLocation, "Start"];
-    		this.locationList.push(p);
+        alert("Started walk");
       }
     }
+	document.getElementById("EndButton").style.display = 'block';
+	document.getElementById("StartButton").style.display = 'none';
   }
 
   /* Once stop is clicked, the code will determine the end distance */
@@ -102,23 +102,29 @@ export class WalkPage {
     if (this.onTrack == true)
     {
       this.onTrack = false;
-			this.pastDistance = this.distance;
-			let p: [any, String];
-			p = [this.currLocation, "End"];
-			this.locationList.push(p);
+	  this.pastDistance = this.distance;
       alert(this.distance);
-		}
+	}
+    document.getElementById("StartButton").style.display = 'block';
+	document.getElementById("EndButton").style.display = 'none';
+	// for updating the PuppyPoints at the end of a walk.
+	var PPperMile = 250;
+	var currentPP = this.inventory.getPuppyPoints();
+	var gainedPP = Math.floor(this.distance * PPperMile);
+	this.inventory.setPuppyPoints(currentPP + gainedPP);
+	alert("You gained " + gainedPP + " PuppyPoints!");
 
-		// for updating the PuppyPoints at the end of a walk.
-		var PPperMile = 250;
-		var currentPP = this.inventory.getPuppyPoints();
-		var gainedPP = Math.floor(this.distance * PPperMile);
-		this.inventory.setPuppyPoints(currentPP + gainedPP);
-		alert("You gained " + gainedPP + " PuppyPoints!");
-
-		// TODO: Make a pretty alert for puppy points gained.
+	// TODO: Make a pretty alert for puppy points gained.
   }
 
+  /* This centers the map around the person
+   * allowing a person to change the map without the reload
+   * affecting it
+   */
+  centerMap() {
+    this.map.setCenter(this.latLng);
+  }
+  
   /* code to set up the geolocation variables so that
      updating the map works properly
   */
@@ -146,8 +152,8 @@ export class WalkPage {
       this.y = position.coords.latitude;
       this.latLng = new google.maps.LatLng(this.y, this.x);
 			this.makeMap();
-	    this.updateMap();
-		},this.error);
+	  this.updateMap();
+	},this.error);
   }
 
   /* this inserts the map in the html */
@@ -165,7 +171,9 @@ export class WalkPage {
       {
         position: this.latLng,
         map: this.map,
-        title: "My Location"
+		draggable: false,
+        title: "My Location",
+		icon: this.imgPath.getImagePath("location_marker.png")
       });
     this.currLocation = this.latLng;
   }
@@ -182,7 +190,6 @@ export class WalkPage {
 													 .visible(true));
 		}
 		this.currLocation = this.latLng;
-		this.map.setCenter(this.latLng);
   	this.curr_marker.setPosition(this.currLocation);
 
 
@@ -193,6 +200,7 @@ export class WalkPage {
   {
     alert("There was an error: " + err);
   }
+  
   /* DEPRECATED
 	 This function is a back up for calculating the distance between
 	 two location points
@@ -218,6 +226,7 @@ export class WalkPage {
     return d;
   }
 
+  /* checks that the available dog has the ability to walk */
   dogStatCheck()
   {
     var activeDog = this.dogList.getActiveDog();
@@ -230,6 +239,7 @@ export class WalkPage {
     return 1;
   }
 
+  /* alerts that the stats are inadequate to begin a walk */
   badStatsAlert(activeDog : Dog)
   {
     let confirm = this.alertCtrl.create({
