@@ -138,7 +138,7 @@ export class MyApp {
                 console.error("Unable to execute SQL", error);
               });
 
-              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Rope Toy', 'rope.png', 2, 65, 'a woven rope toy to play tug of war, adds 75 affection', 75, 'treat');",{}). then ((data) =>
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Rope Toy', 'rope.png', 2, 65, 'A woven rope toy to play tug of war, adds 75 affection', 75, 'treat');",{}). then ((data) =>
               {
                 // alert("added rope toy");
                 console.log("TREAT CREATED: ", data);
