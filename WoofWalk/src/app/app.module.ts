@@ -307,10 +307,17 @@ export class Dog {
   updateStats()
   {
     var currentTime = new Date();
-    var affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
-    var fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
-    var hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
-    var cleanlinessDrain = (currentTime.getTime() - this.cleanlinessTime.getTime()) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
+    var affectionDrain = 0;
+    var fullnessDrain = 0;
+    var hydrationDrain = 0;
+    var cleanlinessDrain = 0;
+    if (this.affectionTime===undefined || this.fullnessTime===undefined || this.hydrationTime===undefined || this.cleanlinessTime===undefined)
+    {
+      affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
+      fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
+      hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
+      cleanlinessDrain = (currentTime.getTime() - this.cleanlinessTime.getTime()) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
+    }
 
     affectionDrain = Math.floor(affectionDrain);
     fullnessDrain = Math.floor(fullnessDrain);
