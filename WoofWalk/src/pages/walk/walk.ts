@@ -96,7 +96,7 @@ export class WalkPage {
       if (statCheck == 1)
       {
         this.onTrack = true;
-        alert("Started walk");
+        //alert("Started walk");
 				// alert("Getting Active Dog");
 		if (this.map != null) 
 		{
@@ -130,19 +130,43 @@ export class WalkPage {
 	  // for updating the PuppyPoints at the end of a walk.
 	  var PPperMile = 250;
 	  var currentPP = this.inventory.getPuppyPoints();
-	  if (this.distance == 0)
+	  if (this.distance < 0.001)
 	  {
 	    var currTime = new Date().valueOf();
 		PPperMile = 750;
 		var difference = currTime - this.distanceDate.valueOf();
 	    var gainedPP = Math.floor((difference / 3600000) * PPperMile);
 	    this.inventory.setPuppyPoints(currentPP + gainedPP);
-	    alert("You gained " + gainedPP + " PuppyPoints!");
+		let confirm = this.alertCtrl.create({
+          title: 'PuppyPoints Received!',
+          message: 'You gained ' + gainedPP + ' PuppyPoints.',
+          buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              console.log('Gained PuppyPoints');
+            }
+          }
+          ]
+        });
+		confirm.present()
 	  }  else
 	  {
 	    var gainedPP = Math.floor(this.distance * PPperMile);
 	    this.inventory.setPuppyPoints(currentPP + gainedPP);
-	    alert("You gained " + gainedPP + " PuppyPoints!");
+	    let confirm = this.alertCtrl.create({
+          title: 'PuppyPoints Received!',
+          message: 'You gained ' + gainedPP + ' PuppyPoints.',
+          buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              console.log('Gained PuppyPoints');
+            }
+          }
+          ]
+        });
+		confirm.present()
 	  }
     }
 	// TODO: Make a pretty alert for puppy points gained.
