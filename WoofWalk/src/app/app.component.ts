@@ -15,7 +15,7 @@ import { WalkPage } from '../pages/walk/walk';
 import { CameraPage } from '../pages/camera/camera';
 
 import { Settings } from '../providers/Settings';
-import { ImagePath, Dog, Item, Consumable } from '../app/app.module';
+import { ImagePath, Dog, Consumable } from '../app/app.module';
 
 import { Dogs } from '../providers/Dogs';
 import { Inventory } from '../providers/inventory';
@@ -116,7 +116,7 @@ export class MyApp {
 
           db.executeSql("SELECT * FROM treats",{}). then ((data) =>
           {
-            if (data.rows.length < 2)
+            if (data.rows.length < 4)
             {
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Bone', 'bone_normal.png', 5, 10, 'A tasty bone, gives 10 affection', 10, 'treat');",{}). then ((data) =>
               {

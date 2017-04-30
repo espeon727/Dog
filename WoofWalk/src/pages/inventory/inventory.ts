@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { ImagePath, Consumable } from '../../app/app.module';
+import { Consumable } from '../../app/app.module';
 
 import { Inventory } from '../../providers/inventory';
 
@@ -20,7 +20,6 @@ import { ItemDetailsPage } from '../item-details/item-details';
 })
 export class InventoryPage {
   private nav;
-  private imgPath: ImagePath = new ImagePath();
   private items: Inventory = Inventory.getInstance();
   public stuff;
 

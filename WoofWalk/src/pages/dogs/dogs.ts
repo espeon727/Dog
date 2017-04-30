@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
-import { ImagePath, Dog } from '../../app/app.module';
+import { ImagePath} from '../../app/app.module';
 
 import { Dogs } from '../../providers/Dogs';
 
@@ -27,7 +27,6 @@ export class DogsPage
 
 	private dogs: Dogs = Dogs.getInstance();
 
-  private databaseList = this.dogs.dogs;
 
   static get parameters()
   {

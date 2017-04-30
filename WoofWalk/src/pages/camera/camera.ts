@@ -4,7 +4,7 @@ import { CameraPreview, Diagnostic } from 'ionic-native';
 
 import { ImagePath } from '../../app/app.module';
 import { Dogs } from '../../providers/Dogs';
-import { Dog } from '../../app/app.module';
+
 
 
 // import * as $ from 'jquery';

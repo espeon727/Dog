@@ -41,7 +41,6 @@ export class WalkPage {
 
   /* distance a user has walked */
   public distance: number = 0;
-  private watch_id;
   private onTrack: boolean = false;
   public clock: any;
   public mapSet = false;

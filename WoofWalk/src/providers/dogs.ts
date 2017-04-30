@@ -1,8 +1,6 @@
 // import 'rxjs/add/operator/map';
 
 import { Dog } from '../app/app.module';
-
-import { Platform } from 'ionic-angular';
 import { SQLite } from 'ionic-native';
 
 /*
@@ -12,7 +10,6 @@ import { SQLite } from 'ionic-native';
   for more info on providers and Angular 2 DI.
 */
 export class Dogs {
-	private platform: Platform;
 
 	static instance : Dogs;
 	static isCreating : boolean = false;
@@ -21,7 +18,6 @@ export class Dogs {
 	private dogId : number = 1;
 
   private activeId : number;
-  private activeDog : Dog;
 
   public database: SQLite;
   public dogs: Array<Object>;
