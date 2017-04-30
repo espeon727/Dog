@@ -116,7 +116,7 @@ export class MyApp {
 
           db.executeSql("SELECT * FROM treats",{}). then ((data) =>
           {
-            if (data.rows.length < 2)
+            if (data.rows.length < 5)
             {
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Bone', 'bone_normal.png', 5, 10, 'A tasty bone, gives 10 affection', 10, 'treat');",{}). then ((data) =>
               {
@@ -131,6 +131,16 @@ export class MyApp {
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Fancy Bone', 'bone_fancy.png', 5, 45, 'A fancy bone, gives 50 affection', 50, 'treat');",{}). then ((data) =>
               {
                 // alert("added fancy bone");
+                console.log("TREAT CREATED: ", data);
+              }, (error) =>
+              {
+                // alert("could not insert treat");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Rope Toy', 'rope.png', 2, 65, 'a woven rope toy to play tug of war, adds 75 affection', 75, 'treat');",{}). then ((data) =>
+              {
+                // alert("added rope toy");
                 console.log("TREAT CREATED: ", data);
               }, (error) =>
               {
