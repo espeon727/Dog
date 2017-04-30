@@ -18,20 +18,26 @@
 </ion-header>
 
 
-<ion-content padding style="background-color: white">
+<ion-content padding style="background-image: url('../www/assets/images/background_yard.png')">
   <!-- Added buttons for starting and stopping the walk -->
-  <button ion-button id="StartButton" (click)="startClicked()" color="secondary">Start</button>
-  <button ion-button id="EndButton" (click)="stopClicked()" color="danger">Stop</button>
+  <button ion-button id="StartButton" (click)="startClicked()" color="secondary" style="float: left">Start</button>
+  <button ion-button id="EndButton" (click)="stopClicked()" color="danger" style="float: left">Stop</button>
 
-  <button ion-button (click)="centerMap()">Center Map</button>
+  <button ion-button (click)="centerMap()" style="float: left">Center Map</button>
   
   <div>
-    <p>
-      Current Location: {{latLng}}
-	</p>
-	<p>
-	  Distance: {{distance}}
-    </p>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<!-- To display the current coordinates and distance traveled for debugging. -->
+			<!-- <p>
+					 Current Location: {{latLng}}
+					 </p>
+					 <p>
+					 Distance: {{distance}}
+					 </p> -->
   </div>
   <!-- Sopt for the map to go after it loads -->
   <div #map id="map"></div>

@@ -67,7 +67,7 @@ export class MyApp {
         // create "dogs" table in db and populate with defaults
         db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER, affectionTime DATE, fullnessTime DATE, hydrationTime DATE, cleanlinessTime DATE, petTime DATE);",{}). then ((data) =>
         {
-          alert("dogs table made");
+          // alert("dogs table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM dogs",{}). then ((data) =>
@@ -79,7 +79,7 @@ export class MyApp {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert dog");
+                // alert("could not insert dog");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -88,18 +88,18 @@ export class MyApp {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert dog");
+                // alert("could not insert dog");
                 console.error("Unable to execute SQL", error);
               });
             }
             else
             {
-              alert(data.rows.length);
+              // alert(data.rows.length);
             }
 
         }, (error) =>
         {
-          alert("could not make dog table");
+          // alert("could not make dog table");
           console.error("Unable to execute SQL", error);
         });
 
@@ -108,7 +108,7 @@ export class MyApp {
         // create "treats" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS treats (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
-          alert("treats table made");
+          // alert("treats table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM treats",{}). then ((data) =>
@@ -117,21 +117,21 @@ export class MyApp {
             {
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Bone', 'bone_normal.png', 5, 10, 'A tasty bone, gives 10 affection', 10, 'treat');",{}). then ((data) =>
               {
-                alert("added bone");
+                // alert("added bone");
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert treat");
+                // alert("could not insert treat");
                 console.error("Unable to execute SQL", error);
               });
 
               db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Fancy Bone', 'bone_fancy.png', 5, 45, 'A fancy bone, gives 50 affection', 50, 'treat');",{}). then ((data) =>
               {
-                alert("added fancy bone");
+                // alert("added fancy bone");
                 console.log("TREAT CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert treat");
+                // alert("could not insert treat");
                 console.error("Unable to execute SQL", error);
               });
             }
@@ -139,14 +139,14 @@ export class MyApp {
 
           }, (error) =>
           {
-            alert("could not make treats table");
+            // alert("could not make treats table");
             console.error("Unable to execute SQL", error);
           });
 
         // create "clean" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS clean (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
-          alert("clean table made");
+          // alert("clean table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM clean",{}). then ((data) =>
@@ -155,11 +155,11 @@ export class MyApp {
             {
               db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');",{}). then ((data) =>
               {
-                alert("added brush");
+                // alert("added brush");
                 console.log("CLEANER CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert clean");
+                // alert("could not insert clean");
                 console.error("Unable to execute SQL", error);
               });
             }
@@ -167,14 +167,14 @@ export class MyApp {
 
           }, (error) =>
           {
-            alert("could not make clean table");
+            // alert("could not make clean table");
             console.error("Unable to execute SQL", error);
           });
 
         // create "misc" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS misc (id INTEGER PRIMARY KEY AUTOINCREMENT, puppyPoints NUMBER);",{}). then ((data) =>
         {
-          alert("treats table made");
+          // alert("treats table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM misc",{}). then ((data) =>
@@ -183,11 +183,11 @@ export class MyApp {
             {
               db.executeSql("INSERT INTO misc(puppyPoints) VALUES (1000);",{}). then ((data) =>
               {
-                alert("added puppy points");
+                // alert("added puppy points");
                 console.log("MISC CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert puppy points");
+                // alert("could not insert puppy points");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -196,14 +196,14 @@ export class MyApp {
 
           }, (error) =>
           {
-            alert("could not make treats table");
+            // alert("could not make treats table");
             console.error("Unable to execute SQL", error);
           });
 
         // create "food" table in DB and populate
         db.executeSql("CREATE TABLE IF NOT EXISTS food (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, quantity NUMBER, cost NUMBER, description TEXT, effect NUMBER, type TEXT);",{}). then ((data) =>
         {
-          alert("food table made");
+          // alert("food table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM food",{}). then ((data) =>
@@ -216,7 +216,7 @@ export class MyApp {
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert food");
+                // alert("could not insert food");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -226,7 +226,7 @@ export class MyApp {
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert food");
+                // alert("could not insert food");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -236,7 +236,7 @@ export class MyApp {
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert food");
+                // alert("could not insert food");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -246,7 +246,7 @@ export class MyApp {
                 console.log("FOOD CREATED: ", data);
               }, (error) =>
               {
-                alert("could not insert food");
+                // alert("could not insert food");
                 console.error("Unable to execute SQL", error);
               });
             }
@@ -254,7 +254,7 @@ export class MyApp {
 
           }, (error) =>
           {
-            alert("could not make food table");
+            // alert("could not make food table");
             console.error("Unable to execute SQL", error);
           });
 

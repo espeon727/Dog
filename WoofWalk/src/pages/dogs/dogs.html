@@ -22,7 +22,7 @@
 
 		<!-- <button ion-button (click)="dogs.readDatabase()" color="danger">read database</button>
 				 <button ion-button (click)="dogs.clearDatabase()" color="danger">clear database</button> -->
-<p>{{dogs.activeId}}<p>
+<p>The active dog is {{dogs.getActiveDog().getName()}} (ID: {{dogs.activeId}})<p>
 
 
 
@@ -37,7 +37,7 @@
 					<ion-thumbnail item-left>
 							<img src={{this.imgPath.getImagePath(d.getIcon())}} >
 					</ion-thumbnail>
-					<h2>{{d.getName()}} ID: {{d.getId()}}</h2>
+					<h2>{{d.getName()}} (ID: {{d.getId()}})</h2>
 			</ion-item>
   </ion-list>
 </ion-content>

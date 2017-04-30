@@ -151,13 +151,13 @@ export class Dog {
   {
 		if(stat > 100)
     {
-			alert("Tried to set stat to " + stat + ". Setting stat to 100.");
+			// alert("Tried to set stat to " + stat + ". Setting stat to 100.");
 			console.log("Tried to set stat to " + stat + ". Setting stat to 100.");
 			return 100;
 		}
 		if(stat < 0)
     {
-			alert("Tried to set stat to " + stat + ".  Setting stat to 0.");
+			// alert("Tried to set stat to " + stat + ".  Setting stat to 0.");
 			console.log("Tried to set stat to " + stat + ". Setting stat to 0.");
 			return 0;
 		}

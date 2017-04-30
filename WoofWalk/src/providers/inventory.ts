@@ -33,7 +33,7 @@ export class Inventory {
 		this.database = new SQLite();
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
-    	alert("database loaded");
+    	// alert("database loaded");
       this.readDatabaseFood();
       this.readDatabaseTreats();
       this.readDatabaseMisc();
@@ -244,7 +244,7 @@ export class Inventory {
 	      this.readDatabaseFood();
 	    }, (error) =>
 	    {
-	      alert("Error updating item");
+	      // alert("Error updating item");
 	      console.log("ERROR: ", JSON.stringify(error.err));
 	    });
   	}
@@ -257,7 +257,7 @@ export class Inventory {
 	      this.readDatabaseTreats();
 	    }, (error) =>
 	    {
-	      alert("Error updating item");
+	      // alert("Error updating item");
 	      console.log("ERROR: ", JSON.stringify(error.err));
 	    });
   	}
@@ -270,7 +270,7 @@ export class Inventory {
 	      this.readDatabaseClean();
 	    }, (error) =>
 	    {
-	      alert("Error updating item");
+	      // alert("Error updating item");
 	      console.log("ERROR: ", JSON.stringify(error.err));
 	    });
   	}
