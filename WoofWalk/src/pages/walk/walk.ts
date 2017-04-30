@@ -49,6 +49,7 @@ export class WalkPage {
   private x: number;
   private y: number;
   private imgPath: ImagePath = new ImagePath();
+  private distanceDate: Date;
 
   /* Just what it sounds like, the timeout and the accuracy of
      each call to geolocation
@@ -80,20 +81,10 @@ export class WalkPage {
 	document.getElementById("EndButton").style.display = 'none';
   }
 
-  ionViewDidEnter()
-  {
-    this.loadMap();
-	this.clock = setInterval(() => this.showPosition(), 5000);
-  }
-  
-  ionViewDidLeave()
-  {
-    this.clock = null;
-  }
-  
-  
+    
   
   /* When start is clicked, starts to track the distance */
+  /* Or if distance is unavailable, uses time/average walking speed */
   startClicked()
   {
 		// alert("Entered Start");
@@ -107,14 +98,18 @@ export class WalkPage {
         this.onTrack = true;
         alert("Started walk");
 				// alert("Getting Active Dog");
-				var activeDog = this.dogList.getActiveDog();
-				var preparse = activeDog.getIcon();
-				var parts = preparse.split('.');
-				var gif = parts[0].concat("_animated.gif");
-				// alert(gif);
-				this.curr_marker.setIcon(this.imgPath.getImagePath(gif));
-				document.getElementById("EndButton").style.display = 'block';
-				document.getElementById("StartButton").style.display = 'none';
+		if (this.map != null) 
+		{
+		  var activeDog = this.dogList.getActiveDog();
+		  var preparse = activeDog.getIcon();
+		  var parts = preparse.split('.');
+		  var gif = parts[0].concat("_animated.gif");
+		  this.curr_marker.setIcon(this.imgPath.getImagePath(gif));
+		}
+		document.getElementById("EndButton").style.display = 'block';
+		document.getElementById("StartButton").style.display = 'none';
+		this.distanceDate = new Date();
+		
       }
     }
   }
@@ -126,18 +121,30 @@ export class WalkPage {
     {
       this.onTrack = false;
 	  this.pastDistance = this.distance;
-      alert(this.distance);
-	}
-    document.getElementById("StartButton").style.display = 'block';
-	document.getElementById("EndButton").style.display = 'none';
-	this.curr_marker.setIcon(this.imgPath.getImagePath("location_marker.png"));
-	// for updating the PuppyPoints at the end of a walk.
-	var PPperMile = 250;
-	var currentPP = this.inventory.getPuppyPoints();
-	var gainedPP = Math.floor(this.distance * PPperMile);
-	this.inventory.setPuppyPoints(currentPP + gainedPP);
-	alert("You gained " + gainedPP + " PuppyPoints!");
-
+      document.getElementById("StartButton").style.display = 'block';
+	  document.getElementById("EndButton").style.display = 'none';
+	  if (this.map != null) 
+	  {
+	    this.curr_marker.setIcon(this.imgPath.getImagePath("location_marker.png"));
+	  }
+	  // for updating the PuppyPoints at the end of a walk.
+	  var PPperMile = 250;
+	  var currentPP = this.inventory.getPuppyPoints();
+	  if (this.distance == 0)
+	  {
+	    var currTime = new Date().valueOf();
+		PPperMile = 750;
+		var difference = currTime - this.distanceDate.valueOf();
+	    var gainedPP = Math.floor((difference / 3600000) * PPperMile);
+	    this.inventory.setPuppyPoints(currentPP + gainedPP);
+	    alert("You gained " + gainedPP + " PuppyPoints!");
+	  }  else
+	  {
+	    var gainedPP = Math.floor(this.distance * PPperMile);
+	    this.inventory.setPuppyPoints(currentPP + gainedPP);
+	    alert("You gained " + gainedPP + " PuppyPoints!");
+	  }
+    }
 	// TODO: Make a pretty alert for puppy points gained.
   }
 
@@ -163,7 +170,7 @@ export class WalkPage {
 
 			// alert("Position: " + "(" + position.coords.latitude + ", " + position.coords.longitude + ")");
 
-    }, this.error);
+    },(position)=>{});
   }
 
   /* this function deals with the original set up of the map */
@@ -223,7 +230,7 @@ export class WalkPage {
   /* this gives the user an alert in the case of an error */
   public error(err)
   {
-    alert("There was an error: " + err);
+    alert("Unable to get position, please verify you have internet and geolocation on. Then restart the app");
   }
   
   /* DEPRECATED
