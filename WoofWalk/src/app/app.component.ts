@@ -137,6 +137,26 @@ export class MyApp {
                 // alert("could not insert treat");
                 console.error("Unable to execute SQL", error);
               });
+
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Peanut Butter', 'peanut_butter.png', 1, 125, 'A jar of healthy and tasty peanut butter, maxes out affection', 100, 'treat');",{}). then ((data) =>
+              {
+                // alert("added peanut butter");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                // alert("could not insert treat");
+                console.error("Unable to execute SQL", error);
+              });
+
+              db.executeSql("INSERT INTO treats (name, icon, quantity, cost, description, effect, type) VALUES ('Toy Ball', 'ball.png', 2, 10, 'An inflatable squeaky ball, gives 10 affection', 10, 'treat');",{}). then ((data) =>
+              {
+                // alert("added toy ball");
+                console.log("FOOD CREATED: ", data);
+              }, (error) =>
+              {
+                // alert("could not insert treat");
+                console.error("Unable to execute SQL", error);
+              });
             }
           });
 
@@ -156,7 +176,7 @@ export class MyApp {
           {
             if (data.rows.length < 1)
             {
-              db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');",{}). then ((data) =>
+              db.executeSql("INSERT INTO clean (name, icon, quantity, cost, description, effect, type) VALUES ('Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 cleanliness', 25, 'clean');",{}). then ((data) =>
               {
                 // alert("added brush");
                 console.log("CLEANER CREATED: ", data);
@@ -335,7 +355,7 @@ export class MyApp {
 				this.inventoryProvider.addTreat(listOfTreats[i]);
 			}
 
-      var brushItem = new Consumable(this.inventoryProvider.getCurrentItemId(), 'Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 affection', 25, 'clean');
+      var brushItem = new Consumable(this.inventoryProvider.getCurrentItemId(), 'Fragile Brush', 'brush.png', 5, 25, 'An easily broken brush, gives 25 cleanliness', 25, 'clean');
       this.inventoryProvider.addClean(brushItem);
 
       this.inventoryProvider.setPuppyPoints(500); //give users 500 puppy points to begin with
@@ -384,7 +404,9 @@ export class MyApp {
 
 		return [ new Consumable(this.inventoryProvider.getCurrentItemId(), "Bone", "bone_normal.png", 5, 10, "a tasty bone, gives 10 affection" , 10, "treat"),
          		 new Consumable(this.inventoryProvider.getCurrentItemId(), "Fancy Bone", "bone_fancy.png", 5, 45, "a fancy bone, gives 50 affection", 50, "treat"),
-             new Consumable(this.inventoryProvider.getCurrentItemId(), "Rope Toy", "rope.png", 2, 65, "a woven rope toy to play tug of war, adds 75 affection", 75, "treat") ];
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Rope Toy", "rope.png", 2, 65, "a woven rope toy to play tug of war, adds 75 affection", 75, "treat"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Peanut Butter", "peanut_butter.png", 1, 125, "a jar of healthy and tasty peanut butter, maxes out affection", 100, "treat"),
+             new Consumable(this.inventoryProvider.getCurrentItemId(), "Toy Ball", "ball.png", 2, 10, "an inflatable squeaky ball, adds 10 affection", 10, "treat")];
 	}
 
   openPage(page)
