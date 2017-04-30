@@ -65,7 +65,10 @@ export class MyApp {
       }).then(() =>
       {
         // create "dogs" table in db and populate with defaults
-        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER, affectionTime DATE, fullnessTime DATE, hydrationTime DATE, cleanlinessTime DATE, petTime DATE);",{}). then ((data) =>
+        var now = Date.now();
+        var luckyString = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24, " + now + ", " + now + ", " + now + ", " + now + ", '2017-01-01');";
+        var spotString = "INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2, " + now + ", " + now + ", " + now + ", " + now + ", '2017-01-01');";
+        db.executeSql("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, affection NUMBER, fullness NUMBER, hydration NUMBER, cleanliness NUMBER, affectionTime NUMBER, fullnessTime NUMBER, hydrationTime NUMBER, cleanlinessTime NUMBER, petTime DATE);",{}). then ((data) =>
         {
           // alert("dogs table made");
           console.log("TABLE CREATED: ", data);
@@ -74,7 +77,7 @@ export class MyApp {
           {
             if (data.rows.length < 2)
             {
-              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Lucky', 'dog_brown.png', 13, 12, 10, 24, 'now', 'now', 'now', 'now', '2017-01-01');",{}). then ((data) =>
+              db.executeSql(luckyString,{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
@@ -83,7 +86,7 @@ export class MyApp {
                 console.error("Unable to execute SQL", error);
               });
 
-              db.executeSql("INSERT INTO dogs (name, icon, affection, fullness, hydration, cleanliness, affectionTime, fullnessTime, hydrationTime, cleanlinessTime, petTime) VALUES ('Spot', 'dog_spot.png', 5, 16, 28, 2, 'now', 'now', 'now', 'now', '2017-01-01');",{}). then ((data) =>
+              db.executeSql(spotString,{}). then ((data) =>
               {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
