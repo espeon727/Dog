@@ -97,7 +97,7 @@ export class HomePage
       var newAffection = this.activeDog.getAffection();
       newAffection = newAffection + 1;
       this.affection = newAffection;
-      this.dogProvider.updateDog("affection", newAffection, this.activeDog.getId());
+      this.dogProvider.updateDog("affection", newAffection + 1, this.activeDog.getId());
       this.lastPetDate = this.now;
       this.petPopUp(this.activeDog);
     }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Consumable } from '../../app/app.module';
+import { Consumable, ImagePath } from '../../app/app.module';
 
 import { Inventory } from '../../providers/inventory';
 
 import { ItemDetailsPage } from '../item-details/item-details';
+
 
 /*
   Generated class for the Inventory page.
@@ -22,6 +23,7 @@ export class InventoryPage {
   private nav;
   private items: Inventory = Inventory.getInstance();
   public stuff;
+  private imgPath: ImagePath = new ImagePath();
 
   static get parameters() {
     return [[NavController]];

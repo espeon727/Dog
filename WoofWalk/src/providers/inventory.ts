@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 
 import { Consumable } from '../app/app.module';
 
+
 import { SQLite } from 'ionic-native';
 
 /*
@@ -16,6 +17,8 @@ export class Inventory {
 
 	static instance : Inventory;
 	static isCreating : boolean = false;
+
+  
 
   private puppyPoints : number = 0;
 	private foodList : Consumable[];
