@@ -21,11 +21,11 @@ After it is downloaded to your phone. Please step through the Walk and Camera pa
 Release Notes:
 
 Initial Error:
-  When the app is loaded, it is possible that the database fails to load properly.  To fix this, simply close the app and open the app again.  There is one way to test if the app’s database has loaded properly.  If the dogs page has a list of 6 dogs that you do not recognize, then the database has failed to load properly and the app must be restarted. On the initial load, the dogs page should display two dogs, Lucky and Spot. 
+When the app is loaded, it is possible that the database fails to load properly.  To fix this, simply close the app and open the app again.  There is one way to test if the app’s database has loaded properly.  If the dogs page has a list of 6 dogs that you do not recognize, then the database has failed to load properly and the app must be restarted. On the initial load, the dogs page should display two dogs, Lucky and Spot. 
 
 
 
-Requirements:
+Requirements:<br />
 Android phone (We are sorry Apple users, we hope to create the app for you in a future build)<br />
 Your location<br />
 Internet Access<br />
