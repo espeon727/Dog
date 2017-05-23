@@ -208,16 +208,16 @@ export class MyApp {
           });
 
         // create "misc" table in DB and populate
-        db.executeSql("CREATE TABLE IF NOT EXISTS misc (id INTEGER PRIMARY KEY AUTOINCREMENT, puppyPoints NUMBER);",{}). then ((data) =>
+        db.executeSql("CREATE TABLE IF NOT EXISTS misc (id INTEGER PRIMARY KEY AUTOINCREMENT, puppyPoints NUMBER, activeDog NUMBER);",{}). then ((data) =>
         {
           // alert("treats table made");
           console.log("TABLE CREATED: ", data);
 
           db.executeSql("SELECT * FROM misc",{}). then ((data) =>
           {
-            if (data.rows.length < 2)
+            if (data.rows.length < 1)
             {
-              db.executeSql("INSERT INTO misc(puppyPoints) VALUES (1000);",{}). then ((data) =>
+              db.executeSql("INSERT INTO misc(puppyPoints, activeDog) VALUES (1000, 1);",{}). then ((data) =>
               {
                 // alert("added puppy points");
                 console.log("MISC CREATED: ", data);
