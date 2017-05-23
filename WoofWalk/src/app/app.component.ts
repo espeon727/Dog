@@ -353,7 +353,7 @@ export class MyApp {
       {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
-      this.dogProvider.setActiveDog(listOfDogs[0])  //set active dog to Lucky for testing
+      //this.dogProvider.setActiveDog(listOfDogs[0])  //set active dog to Lucky for testing
       
 
       // instantiated the inventory Provider

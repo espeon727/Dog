@@ -38,6 +38,7 @@ export class HomePage
   public lastPetDate: any;
   public now: any;
 
+  public name: string = '';
   public affection: number = 0;
   public fullness: number = 0;
   public hydration: number = 0;
@@ -70,6 +71,7 @@ export class HomePage
       this.activeDog = this.dogProvider.getActiveDog();
       if (this.activeDog != null)
       {
+        this.name = this.activeDog.getName();
         this.affection = this.activeDog.getAffection();
         this.fullness = this.activeDog.getFullness();
         this.hydration = this.activeDog.getHydration();
