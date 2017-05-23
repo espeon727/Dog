@@ -233,7 +233,8 @@ export class ShopPage {
 
 			var randomDogName = this.generateRandomDogName(randomDogIcon);
 
-			var newDog = new Dog(randomDogName, randomDogIcon, this.dogs.getCurrentDogId(), randomDogStats[0], randomDogStats[1], randomDogStats[2], randomDogStats[3], new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) );
+      var now = Date.now();
+			var newDog = new Dog(randomDogName, randomDogIcon, this.dogs.getCurrentDogId(), randomDogStats[0], randomDogStats[1], randomDogStats[2], randomDogStats[3], now, now, now, now, now );
 			randomDogs[i] = newDog;
 		}//end for
 

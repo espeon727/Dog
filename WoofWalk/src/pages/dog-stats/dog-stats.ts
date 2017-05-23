@@ -162,24 +162,24 @@ export class DogStatsPage {
   {
     var dog = this.getDog();
 
-    var affectionDate = dog.getAffectionTime();
-    var fullnessDate = dog.getFullnessTime();
-    var hydrationDate = dog.getHydrationTime();
-    var cleanlinessDate = dog.getCleanlinessTime();
+    var affectionDate = new Date(dog.getAffectionTime());
+    var fullnessDate = new Date(dog.getFullnessTime());
+    var hydrationDate = new Date(dog.getHydrationTime());
+    var cleanlinessDate = new Date(dog.getCleanlinessTime());
 
     affectionDate.setHours(affectionDate.getHours() - 1);
     fullnessDate.setHours(fullnessDate.getHours() - 1);
     hydrationDate.setHours(hydrationDate.getHours() - 1);
     cleanlinessDate.setHours(cleanlinessDate.getHours() - 1);
 
-    dog.setAffectionTime(affectionDate);
-    dog.setFullnessTime(fullnessDate);
-    dog.setHydrationTime(hydrationDate);
-    dog.setCleanlinessTime(cleanlinessDate);
+    dog.setAffectionTime(affectionDate.getTime());
+    dog.setFullnessTime(fullnessDate.getTime());
+    dog.setHydrationTime(hydrationDate.getTime());
+    dog.setCleanlinessTime(cleanlinessDate.getTime());
 
-    dog.updateStats();
+    this.dogProvider.updateStats(dog);
     this.dogProvider.updateDatabase();
-    var currentTime = new Date;
+    var currentTime = Date.now();
 
     dog.setAffectionTime(currentTime);
     dog.setFullnessTime(currentTime);

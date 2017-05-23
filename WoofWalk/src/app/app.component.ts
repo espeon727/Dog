@@ -75,6 +75,7 @@ export class MyApp {
 
           db.executeSql("SELECT * FROM dogs",{}). then ((data) =>
           {
+            
             if (data.rows.length < 2)
             {
               db.executeSql(luckyString,{}). then ((data) =>
@@ -82,7 +83,7 @@ export class MyApp {
                 console.log("TABLE CREATED: ", data);
               }, (error) =>
               {
-                // alert("could not insert dog");
+                alert("could not insert dog");
                 console.error("Unable to execute SQL", error);
               });
 
@@ -99,10 +100,11 @@ export class MyApp {
             {
               // alert(data.rows.length);
             }
+            
 
         }, (error) =>
         {
-          // alert("could not make dog table");
+          alert("could not make dog table");
           console.error("Unable to execute SQL", error);
         });
 
@@ -297,6 +299,7 @@ export class MyApp {
         }, (error) =>
         {
           console.error("Unable to execute SQL", error);
+          alert("SQL error");
         });
 
 
@@ -304,6 +307,7 @@ export class MyApp {
       }, (error) =>
       {
         console.error("Unable to open database", error);
+        alert("Failed to load Database");
       });
 
       this.settings = Settings.getInstance();
@@ -343,12 +347,14 @@ export class MyApp {
 			this.dogProvider = Dogs.getInstance();
 
 			// adds dogs to the dog provider.  Should be removed after local storage is implemented.  Should only be used for testing.
+      
 			var listOfDogs = this.getListOfDogs();
 			for(var i = 0; i < listOfDogs.length; i++)
       {
 				this.dogProvider.addDog(listOfDogs[i]);
 			}
       this.dogProvider.setActiveDog(listOfDogs[0])  //set active dog to Lucky for testing
+      
 
       // instantiated the inventory Provider
       this.inventoryProvider = Inventory.getInstance();
@@ -383,12 +389,8 @@ export class MyApp {
 		}
 
 
-		return [ new Dog("Lucky", "dog_brown.png", this.dogProvider.getCurrentDogId(), 13, 12, 10, 24, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
-             new Dog("Spot", "dog_spot.png", this.dogProvider.getCurrentDogId() + 1, 5, 16, 28, 2, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
-             new Dog("Daisy", "dog_goldie.png", this.dogProvider.getCurrentDogId() + 2, 10, 83, 9, 90, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
-             new Dog("Howard", "dog_black.png", this.dogProvider.getCurrentDogId() + 3, 25, 72, 45, 46, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
-             new Dog("Target", "dog_target.png", this.dogProvider.getCurrentDogId() + 4, 56, 38, 10, 82, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ),
-						 new Dog("Cerberus", "dog_demon.png", this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13, new Date(), new Date(), new Date(), new Date(), new Date(2017, 0, 0) ) ];
+		return [ new Dog("Target", "dog_target.png", this.dogProvider.getCurrentDogId() + 4, 56, 38, 10, 82, Date.now(), Date.now(), Date.now(), Date.now(), new Date(2017, 0, 0).getTime() ),
+						 new Dog("Cerberus", "dog_demon.png", this.dogProvider.getCurrentDogId() + 5, 1, 0, 12, 13, Date.now(), Date.now(), Date.now(), Date.now(), new Date(2017, 0, 0).getTime() ) ];
 	}
 
   // returns a list of food item objects.  Should be used for testing and until local storage is implemented.

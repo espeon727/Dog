@@ -25,7 +25,7 @@ export class DogsPage
 
 	// private dogs;
 
-	private dogs: Dogs = Dogs.getInstance();
+	private dogsProvider: Dogs = Dogs.getInstance();
 
 
   static get parameters()
@@ -43,27 +43,31 @@ export class DogsPage
 	// This function executes when the page is loaded. (this is a feature of Ionic)
   ionViewDidLoad()
   {
-
     this.platform.ready().then( () => 
     {
-      this.dogs.readDatabase();
-      var listOfDogs = this.dogs.getListOfDogs();
-      //console.log("Dog list", this.dogs.getListOfDogs())
-      for (var i = 0; i < this.dogs.getListOfDogs().length; i++)
-      {
-        var dog = listOfDogs[i];
-        dog.updateStats();
-      }
+      this.dogsProvider.readDatabase();
+
       console.log('Trying to Update Database');
-      this.dogs.updateDatabase();
+      this.dogsProvider.updateDatabase();
       console.log('ionViewDidLoad DogsPage');
     });
- 
   }
+
+  ionViewDidEnter()
+  {
+    var listOfDogs = this.dogsProvider.getListOfDogs();
+    for(var i = 0; i < listOfDogs.length; i++)
+    {
+      var dog = listOfDogs[i];
+      this.dogsProvider.updateStats(dog);
+    }
+    this.dogsProvider.updateDatabase();
+  }
+  
 
 	// returns the list of all available dogs from the Dogs provider.
   getDogs() {
-		return this.dogs.getListOfDogs();
+		return this.dogsProvider.getListOfDogs();
 
 
 		// return this.dogs;

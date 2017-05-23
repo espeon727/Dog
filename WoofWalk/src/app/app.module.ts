@@ -102,34 +102,14 @@ export class Dog {
 	private id: number;
 
 	// These dates store the times since the respective event has occurred.  For the stat times, it indicates the time since it has either been increased due to some action by the user, or decreased by the the system due to the user not interacting with the dog for a period of time.
-	private affectionTime: Date;
-	private fullnessTime: Date;
-	private hydrationTime: Date;
-	private cleanlinessTime: Date;
-	private petTime: Date;
+	private affectionTime: number;
+	private fullnessTime: number;
+	private hydrationTime: number;
+	private cleanlinessTime: number;
+	private petTime: number;
 
-  /*
-	constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number)
-  {
-		this.name = name;
-		this.icon = icon;
-		this.affection = this.enforceStatBounds(affection);
-		this.fullness = this.enforceStatBounds(fullness);
-		this.hydration = this.enforceStatBounds(hydration);
-		this.cleanliness = this.enforceStatBounds(cleanliness);
-		this.id = id;
 
-    // stat times are initialized to the current time to avoid unnecessary stat decay
-    // pet time is set to well before the public release so users may pet their dogs right away
-		this.affectionTime = new Date();
-		this.fullnessTime = new Date();
-		this.hydrationTime = new Date();
-		this.cleanlinessTime = new Date();
-		this.petTime = new Date(2017, 0, 0);
-	}
-  */
-
-  constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number, affectionTime: Date, fullnessTime: Date, hydrationTime: Date, cleanlinessTime: Date, petTime: Date)
+  constructor(name: string, icon: string, id: number, affection: number, fullness: number, hydration: number, cleanliness: number, affectionTime: number, fullnessTime: number, hydrationTime: number, cleanlinessTime: number, petTime: number)
   {
     this.name = name;
     this.icon = icon;
@@ -244,55 +224,55 @@ export class Dog {
 	}
 
   // get the time the dog's affection stat was last updated as a Date object
-	getAffectionTime() : Date
+	getAffectionTime() : number
   {
 		return this.affectionTime;
 	}
 
   // set the last time the dog's affection stat was updated to the passed Date object
-	setAffectionTime(date : Date ) : void
+	setAffectionTime(date : number ) : void
   {
 		this.affectionTime = date;
 	}
 
   // get the time the dog's fullness stat was last updated as a Date object
-	getFullnessTime() : Date
+	getFullnessTime() : number
   {
 		return this.fullnessTime;
 	}
 
   // set the last time the dog's fullness stat was updated to the passed Date object
-	setFullnessTime(date : Date) : void
+	setFullnessTime(date : number) : void
   {
 		this.fullnessTime = date;
 	}
 
   // get the time the dog's hydration stat was last updated as a Date object
-	getHydrationTime() : Date
+	getHydrationTime() : number
   {
 		return this.hydrationTime;
 	}
 
   // set the last time the dog's hydration stat was updated to the passed Date object
-	setHydrationTime(date : Date) : void
+	setHydrationTime(date : number) : void
   {
 		this.hydrationTime = date;
 	}
 
   // get the time the dog's cleanliness stat was last updated as a Date object
-	getCleanlinessTime() : Date
+	getCleanlinessTime() : number
   {
 		return this.cleanlinessTime;
 	}
 
   // set the last time the dog's cleanliness stat was updated to the passed Date object
-	setCleanlinessTime(date : Date) : void
+	setCleanlinessTime(date : number) : void
   {
 		this.cleanlinessTime = date;
 	}
 
   // get the time the dog was last pet as a Date object
-	getPetTime() : Date
+	getPetTime() : number
   {
 		return this.petTime;
 	}
@@ -300,29 +280,38 @@ export class Dog {
   // set the last time the dog was pet to the passed Date object
 	setPetTime(time: number) : void
   {
-		this.petTime.setTime(time);
+		this.petTime = time;
 	}
 
   // update the dog's stats and calculate the decay from when it was last checked or updated
+  /*
   updateStats()
   {
+    alert("update stats");
     var currentTime = new Date();
     var affectionDrain = 0;
     var fullnessDrain = 0;
     var hydrationDrain = 0;
     var cleanlinessDrain = 0;
-    if (this.affectionTime===undefined || this.fullnessTime===undefined || this.hydrationTime===undefined || this.cleanlinessTime===undefined)
+
+    if (this.affectionTime.getTime() == undefined)
     {
-      affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
-      fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
-      hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
-      cleanlinessDrain = (currentTime.getTime() - this.cleanlinessTime.getTime()) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
+      alert("something's wrong");
     }
+    
+    affectionDrain = (currentTime.getTime() - this.affectionTime.getTime()) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
+    fullnessDrain = (currentTime.getTime() - this.fullnessTime.getTime()) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
+    hydrationDrain = (currentTime.getTime() - this.hydrationTime.getTime()) / 432000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
+    cleanlinessDrain = (currentTime.getTime() - this.cleanlinessTime.getTime()) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
 
     affectionDrain = Math.floor(affectionDrain);
     fullnessDrain = Math.floor(fullnessDrain);
     hydrationDrain = Math.floor(hydrationDrain);
     cleanlinessDrain = Math.floor(cleanlinessDrain);
+
+
+    alert("hydration Drain " + hydrationDrain);
+    alert(this.hydrationTime );
 
     var newAffection = this.getAffection() - affectionDrain;
     var newFullness = this.getFullness() - fullnessDrain;
@@ -369,7 +358,9 @@ export class Dog {
     }
 
   }
+  */
 }
+
 
 // This class is used to store and manage details about Items; it is used to create a dog object
 //     in the file you want to use it in, include the line
@@ -471,7 +462,7 @@ export class Consumable extends Item {
         }
         console.log("prv feed time: ", fedDog.getFullnessTime());
         fedDog.setFullness(newFullness);
-        fedDog.setFullnessTime(new Date());
+        fedDog.setFullnessTime(new Date().getTime() );
         console.log("new feed time: ", fedDog.getFullnessTime());
         return 1;     // mark a successful feed
     }
@@ -491,7 +482,7 @@ export class Consumable extends Item {
         }
         console.log("prv water time: ", wateredDog.getHydrationTime());
         wateredDog.setHydration(newHydration);
-        wateredDog.setHydrationTime(new Date());
+        wateredDog.setHydrationTime(new Date().getTime() );
         console.log("new water time: ", wateredDog.getHydrationTime());
         return 1;     // mark a successful watering
 
@@ -521,7 +512,7 @@ export class Consumable extends Item {
         }
         console.log("prv affection time: ", selectedDog.getAffectionTime());
         selectedDog.setAffection(newAffection);
-        selectedDog.setAffectionTime(new Date());
+        selectedDog.setAffectionTime(new Date().getTime() );
         console.log("new affection time: ", selectedDog.getAffectionTime());
         return 1;     // mark a successful treat giving
       }
@@ -542,7 +533,7 @@ export class Consumable extends Item {
         }
         console.log("prv cleaning time: ", cleanedDog.getCleanlinessTime());
         cleanedDog.setCleanliness(newCleanliness);
-        cleanedDog.setCleanlinessTime(new Date());
+        cleanedDog.setCleanlinessTime(new Date().getTime() );
         console.log("new cleaning time: ", cleanedDog.getCleanlinessTime());
         return 1;     // mark a successful cleaning
 

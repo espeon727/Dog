@@ -29,7 +29,6 @@ export class Dogs {
     this.database = new SQLite();
     this.database.openDatabase({name: "WoofWalk.db", location: "default"}).then(() =>
     {
-    	// alert("database loaded");
       this.readDatabase();
       if (this.activeId == null)
       {
@@ -37,6 +36,7 @@ export class Dogs {
       }
     }, (error) =>
     {
+      alert("Error creating dogs list");
       console.log("ERROR: ", error);
     });
 
@@ -123,11 +123,11 @@ export class Dogs {
     var dogHydration = dog.getHydration();
     var dogCleanliness = dog.getCleanliness();
 
-    var dogAffectionTime = dog.getAffectionTime().toISOString().substring(0, 10);
-    var dogFullnessTime = dog.getFullnessTime().toISOString().substring(0, 10);
-    var dogHydrationTime = dog.getHydrationTime().toISOString().substring(0, 10);
-    var dogCleanlinessTime = dog.getCleanlinessTime().toISOString().substring(0, 10);
-    var dogPetTime = dog.getPetTime().toISOString().substring(0, 10);
+    var dogAffectionTime = dog.getAffectionTime();
+    var dogFullnessTime = dog.getFullnessTime();
+    var dogHydrationTime = dog.getHydrationTime();
+    var dogCleanlinessTime = dog.getCleanlinessTime();
+    var dogPetTime = dog.getPetTime();
 
     // alert(dogAffectionTime);
 
@@ -195,6 +195,7 @@ export class Dogs {
 
   }
 
+
   // Used for time based stat decay
   updateDatabase()
   {
@@ -208,11 +209,11 @@ export class Dogs {
       var newHydration = dog.getHydration();
       var newCleanliness = dog.getCleanliness();
 
-      var newAffectionTime = dog.getAffectionTime().toISOString().substring(0, 10);
-      var newFullnessTime = dog.getFullnessTime().toISOString().substring(0, 10);
-      var newHydrationTime = dog.getHydrationTime().toISOString().substring(0, 10);
-      var newCleanlinessTime = dog.getCleanlinessTime().toISOString().substring(0, 10);
-      var newPetTime = dog.getPetTime().toISOString().substring(0, 10);
+      var newAffectionTime = dog.getAffectionTime();
+      var newFullnessTime = dog.getFullnessTime();
+      var newHydrationTime = dog.getHydrationTime();
+      var newCleanlinessTime = dog.getCleanlinessTime();
+      var newPetTime = dog.getPetTime();
 
       this.updateDog("affection", dogID, newAffection);
       this.updateDog("fullness", dogID, newFullness);
@@ -229,7 +230,74 @@ export class Dogs {
   }
 
 
+  updateStats(dog : Dog)
+  {
+    var currentTime = Date.now();
+    var affectionDrain = 0;
+    var fullnessDrain = 0;
+    var hydrationDrain = 0;
+    var cleanlinessDrain = 0;
+
+    
+    affectionDrain = (currentTime - dog.getAffectionTime() ) / 4320000; //dog will lose 100 affection in 120 hours, 1 every 72 minutes
+    fullnessDrain = (currentTime - dog.getFullnessTime() ) / 864000; //dog will lose 100 hunger in 24 hours, 1 every ~15 minutes
+    hydrationDrain = (currentTime - dog.getHydrationTime() ) / 4320000; //dog will lose 100 hunger in 12 hours, 1 every ~7 minutes
+    cleanlinessDrain = (currentTime - dog.getCleanlinessTime() ) / 2880000; //dog will lose 100 hunger in 80 hours, 1 every ~48 minutes
+
+    affectionDrain = Math.floor(affectionDrain);
+    fullnessDrain = Math.floor(fullnessDrain);
+    hydrationDrain = Math.floor(hydrationDrain);
+    cleanlinessDrain = Math.floor(cleanlinessDrain);
+
+    var newAffection = dog.getAffection() - affectionDrain;
+    var newFullness = dog.getFullness() - fullnessDrain;
+    var newHydration = dog.getHydration() - hydrationDrain;
+    var newCleanliness = dog.getCleanliness() - cleanlinessDrain;
+
+    if (newAffection < 0)
+    {
+      newAffection = 0;
+    }
+    if (newFullness < 0)
+    {
+      newFullness = 0;
+    }
+    if (newHydration < 0)
+    {
+      newHydration = 0;
+    }
+    if (newCleanliness < 0)
+    {
+      newCleanliness = 0;
+    }
+
+    dog.setAffection(newAffection);
+    dog.setFullness(newFullness);
+    dog.setHydration(newHydration);
+    dog.setCleanliness(newCleanliness);
+
+    
+    if (affectionDrain >= 1)
+    {
+      dog.setAffectionTime(currentTime);
+    }
+    if (fullnessDrain >= 1)
+    {
+      dog.setFullnessTime(currentTime);
+    }
+    if (hydrationDrain >= 1)
+    {
+      dog.setHydrationTime(currentTime);
+    }
+    if (cleanlinessDrain >= 1)
+    {
+      dog.setCleanlinessTime(currentTime);
+    }
+
+  }
 }
+
+
 
 
 

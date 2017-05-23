@@ -82,6 +82,18 @@ export class HomePage
     });
   }
 
+  ionViewDidEnter()
+  {
+    var listOfDogs = this.dogProvider.getListOfDogs();
+    for(var i = 0; i < listOfDogs.length; i++)
+    {
+      var dog = listOfDogs[i];
+      this.dogProvider.updateStats(dog);
+    }
+    this.dogProvider.updateDatabase();
+  }
+  
+
   openPage(p)
   {
     this.rootPage = p;
